@@ -4,6 +4,47 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
+- **2026-11-09 (session 9) — le compte réel ne se connectait pas : c'est l'edge,
+  pas l'application. `502 upstream sent too big header`.**
+  *Symptôme discriminant* : `hidayacine01@gmail.com` + bon mot de passe ⇒ page
+  d'erreur, quand un compte d'épreuve passe. Le journal de l'edge donnait la
+  réponse, **trois fois**, à chaque tentative (23:48:08, 23:50:25, 23:51:23) :
+  `[error] upstream sent too big header while reading response header from
+  upstream` puis `POST /login 502`. Le conteneur, lui, **n'avait aucune erreur** :
+  la connexion réussissait côté application, c'est OpenResty qui refusait la
+  **réponse**.
+  *Pourquoi* : le vhost (auto-généré, `openship-vhost-gen: 4`) ne déclare aucun
+  `proxy_buffer_size` ⇒ défaut **4 k**. Le bloc `Set-Cookie` d'une session
+  Supabase (`@supabase/ssr` découpe le jeton en morceaux de 3 180 o, et le
+  cookie porte la session **entière**, `user` compris) dépasse ce tampon dès que
+  le jeton est un peu gros. Le compte réel a **281 o** de `user_metadata`
+  (`phone`, `full_name`, deux consentements) ; mon premier compte d'épreuve en
+  avait 26.
+  *Preuve contrôlée — même code, même route, seule la taille du jeton change* :
+  compte à **296 o** de métadonnée ⇒ `POST /login` **200** (23:52:59) ; compte à
+  **2 680 o** ⇒ `POST /login` **502** (23:53:29), page vide et
+  « An unexpected response was received from the server » en console. Ce n'est
+  donc ni le compte, ni le mot de passe, ni le code applicatif.
+  *Correctif, à l'edge* : `client_header_buffer_size 16k`,
+  `large_client_header_buffers 4 32k` (le cookie revient dans la requête) et
+  `proxy_buffer_size 32k`, `proxy_buffers 8 32k`,
+  `proxy_busy_buffers_size 64k` (la réponse), dans les **deux** blocs `server`
+  (80 et 443) de `fideliatest-site.conf`, puis `openresty -t` +
+  `-s reload` (aucune coupure). **Re-mesure** : le compte à 2 680 o qui venait
+  d'échouer ⇒ `POST /login` **200** (23:54:08) puis `/dashboard` rendu.
+  *Durabilité, nommée* : le vhost est régénéré par OpenShip ; l'opération est
+  donc rejouable par `tools/rea/edge-tampons.sh` (idempotent : il n'ajoute que
+  ce qui manque, teste la configuration, recharge, puis recompte — **2 + 2**
+  attendus). À rejouer après toute régénération de routes, et à revérifier au
+  prochain déploiement.
+  *Ce que la session 8 fermait, et ce qu'elle ne fermait pas* : le `400` muet de
+  `POST /` (identifiant `y`) est bien réel et corrigé, mais ce n'était **pas**
+  la cause du blocage du compte réel — c'était celle de l'essai de 21:06. Deux
+  pannes distinctes, deux corrections distinctes.
+  *Comptes d'épreuve* : trois créés (26 o, 296 o, 2 680 o), **supprimés** après
+  mesure ; aucun trigger sur `auth.users`, aucune ligne métier touchée.
+
+
 - **2026-11-09 (session 8) — « la connexion affiche une page noire » : la
   soumission partait sur `/`, et c'est mesuré, pas supposé.**
   *Symptôme rapporté* : identifiants saisis ⇒ Chrome affiche « This page
