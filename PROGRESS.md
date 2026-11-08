@@ -4,6 +4,47 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
+- **2026-11-08 (nuit) — le dépôt est sur GitHub, OpenShip construit depuis git,
+  et le seul reste est le DNS OVH.** `git@github.com:DEVSFAME/FIDELIA.git`
+  reçoit `2982a3c` puis `e0797e5` (`main` ; dépôt **public**, donc clonable sans
+  credentials). Le projet `proj_rB7iSlX1cvWqhDVl` est branché sur cette source
+  (`gitOwner: DEVSFAME`, `gitRepo: FIDELIA`, `gitBranch: main`) et **déployé** :
+  `dep_ZwYL8YrkDpPSTat8`, statut `ready`, image
+  `openship/fidelia:bld_ohZFjoz4SinE5Kfp`, conteneur
+  `openship-fidelia-dep_ZwYL8YrkDpPSTat8` **healthy** sur
+  `127.0.0.1:20000->3000`, `activeVersion: 1`.
+  **`productionMode: "host"` est honoré** — il se mappe sur
+  `workloadType: "web"` (`deployment-class.ts`), donc route vers un port et non
+  site de fichiers ; la fiche porte `productionMode: host`, `workloadType: web`,
+  `port: 3000`, et le domaine cible `targetPort: 3000` (ce que l'ancien
+  classement `static` refusait : « Static deployments cannot expose
+  port-targeted routes »).
+  **Mesures dans le conteneur** : `/login` **200**, `/join/slug-inexistant`
+  **404** (slug inconnu → `notFound`, donc Supabase interroge bien la base côté
+  serveur), `/qrcode` **307**. Les 404 de `/card` et `/recompenses` sont
+  **corrects** : les routes sont `/card/[cardId]` et `/recompenses/[slug]`.
+  **Deux pièges mesurés, corrigés dans `e0797e5` :**
+  1. le pré-vol n'accorde install/start au Dockerfile que si
+     **`framework === "docker"`** (`preflight.ts`) ; `buildKind: "dockerfile"`
+     ne suffit pas et `nextjs` fait exiger `installCommand`/`startCommand` ;
+  2. OpenShip affiche « Using Docker build root: web » mais **streamé le dépôt
+     entier** comme contexte (42,6 Mo) → `COPY package.json` échouait
+     (`"/package.json": not found`). D'où un **`Dockerfile` à la racine**
+     (chemins `web/`), un **`.dockerignore`** racine et `rootDirectory: "."` ;
+     le garde `domaine-public` interdit désormais que les deux Dockerfiles
+     divergent (ARG publiques, CMD).
+  **Reste bloqué — une seule action, humaine** : `fideliatest.site` répond
+  **`A 213.186.33.5`** (parking OVH) au lieu de `141.253.120.188`. OpenShip le
+  dit lui-même : *« Port 80 answered but not with our ACME challenge […] Detail:
+  213.186.33.5 »* → `http-01` échoué, `status: failed`, `sslStatus: error`,
+  et l'edge n'écrit pas encore de vhost pour ce nom. **Après le changement DNS :
+  re-vérifier** (`POST /api/domains/dom_4EPqj1mjGXl2o-s3/verify`) puis contrôler
+  `https://fideliatest.site/login`.
+  **Accès** : la CLI `openship` n'existe ni en local ni sur le VPS
+  (`packages/openship` non compilé) ; l'API s'authentifie par
+  `POST /api/system/cli-session` + `X-Internal-Token` (bootstrap officiel de la
+  CLI, `local-cli.controller.ts`).
+
 - **2026-11-08 (soir) — le code passe sur GitHub, et OpenShip bloque sur un
   `workloadType` figé.** `FIDELIX/` devient un dépôt **autonome** (`git init`,
   remote `git@github.com:DEVSFAME/Fidelia.git`, branche `main`) : commit
@@ -3238,18 +3279,21 @@
       `printenv NEXT_PUBLIC_SITE_URL` → `https://fideliatest.site`,
       `/login` **200**, `/join/<slug>` **404** (slug inconnu → `notFound`,
       comportement voulu), `/qrcode` **307** vers `/login` (non authentifié).
-- [ ] **Déploiement OpenShip** — *bloqué sur des accès, pas sur du code* :
-      1. **dépôt source** : `FIDELIX` n'est versionné nulle part (`git ls-files
-         FIDELIX` → 0). Il faut le pousser comme dépôt propre — le dépôt de
-         l'espace de travail (`DEVSFAME/UNICITY`) embarque d'autres projets ;
-      2. **console OpenShip** (URL + compte, ou jeton pour la CLI) ;
-      3. **zone DNS OVH** : enregistrements `A`/`CNAME` que la console OpenShip
-         affiche à l'ajout du domaine (NS `dns103.ovh.net` = zone éditable chez
-         OVH) ;
-      4. **Supabase → URL Configuration** : *Site URL* +
-         `https://fideliatest.site/**` dans *Redirect URLs*.
-      Mode opératoire détaillé, vérifications `curl` comprises :
-      **`docs/deploiement-openship-2026-11-08.md`**.
+- [x] **Dépôt source poussé** *(2026-11-08, nuit)* — `DEVSFAME/FIDELIA` est un
+      dépôt **public** ; `main` = `e0797e5` (`2982a3c` puis la correction de
+      build). Clonage vérifié sans credentials.
+- [x] **Projet OpenShip branché sur git et déployé** *(2026-11-08, nuit)* —
+      `dep_ZwYL8YrkDpPSTat8`, `ready`, conteneur healthy (`127.0.0.1:20000->3000`),
+      `activeVersion: 1`, `productionMode: host` honoré (`workloadType: web`).
+- [ ] **Déploiement OpenShip — reste la zone DNS OVH** : `fideliatest.site`
+      répond `A 213.186.33.5` (parking) au lieu de `141.253.120.188`. Remplacer
+      l'enregistrement `A @` (NS `dns103.ovh.net`), puis **re-vérifier le
+      domaine** (`POST /api/domains/dom_4EPqj1mjGXl2o-s3/verify`) pour que
+      Let's Encrypt émette le certificat. L'erreur actuelle le dit mot pour mot :
+      *« Port 80 answered but not with our ACME challenge […] 213.186.33.5 »*.
+      Restent aussi, indépendants du DNS : **Supabase → URL Configuration**
+      (*Site URL* + `https://fideliatest.site/**`) et la **preuve de bout en
+      bout** ci-dessous. Mode opératoire : `docs/deploiement-openship-2026-11-08.md`.
 - [ ] **Preuve de bout en bout** : scanner l'affiche imprimée avec un téléphone
       (pas avec le navigateur qui l'a produite) et créer une carte depuis
       `https://fideliatest.site/join/<slug>`.
