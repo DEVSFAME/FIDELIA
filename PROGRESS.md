@@ -4,6 +4,70 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
+- **2026-11-08 (soir, 2) — la chaîne publique est prouvée de bout en bout, et le
+  `404 /favicon.ico` est mort.** Le **slug** n'a pas eu besoin d'humain : il a
+  été lu par l'API Supabase (projet `sevqegfhmdezsqwvwsam`),
+  `select slug, name, active from public.loyalty_programs` → **une seule ligne,
+  `test1` / « TEST » / `active = true`**. Le résolveur local rend désormais la
+  bonne adresse (local **et** `8.8.8.8` → `141.253.120.188`), donc `curl` sans
+  `--resolve` mesure vraiment le site ; les chiffres ci-dessous sont pris ainsi.
+  **Production** : `/login` **200**, `/join/test1` **200**
+  (`<title>TEST · Fidelia`), `/recompenses/test1` **200** (paliers 15 / 30 / 50),
+  `/favicon.ico` **200 `image/x-icon`**, `/icon.svg` **200 `image/svg+xml`**,
+  `ssl_verify_result = 0` sur chaque.
+  **Pourquoi le favicon manquait** : Next 16 ne crée la route `/favicon.ico` que
+  si `app/favicon.ico` existe ; `app/icon.svg` seul n'injecte qu'un `<link>`.
+  Ajout de `web/src/app/icon.svg` — jumeau **vectoriel** du raster déjà versionné,
+  coordonnées relevées au pixel sur `web/public/icon-192.png` (fond `#1a1a1a`
+  plein carré, monogramme `#faf9f8`, barre haute y46→68 jusqu'à x133, médiane
+  y84→105 jusqu'à x118, fût x58→72 jusqu'à y145) — et de
+  `web/src/app/favicon.ico` (16 / 32 / 48). **Piège mesuré** : le décodeur ICO de
+  Turbopack refuse un PNG **RGB** (« Format error decoding Ico: The PNG is not in
+  RGBA format! ») et casse `next build` ; les trois entrées sont donc en **RGBA**.
+  Garde `tools/rea/tests/icone-onglet.test.mjs` : fidélité raster ↔ vectoriel
+  (bbox mesuré), conteneur ICO relu entrée par entrée (signature PNG, IHDR,
+  type couleur), et refus d'une seconde déclaration dans `metadata.icons`.
+  **Preuve locale avant production** : `next build` puis `next start` (port 3137)
+  → `/favicon.ico` 200, `/icon.svg` 200, et les **deux** `<link rel="icon">`
+  émis ; puis **production** rend les deux mêmes liens, hachés par Next.
+  **Carte créée depuis un contexte mobile vierge** (390×844, Playwright) :
+  « Obtenir ma carte » → `/join/test1?carte=**C-FC8273**`, écran « Votre carte est
+  créée. » avec QR. En base : `loyalty_cards` 4 → **5**, `clients` 4 → **5**
+  (client **anonyme**, `current_points = 0`), carte
+  `f8cd3881-e125-4b2e-974d-10cff9aba04f`. **Déploiement** : le push de `df8a1a6`
+  a suffi — le webhook OpenShip a créé `dep_AG2ivnSPxggbl_I7` (`trigger:
+  webhook`), `ready`, image `openship/fidelia:bld_T2kv2-6Dfd0Bfijs`, conteneur
+  `8e98c931ff0a…` ; un `POST /api/deployments` manuel a été refusé en **409
+  `DEPLOYMENT_IN_PROGRESS`**, ce qui confirme la file unique. Suite **839 tests,
+  838 ✔, 0 échec, 1 ignoré** (le fichier neuf en ajoute 4).
+  **Défaut réel trouvé en chemin, NON corrigé** : la base de production est en
+  retard de **deux** migrations — `0018_carte_publique.sql` (fonction
+  `carte_publique`) et `0019_push_abonnements.sql` (table `push_abonnements`).
+  Conséquence mesurée sur `/card/<uuid>` : la page **ne rend pas la carte** mais
+  « Cette action appelle une fonction absente de la base. Exécutez le fichier de
+  migration indiqué […] `migrations/0018_carte_publique.sql` ». Le retard est
+  **ciblé, pas global** : `loyalty_programs` porte déjà les colonnes de
+  `0010`/`0011`/`0015`/`0017` (`credits_par_euro`, `lien_localisation`,
+  `geofence_*`, `logo_url`, `wallet_bg_url`…), `messages_envoyes` et
+  `operations_caisse` existent, et `pg_proc` liste 23 fonctions — il ne manque
+  que `carte_publique`, et `to_regclass('public.push_abonnements')` est **nul**.
+  `0018` est **purement additif** (`create or replace function` + `revoke`/`grant`
+  sous `begin`/`commit`, aucune ligne touchée) et l'application invite elle-même à
+  l'exécuter — mais c'est une **écriture de schéma en production**, hors du mandat
+  de cette passe (qui n'autorisait qu'une carte de test) → **demandé, pas fait**.
+  Note utile : `/card/**C-FC8273**` → **404** est le comportement **voulu** — la
+  clé de cette route est l'**UUID**, jamais le code (décision de `0018`, pour ne
+  pas offrir un oracle énumérable de soldes).
+- **2026-11-08 (soir) — `https://fideliatest.site` est EN LIGNE.** Le DNS OVH
+  est corrigé (il fallait supprimer la *redirection* OVH qui réécrivait l'`A`
+  vers le parking), la re-vérification rend `sslStatus: active`, et le
+  certificat mesuré est `CN=fideliatest.site`, `Let's Encrypt YE1`, valide
+  jusqu'au **2027-02-06**. `/login` → **200** avec TLS vérifié,
+  `/join/<slug inconnu>` → **404** (voulu). Restent : `www` (non couvert par le
+  certificat + `A` résiduel vers `213.186.33.5`), le **slug réel** du programme
+  (la base en contient un actif, mais il n'est pas découvrable sans la console
+  Supabase), et **Supabase → URL Configuration**. Détail mesuré : section
+  « Mise en ligne ».
 - **2026-11-08 (nuit) — le dépôt est sur GitHub, OpenShip construit depuis git,
   et le seul reste est le DNS OVH.** `git@github.com:DEVSFAME/FIDELIA.git`
   reçoit `2982a3c` puis `e0797e5` (`main` ; dépôt **public**, donc clonable sans
@@ -40,6 +104,17 @@
   et l'edge n'écrit pas encore de vhost pour ce nom. **Après le changement DNS :
   re-vérifier** (`POST /api/domains/dom_4EPqj1mjGXl2o-s3/verify`) puis contrôler
   `https://fideliatest.site/login`.
+  **Re-mesure du 2026-11-08 — le DNS n'a pas bougé, et ce n'est pas de la
+  propagation.** Interrogation directe de l'autoritaire (`ns103.ovh.net`,
+  `dns103.ovh.net`) : `fideliatest.site A 213.186.33.5`, `www A 213.186.33.5`,
+  **aucun `AAAA`**, **aucun wildcard**, TTL 3600. Le TXT de l'apex porte
+  `"1|www.fideliatest.site"` — signature d'une **redirection OVH**, qui
+  (re)crée l'`A` vers `213.186.33.5` : **la supprimer d'abord**, sinon elle
+  écrase les `A`. **Aucun TXT ni CNAME n'est nécessaire** — `http-01` ne lit
+  que les `A`. Zone cible : `A @` et `A www` → `141.253.120.188` (le `CNAME www
+  → fideliatest.site.` est équivalent au second). **Le VPS est déjà prêt** :
+  `http://141.253.120.188/login` avec `Host: fideliatest.site` rend **200** ;
+  seul le DNS manque avant `POST /api/domains/dom_4EPqj1mjGXl2o-s3/verify`.
   **Accès** : la CLI `openship` n'existe ni en local ni sur le VPS
   (`packages/openship` non compilé) ; l'API s'authentifie par
   `POST /api/system/cli-session` + `X-Internal-Token` (bootstrap officiel de la
@@ -3285,18 +3360,86 @@
 - [x] **Projet OpenShip branché sur git et déployé** *(2026-11-08, nuit)* —
       `dep_ZwYL8YrkDpPSTat8`, `ready`, conteneur healthy (`127.0.0.1:20000->3000`),
       `activeVersion: 1`, `productionMode: host` honoré (`workloadType: web`).
-- [ ] **Déploiement OpenShip — reste la zone DNS OVH** : `fideliatest.site`
-      répond `A 213.186.33.5` (parking) au lieu de `141.253.120.188`. Remplacer
-      l'enregistrement `A @` (NS `dns103.ovh.net`), puis **re-vérifier le
-      domaine** (`POST /api/domains/dom_4EPqj1mjGXl2o-s3/verify`) pour que
-      Let's Encrypt émette le certificat. L'erreur actuelle le dit mot pour mot :
-      *« Port 80 answered but not with our ACME challenge […] 213.186.33.5 »*.
-      Restent aussi, indépendants du DNS : **Supabase → URL Configuration**
+- [x] **Déploiement OpenShip — DNS et certificat faits** *(2026-11-08, soir)*.
+      `A @` et `A www` → `141.253.120.188` (lu sur l'autoritaire
+      `ns103.ovh.net`). Il fallait d'abord **supprimer la redirection OVH** —
+      signature TXT `"1|www.fideliatest.site"` — qui réécrivait l'`A` vers le
+      parking. `POST /api/domains/dom_4EPqj1mjGXl2o-s3/verify` → **200**
+      `{"verified":true,"recordVerified":true,"cnameVerified":true,
+      "txtVerified":true,"message":"Domain verified — certificate issued.",
+      "sslStatus":"active"}`. Certificat mesuré au `openssl s_client` :
+      `subject=CN=fideliatest.site`, `issuer=Let's Encrypt YE1`,
+      `notBefore=Nov 8 17:48:07 2026 GMT` → `notAfter=Feb 6 17:48:06 2027 GMT`.
+      **Preuves publiques** : `https://fideliatest.site/login` **200** avec
+      `ssl_verify_result=0` ; `/join/<slug inconnu>` **404** (`notFound` voulu :
+      la RPC `programme_public` répond bien côté serveur). *Note : le résolveur
+      macOS gardait `213.186.33.5` en cache — les mesures passent par
+      `curl --resolve`, pas par le cache local.*
+      **`www` NON couvert** (`ssl_verify_result=18`, certificat auto-signé) :
+      le certificat ne porte que `CN=fideliatest.site`, et `www` conserve un `A`
+      résiduel vers `213.186.33.5`. À corriger : retirer ce `A`, puis déclarer
+      `www` comme domaine OpenShip (ou `redirectTo`).
+      **État de la base du projet déployé** (`sevqegfhmdezsqwvwsam`) : un
+      programme **actif existe** — `caisses_publiques(null)` → `200
+      {"caisses":[]}` alors que `caisses_publiques("zzz-bidon-zzz")` → `400
+      PROGRAM_NOT_FOUND` (contrôle) — mais **aucune caisse active**, et **aucun**
+      des 30 slugs plausibles testés ne correspond. `anon` n'a pas de `SELECT`
+      sur `loyalty_programs` (401 `42501`) et `/rest/v1/` (OpenAPI) est fermé :
+      **le slug ne peut pas être découvert sans la console Supabase** →
+      demandé à l'humain. **Où le lire** : `/rewards` → champ
+      `tableau.champ.slug` = « Adresse publique » (input `name="slug"`) ;
+      `/qrcode` → l'URL est **imprimée sous le QR** (`urlAdhesion`, bloc
+      monospace + affiche) ; ou en SQL `select slug, name, active from
+      public.loyalty_programs;`. Restent : **Supabase → URL Configuration**
       (*Site URL* + `https://fideliatest.site/**`) et la **preuve de bout en
-      bout** ci-dessous. Mode opératoire : `docs/deploiement-openship-2026-11-08.md`.
-- [ ] **Preuve de bout en bout** : scanner l'affiche imprimée avec un téléphone
-      (pas avec le navigateur qui l'a produite) et créer une carte depuis
-      `https://fideliatest.site/join/<slug>`.
+      bout**.
+- [x] **Diagnostic du 502 à la connexion** *(2026-11-08, 19 h 30)* — le 502
+      n'est **pas** côté serveur. Mesures : `GET /login` → 200, **30 requêtes
+      sur 30 en 200** (aucune intermittence), un seul vhost
+      (`/var/lib/openship/edge/sites-enabled/fideliatest-site.conf`) et un seul
+      upstream (`route.json` → `http://127.0.0.1:20000`, le conteneur courant).
+      Le conteneur journalisait `Server Reference ID did not match the expected
+      format. Received "d46db670"` / `"541147ef"` : or le manifeste serveur
+      porte **13 IDs de 42 caractères**, et ces deux IDs **n'existent dans
+      aucune des deux images** (`bld_ohZFjoz4SinE5Kfp`, `bld_pHOhhTi5XTf9jPK2`).
+      **Conclusion : l'onglet exécutait un document d'un autre build** ; l'action
+      inconnue fait avorter la réponse, que l'edge traduit en 502.
+      **Contre-épreuve navigateur neuf** (Playwright, contexte vierge) :
+      `/login` se charge (seul un `favicon.ico` 404), le formulaire soumis avec
+      des identifiants factices rend **`POST /login` → 200** et le message
+      **« Identifiants refusés. »** — la chaîne action serveur → Supabase Auth
+      fonctionne. Remède : rechargement forcé (`Cmd+Shift+R`) ou navigation
+      privée. Les deux autres lignes de console (`inspector.*.js`,
+      `content.js`) viennent d'extensions du navigateur, sans rapport.
+
+- [x] **Le `404 /favicon.ico` est mort** *(2026-11-08, soir)* — `web/src/app/icon.svg`
+      (vectoriel mesuré sur `web/public/icon-192.png`) + `web/src/app/favicon.ico`
+      (16/32/48, PNG **RGBA** : Turbopack refuse un ICO à PNG RGB et casse le
+      build). Garde `icone-onglet.test.mjs`. Mesuré en production :
+      `/favicon.ico` **200 `image/x-icon`**, `/icon.svg` **200
+      `image/svg+xml`**, les deux `<link rel="icon">` dans le HTML de `/join/test1`.
+- [x] **Preuve de bout en bout, faite depuis un contexte mobile** *(2026-11-08,
+      soir)* — le slug n'a pas eu besoin d'humain : lu en base par l'API Supabase,
+      **`test1`** (« TEST », `active = true`, seul programme).
+      `/join/test1` **200** et `/recompenses/test1` **200** en production ; puis,
+      depuis un contexte **vierge** en 390×844 (pas le navigateur qui a produit
+      l'affiche) : « Obtenir ma carte » → `/join/test1?carte=**C-FC8273**`,
+      « Votre carte est créée. » + QR. En base : `loyalty_cards` 4 → **5**,
+      `clients` 4 → **5** (anonyme, 0 point), carte
+      `f8cd3881-e125-4b2e-974d-10cff9aba04f`. `/card/C-FC8273` → **404** est
+      **voulu** (la clé de `/card` est l'UUID, pas le code).
+- [ ] **Deux migrations manquent en production** — `0018_carte_publique.sql` et
+      `0019_push_abonnements.sql`. Effet mesuré : `/card/<uuid>` rend « Cette
+      action appelle une fonction absente de la base […] `migrations/0018_
+      carte_publique.sql` ». Le reste du schéma est à jour (colonnes de
+      `0010`/`0011`/`0015`/`0017` présentes, `messages_envoyes` et
+      `operations_caisse` créées) : le retard est **ciblé**. `0018` est additif
+      (`create or replace function` + droits, sous transaction) ; l'appliquer est
+      une écriture de schéma en production → **décision humaine**.
+- [ ] **`www` reste hors certificat** : `www.fideliatest.site` porte **deux** `A`
+      (`213.186.33.5` parking **et** `141.253.120.188`), et `curl` tombe sur le
+      parking (`code=000`, `tls=1`). Effacer l'`A` du parking est une action
+      **humaine** (zone OVH) ; ensuite déclarer `www` sur le projet et mesurer.
 
 
 ### ⛔ Périmètre & décisions
@@ -3305,3 +3448,100 @@
 - [ ] Clés Supabase : l'URL du projet et la clé anon sont **publiques par
   conception** ; elles ne sont pas recopiées dans les docs et ne servent pas à
   interroger la base.
+
+---
+
+## 🔄 Prompt de relais (écrit le 2026-11-08 21 h 00 — état mesuré, pas déclaré)
+
+### 🔄 PROMPT POUR LA PROCHAINE TÂCHE
+*(Utilisateur, copie-colle ce bloc lors de notre prochaine interaction pour que je reprenne immédiatement le contexte)*
+
+**Contexte actuel :**
+- `https://fideliatest.site` est **en ligne et prouvé** : `CN=fideliatest.site`
+  (Let's Encrypt YE1, jusqu'au **2027-02-06**), `ssl_verify_result=0`, et le DNS
+  est enfin propre **y compris sur le résolveur local** (`fideliatest.site` →
+  `141.253.120.188`) — `curl` sans `--resolve` mesure donc le vrai site.
+- OpenShip : projet `proj_rB7iSlX1cvWqhDVl`, source git `DEVSFAME/FIDELIA`
+  branche `main`, déploiement actif **`dep_AG2ivnSPxggbl_I7`** (commit
+  **`df8a1a6`**, `trigger: webhook`, image
+  `openship/fidelia:bld_T2kv2-6Dfd0Bfijs`, conteneur `8e98c931ff0a…` sur
+  `127.0.0.1:20000->3000`). **Un `git push` sur `main` déclenche le
+  déploiement** : inutile d'appeler l'API.
+- Application : Next **16.4.3**, code dans `web/`, image bâtie depuis la
+  **racine** du dépôt (`/Dockerfile`). L'icône d'onglet est servie par la
+  convention `web/src/app/` (`icon.svg` **+** `favicon.ico`).
+- Base Supabase : projet **`sevqegfhmdezsqwvwsam`** (« FIDELIXY »), programme
+  **`test1`** / « TEST » / `active = true`, **5** cartes et **5** clients
+  (dont la carte de test `C-FC8273`). **Retard de deux migrations** :
+  `0018_carte_publique.sql` et `0019_push_abonnements.sql`.
+- DNS OVH : `A @` → `141.253.120.188` ✅ ; `www` porte **deux** `A`
+  (`213.186.33.5` parking **et** `141.253.120.188`) ⇒ hors certificat.
+- Fichiers concernés : `PROGRESS.md` (§ Statut Actuel l. 7+ et « 🚀 Mise en
+  ligne » l. ~3415+), `web/src/app/icon.svg`, `web/src/app/favicon.ico`,
+  `tools/rea/tests/icone-onglet.test.mjs`.
+
+**Ce qui vient d'être fait :**
+- **Le `404 /favicon.ico` est mort, et la preuve de bout en bout est faite.**
+  Next 16 ne sert `/favicon.ico` que si `app/favicon.ico` existe : `icon.svg` a
+  donc été doublé d'un `.ico` (16/32/48 **en PNG RGBA** — Turbopack refuse un PNG
+  RGB dans un ICO et casse `next build`). Le slug a été lu **en base**
+  (`test1`), `/join/test1` et `/recompenses/test1` rendent **200** en production,
+  et une **carte** a été créée depuis un contexte **mobile vierge** :
+  `C-FC8273` (« Votre carte est créée. »), `loyalty_cards` 4 → 5. Le commit
+  `df8a1a6` s'est déployé **tout seul** par webhook. Suite **839 tests / 0 échec**.
+- **Défaut nouveau, trouvé en chemin :** la base de production n'a **ni** la
+  fonction `carte_publique` (`0018`) **ni** la table `push_abonnements` (`0019`).
+  `/card/<uuid>` affiche donc « Cette action appelle une fonction absente de la
+  base ». Non corrigé : c'est une écriture de schéma en production.
+
+**La prochaine mission :**
+1. **(Décision humaine, puis Agent)** appliquer `0018_carte_publique.sql` et
+   `0019_push_abonnements.sql` à la base `sevqegfhmdezsqwvwsam` — les deux sont
+   additifs (`create or replace function` + droits ; `create table if not
+   exists`). Confirmer ensuite `/card/f8cd3881-e125-4b2e-974d-10cff9aba04f` =
+   **200** avec le solde, et non plus l'écran de migration manquante.
+2. **(Humain DNS, 30 s)** effacer le **`A www` → `213.186.33.5`** (zone OVH),
+   garder celui vers `141.253.120.188` ; puis **(Agent)** déclarer
+   `www.fideliatest.site` sur le projet (avec redirection vers l'apex) et mesurer
+   au `openssl s_client` (attendu `ssl_verify_result=0`).
+3. **(Agent)** terminer **Supabase → URL Configuration** (*Site URL* +
+   `https://fideliatest.site/**`) — toujours en attente depuis la veille.
+4. **(Agent)** confirmer que le retard de migrations est bien **ciblé** : parcours
+   authentifié des écrans `/dashboard`, `/caisse`, `/rewards`, `/apparence` et
+   relever tout autre écran qui réclamerait un fichier de migration.
+- **Règles à appliquer** : `chef-de-projet` (lire/écrire `PROGRESS.md` avant et
+  après), `clinerules-code` (test après implémentation), `Gestion du Contexte`
+  (pagination, pas de fichier entier).
+
+**Instructions de démarrage :**
+> "Agis en tant que développeur principal. Lis `PROGRESS.md` (§ Statut Actuel et
+> « 🚀 Mise en ligne ») pour te resynchroniser. Ta mission : **rendre la page
+> carte fonctionnelle en production** — appliquer `migrations/0018_carte_
+> publique.sql` puis `0019_push_abonnements.sql` à la base
+> `sevqegfhmdezsqwvwsam`, puis prouver `/card/f8cd3881-e125-4b2e-974d-10cff9
+> aba04f` = 200 (solde affiché), et mettre `PROGRESS.md` à jour. Contraintes :
+> aucune autre écriture en production (ni données, ni schéma), toute mesure par
+> `curl` sur `https://fideliatest.site` (le DNS local est enfin correct), et un
+> `git push` sur `main` suffit à déployer — le webhook OpenShip s'en charge."
+
+**Outillage à reconstruire s'il a disparu :**
+- Session CLI OpenShip : `POST /api/system/cli-session` avec l'en-tête
+  `X-Internal-Token` lu par
+  `docker exec openship-api-1 printenv INTERNAL_TOKEN`, puis
+  `Authorization: Bearer <sess>`. Helper prêt sur le VPS : `/tmp/api.sh`
+  (`METHOD=POST BODY='…' bash /tmp/api.sh <chemin>`).
+- **Déployer** : un `git push` sur `main` suffit (webhook → `trigger: webhook`).
+  À la main : `POST /api/deployments` avec
+  `{"projectId":"proj_rB7iSlX1cvWqhDVl","branch":"main"}` — et **409
+  `DEPLOYMENT_IN_PROGRESS`** si un build tourne déjà, ce qui est normal.
+  Suivi : `GET /api/deployments/<id>` → `status` (`deploying` → `ready`).
+- Nom du conteneur : il **change à chaque déploiement** →
+  `sudo docker ps --filter name=fidelia`.
+- Parse JSON des réponses API : filtrer la ligne `[HTTP …]` du helper avant
+  `python3 -m json.tool`.
+- **Lire la base sans console** : l'API Supabase (MCP) sur
+  `sevqegfhmdezsqwvwsam` rend `select …` — c'est ainsi que le slug `test1` a été
+  trouvé, `anon` n'ayant pas `SELECT` sur `loyalty_programs`.
+- **Générer un `favicon.ico`** : les trois entrées doivent être des PNG **RGBA**
+  (PIL : `convert('RGBA')` avant `save`), sinon Turbopack refuse l'ICO au build.
+
