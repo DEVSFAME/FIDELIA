@@ -4,6 +4,38 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
+- **2026-11-08 (soir, 4) — `www.fideliatest.site` est sous certificat et redirige
+  vers l'apex.** L'`A` parking a été supprimé côté OVH (humain) ; mesuré **à la
+  source** : `www` → `141.253.120.188` **seul** sur `ns103.ovh.net` **et** sur
+  `8.8.8.8` (aucune trace de `213.186.33.5`, `CNAME` vide). Côté OpenShip, `www`
+  n'était **pas déclaré** : l'edge servait `CN=openship-edge-default` et
+  **réinitialisait** la connexion (`code=000`, `ssl=1`). Déclaration :
+  `POST /api/domains` → `201`, `dom_E5BBkbZGYbFT5jZV`, `redirectTo:
+  fideliatest.site`, `redirectStatus: 301` ; l'enregistrement réclamé
+  (`A www`) était **déjà** celui en place.
+  `POST /api/domains/:id/verify` → `{"verified":true,…,"sslStatus":"active"}`,
+  certificat `subject=CN=www.fideliatest.site`, `issuer=YE2`, du **2026-11-08
+  19:05** au **2027-02-06**.
+  **Le piège, et il valait d'être trouvé** : `add` + `verify` **n'écrivent pas**
+  le vhost. `fideliatest-site.conf` restait `server_name fideliatest.site` avec
+  un `mtime` (19:55) **antérieur** à la création du domaine (20:04) ⇒ certificat
+  par défaut et reset, alors que l'API affichait déjà `sslStatus: active`. Le
+  correctif est **sans rebuild** : `POST /api/projects/proj_rB7iSlX1cvWqhDVl
+  /routing/retry` (`{"ok":true}`) a écrit un vhost **dédié**
+  `www-fideliatest-site.conf` (généré par `openship-vhost-gen: 4`) : blocs
+  `listen 80` **et** `listen 443 ssl`, `server_name www.fideliatest.site`,
+  `ssl_certificate /etc/letsencrypt/live/www.fideliatest.site/fullchain.pem`, et
+  `location / { return 301 https://fideliatest.site$request_uri; }` — aucun
+  proxy vers l'application, ce qui est bien le contrat d'une redirection.
+  **Mesures** : `www/`, `www/login`, `www/join/test1`,
+  `www/card/<uuid>` → **301**, `ssl_verify_result=0` ; en suivant, **200** sur
+  l'apex (1 redirection pour `/login`, `/join/test1` et `/card/<uuid>` ; 2 pour
+  `/` qui finit sur `/login`). Apex **inchangé** : `/login`, `/card/<uuid>`,
+  `/favicon.ico`, `/icon.svg` = **200**, `ssl=0`. Le
+  `Connection reset by peer` observé sur `/` juste après le retry était le
+  **rechargement nginx** (mesuré 301 sur les quatre chemins quinze secondes plus
+  tard) : sur l'edge, re-mesurer avant de conclure. Aucun code applicatif touché,
+  aucun déploiement nécessaire.
 - **2026-11-08 (soir, 3) — `/card/<uuid>` est VIVANTE en production, et le retard
   de migrations est soldé.** `0018_carte_publique.sql` puis
   `0019_push_abonnements.sql` appliquées à `sevqegfhmdezsqwvwsam` via l'API
@@ -2578,11 +2610,11 @@
 
 ## 🚧 Tâche Active (Work in Progress)
 
-- [ ] **Mise en ligne — reste `www`, l'URL Configuration Supabase, et l'audit des
-      écrans authentifiés.** *(Mis à jour le 2026-11-08, soir 3.)* La page carte
-      est réglée et prouvée : `0018` + `0019` appliquées, `/card/<uuid>` **200**
-      avec solde. Restent trois choses, détaillées dans le prompt de relais :
-      l'`A www` → `213.186.33.5` à effacer (humain, zone OVH), *Site URL* +
+- [ ] **Mise en ligne — reste l'URL Configuration Supabase et l'audit des écrans
+      authentifiés.** *(Mis à jour le 2026-11-08, soir 4.)* Sont réglés et
+      prouvés : la page carte (`0018`+`0019`, `/card/<uuid>` **200** avec solde)
+      et **`www`** (`A` unique, domaine `dom_E5BBkbZGYbFT5jZV`, 301 vers l'apex,
+      `CN=www.fideliatest.site`). Restent : *Site URL* +
       `https://fideliatest.site/**` dans Supabase → URL Configuration, et le
       parcours **authentifié** de `/dashboard`, `/caisse`, `/rewards`,
       `/apparence` pour relever tout écran encore en attente de migration.
@@ -3509,10 +3541,24 @@
       mention de migration manquante ; 404 sur UUID inconnu, sur le code
       `C-FC8273` et sur une troncature. Détail : § Statut Actuel (2026-11-08
       soir, 3). Le retard était bien **ciblé** : seules ces deux-là manquaient.
-- [ ] **`www` reste hors certificat** : `www.fideliatest.site` porte **deux** `A`
-      (`213.186.33.5` parking **et** `141.253.120.188`), et `curl` tombe sur le
-      parking (`code=000`, `tls=1`). Effacer l'`A` du parking est une action
-      **humaine** (zone OVH) ; ensuite déclarer `www` sur le projet et mesurer.
+- [x] **`www` est sous certificat et redirige vers l'apex** *(2026-11-08, soir)* —
+      l'`A` parking `213.186.33.5` a été **supprimé côté OVH** (humain), et c'est
+      vérifié à la source : `www` → `141.253.120.188` **seul**, sur l'autoritaire
+      `ns103.ovh.net` **et** sur `8.8.8.8`. Restait la déclaration côté OpenShip :
+      domaine `dom_E5BBkbZGYbFT5jZV` (`redirectTo: fideliatest.site`, 301) →
+      `verify` → certificat **`CN=www.fideliatest.site`** (`YE2`, jusqu'au
+      **2027-02-06**). **Piège mesuré** : `add` + `verify` n'écrivent **pas** le
+      vhost (`fideliatest-site.conf` restait `server_name fideliatest.site`,
+      mtime antérieur à la création) ⇒ l'edge servait `CN=openship-edge-default`
+      et **réinitialisait** la connexion ; c'est
+      `POST /api/projects/:id/routing/retry` (« repair project routes …
+      without rebuilding », `{"ok":true}`) qui a écrit
+      `www-fideliatest-site.conf` (80 + 443 → `301 https://fideliatest.site
+      $request_uri`). Mesures : `www/{,login,join/test1,card/<uuid>}` **301**
+      `ssl=0`, suivis → **200** sur l'apex ; l'apex est inchangé
+      (`/login`, `/card/<uuid>`, `/favicon.ico`, `/icon.svg` = **200**). Le
+      `Connection reset by peer` vu juste après le retry était le **rechargement
+      nginx** : re-mesurer avant de conclure.
 
 
 ### ⛔ Périmètre & décisions
@@ -3524,7 +3570,7 @@
 
 ---
 
-## 🔄 Prompt de relais (écrit le 2026-11-08, soir 3 — état mesuré, pas déclaré)
+## 🔄 Prompt de relais (écrit le 2026-11-08, soir 4 — état mesuré, pas déclaré)
 
 ### 🔄 PROMPT POUR LA PROCHAINE TÂCHE
 *(Utilisateur, copie-colle ce bloc lors de notre prochaine interaction pour que je reprenne immédiatement le contexte)*
@@ -3547,8 +3593,10 @@
   jour** (`0001`, puis `0003`→`0019` — il n'y a pas de `0002`) : `0018` et
   `0019` appliquées le 2026-11-08 (25 fonctions publiques, `push_abonnements`
   créée, RLS sans politique).
-- DNS OVH : `A @` → `141.253.120.188` ✅ ; `www` porte **deux** `A`
-  (`213.186.33.5` parking **et** `141.253.120.188`) ⇒ hors certificat.
+- DNS OVH : `A @` → `141.253.120.188` ✅ et **`A www` unique** → `141.253.120.188`
+  ✅ (le parking `213.186.33.5` est supprimé, mesuré sur l'autoritaire et sur
+  `8.8.8.8`). `www` est déclaré côté OpenShip (`dom_E5BBkbZGYbFT5jZV`,
+  `redirectTo` apex, 301) et **sous certificat** `CN=www.fideliatest.site`.
 - Fichiers concernés : `PROGRESS.md` (§ Statut Actuel l. 7+ et « 🚀 Mise en
   ligne » l. ~3476+), `migrations/0018_carte_publique.sql`,
   `migrations/0019_push_abonnements.sql`, `web/src/app/card/[cardId]/page.jsx`,
@@ -3575,19 +3623,22 @@
   Et **aucun `notify pgrst`** n'a été nécessaire : la fonction a été vue par
   PostgREST immédiatement.
 
+- **`www` est réglé de bout en bout** : `A www` unique (parking supprimé),
+  déclaré sur le projet (`redirectTo` apex, 301), certificat
+  `CN=www.fideliatest.site` (`YE2`, jusqu'au 2027-02-06), `301` mesuré sur
+  `/`, `/login`, `/join/test1`, `/card/<uuid>`, `ssl_verify_result=0`.
+  **Le geste qui manquait** : `add` + `verify` n'écrivent pas le vhost —
+  c'est `POST /api/projects/:id/routing/retry` qui l'écrit, **sans rebuild**.
+
 **La prochaine mission :**
-1. **(Humain DNS, 30 s)** effacer le **`A www` → `213.186.33.5`** (zone OVH),
-   garder celui vers `141.253.120.188` ; puis **(Agent)** déclarer
-   `www.fideliatest.site` sur le projet (avec redirection vers l'apex) et mesurer
-   au `openssl s_client` (attendu `ssl_verify_result=0`).
-2. **(Agent)** terminer **Supabase → URL Configuration** (*Site URL* +
+1. **(Agent)** terminer **Supabase → URL Configuration** (*Site URL* +
    `https://fideliatest.site/**`) — en attente depuis la veille ; c'est ce qui
    fait pointer les liens de confirmation d'e-mail vers le bon domaine.
-3. **(Agent)** parcours **authentifié** des écrans `/dashboard`, `/caisse`,
+2. **(Agent)** parcours **authentifié** des écrans `/dashboard`, `/caisse`,
    `/rewards`, `/apparence` : vérifier qu'aucun autre écran ne réclame un fichier
    de migration (le retard de `0018`/`0019` était ciblé, il reste à le confirmer
    écran par écran), et relever les écarts visibles.
-4. **(Agent)** `/card/<uuid>` : éprouver le chemin d'abonnement web push **sans
+3. **(Agent)** `/card/<uuid>` : éprouver le chemin d'abonnement web push **sans
    écrire** de ligne réelle (corps invalide → `ABONNEMENT_INVALIDE` renvoyé par
    la route, pas un 500) et confirmer que le bouton Google Wallet reste masqué
    tant que `NEXT_PUBLIC_VAPID_PUBLIC_KEY` est vide (`clePublique: ""` mesuré
@@ -3598,13 +3649,14 @@
 
 **Instructions de démarrage :**
 > "Agis en tant que développeur principal. Lis `PROGRESS.md` (§ Statut Actuel et
-> « 🚀 Mise en ligne ») pour te resynchroniser. `0018` et `0019` sont appliquées
-> et `/card/f8cd3881-e125-4b2e-974d-10cff9aba04f` rend **200** avec son solde.
-> Ta mission : **`www.fideliatest.site` sous certificat** (l'`A` vers
-> `213.186.33.5` est à effacer côté OVH — c'est humain), puis **Supabase → URL
-> Configuration** (*Site URL* + `https://fideliatest.site/**`), puis le parcours
-> **authentifié** de `/dashboard`, `/caisse`, `/rewards`, `/apparence` pour
-> relever tout autre écran en attente de migration. Contraintes : aucune écriture
+> « 🚀 Mise en ligne ») pour te resynchroniser. `0018`/`0019` sont appliquées,
+> `/card/f8cd3881-e125-4b2e-974d-10cff9aba04f` rend **200** avec son solde, et
+> `www.fideliatest.site` est sous certificat avec redirection 301 vers l'apex.
+> Ta mission : **Supabase → URL Configuration** (*Site URL* +
+> `https://fideliatest.site/**`), puis le parcours **authentifié** de
+> `/dashboard`, `/caisse`, `/rewards`, `/apparence` pour relever tout écran
+> encore en attente de migration, et éprouver l'abonnement push de `/card` par un
+> corps **invalide** (refus nommé, aucune écriture). Contraintes : aucune écriture
 > de données en production, toute mesure par `curl` sur
 > `https://fideliatest.site`, et un `git push` sur `main` suffit à déployer."
 
@@ -3614,6 +3666,21 @@
   `docker exec openship-api-1 printenv INTERNAL_TOKEN`, puis
   `Authorization: Bearer <sess>`. Helper prêt sur le VPS : `/tmp/api.sh`
   (`METHOD=POST BODY='…' bash /tmp/api.sh <chemin>`).
+- **Déclarer un domaine** : `POST /api/domains`
+  (`{projectId, hostname, redirectTo?, redirectStatus?}`) → `201`, puis
+  `POST /api/domains/<id>/verify` (émet le certificat). **Ça n'écrit PAS le
+  vhost** : l'edge continue de servir `CN=openship-edge-default` et réinitialise
+  la connexion. Le geste qui termine le travail est
+  `POST /api/projects/<id>/routing/retry` (« repair project routes … without
+  rebuilding »), qui écrit `/var/lib/openship/edge/sites-enabled/<domaine>.conf`
+  et recharge nginx. Juste après, un reset peut durer quelques secondes :
+  re-mesurer.
+- **Lire l'edge** : `sites-enabled` est monté depuis
+  `/var/lib/openship/edge/sites-enabled` (vhosts + `.route.json`), certificats
+  dans `/etc/letsencrypt/live/<domaine>/` (conteneur `openship-edge`,
+  openresty).
+- **Accès VPS** : `ssh -i VPS/SSH/ssh-key-2026-08-16.key ubuntu@141.253.120.188`
+  (copier la clé dans `/tmp` puis `chmod 600` si ssh refuse les permissions).
 - **Déployer** : un `git push` sur `main` suffit (webhook → `trigger: webhook`).
   À la main : `POST /api/deployments` avec
   `{"projectId":"proj_rB7iSlX1cvWqhDVl","branch":"main"}` — et **409
