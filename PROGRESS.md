@@ -4,6 +4,129 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
+- **2026-11-09 (session 8) — « la connexion affiche une page noire » : la
+  soumission partait sur `/`, et c'est mesuré, pas supposé.**
+  *Symptôme rapporté* : identifiants saisis ⇒ Chrome affiche « This page
+  couldn't load » (page d'erreur **réseau**, pas une 500 Next).
+  *Trace conteneur* (`docker logs`, **1** occurrence) : `The Server Reference ID
+  did not match the expected format. Received "y"` — un identifiant d'action
+  d'**un caractère**, là où le manifeste du build porte 42 hexadécimaux
+  (`6058212f…b583fbbb`).
+  *Trace edge, à la seconde près* : `GET / 307` → `GET /login 200` →
+  **`POST / 400`, 30 octets**, `Referer` **absent** — là où un parcours propre
+  donne `POST /login 200` avec `Referer: …/login`.
+  *Reproduction exacte, sans identifiants* : `POST /` avec `Next-Action: y`
+  rend **400**, `content-length: 30`, corps **vide**,
+  `x-nextjs-action-not-found: 1` — byte pour byte ce que le navigateur a reçu.
+  *Deux causes, une seule règle* : (1) `/` est **prérendue**
+  (`307 → /login`, `cache-control: s-maxage=31536000`) et ne déclare aucune
+  action — tout POST y est perdu par construction ; (2) l'identifiant valait
+  `y`.
+  *Correctif livré* (`38b57c8`, poussé sur `main`, déployé par webhook) :
+  `web/src/lib/action-perdue.mjs` (règle **pure** — méthode, chemin, longueur
+  d'identifiant : `POST /` ⇒ `/login?etat=reprise` ; id tronqué ⇒ la page
+  demandée), branchée dans `proxy.js` en **303** (un 307 rejouerait le POST
+  refusé, la boucle serait invisible), `app/page.jsx` en `force-dynamic` (fin du
+  cache d'un an), et `?etat=reprise` → `auth.connexion.champsVides` (copie
+  **existante** : après ce détour les champs sont réellement vides, donc la
+  phrase est vraie — aucune phrase inventée).
+  *Preuves après déploiement* : `POST /` + `Next-Action: y` ⇒ **303**
+  `location: /login?etat=reprise` (avant : 400/30) ; `POST /dashboard` + id
+  tronqué ⇒ **303** `location: /dashboard` ; `GET /` ⇒
+  `cache-control: private, no-cache, no-store…` (**plus de `s-maxage`**) ;
+  `/login?etat=reprise` ⇒ **200**, message rendu ; `/card/<uuid>` ⇒ **200**.
+  **Connexion réelle au navigateur, session neuve** : `/` → `/login` →
+  identifiants ⇒ **`/dashboard`** rendu (navigation, bandeau,
+  « Votre commerce, en un regard. », « 5 clients sur 30 dans l'offre
+  gratuite »), **0 erreur console** ; puis « Déconnexion » ⇒ `/login`, donc une
+  action **légitime** d'une route du groupe traverse la garde. Suite
+  **868 / 867 ✔ / 0 échec / 1 ignoré** (+7 : `action-perdue.test.mjs`).
+  *Instrument d'épreuve, créé puis supprimé* : compte `auth` jetable
+  (`epreuve-connexion@fideliatest.invalid` ; **aucun** trigger sur `auth.users`,
+  vérifié avant écriture), **supprimé** en fin de mesure — contrôlé : 0
+  utilisateur, 0 identité, 0 session restants, et données métier **inchangées**
+  (1 programme, 5 cartes, 5 clients, 0 abonnement push, 1 opération de caisse,
+  identiques aux baselines du début de session).
+  *Ce que la mesure a appris au passage* : un utilisateur inséré en SQL dans
+  `auth.users` n'est **pas** authentifiable tant que `confirmation_token`,
+  `recovery_token`, `email_change*` et `phone_change*` sont `NULL` — GoTrue
+  n'arrive pas à lire la ligne et répond « identifiants refusés ».
+  *`0017` n'a **pas** été appliquée* : son pré-vol a été fait (14 paramètres
+  vivants, `lien_localisation` = `NULL` sur l'unique programme, baselines
+  relevées) et elle reste en attente de la demande explicite.
+
+
+- **2026-11-09 (session 7) — point 5 CLOS : la configuration URL est reçue, jugée
+  conforme, et sa cible prouvée vivante.** Les deux valeurs sont arrivées de la
+  console (page « URL Configuration »), recopiées telles quelles :
+  `site_url` = **`https://fideliatest.site`** (sans barre finale),
+  `uri_allow_list` = **`https://fideliatest.site/**`** (« Total URLs: 1 »).
+  *Verdict mesuré*, `node tools/rea/verifier-url-auth.mjs`, code de sortie **0** :
+  les **deux** URL que le code envoie sont acceptées **certainement** —
+  `…/auth/confirm` **et** `…/auth/confirm?flux=recuperation` — par le motif
+  `https://fideliatest.site/**`, sous les deux lectures du joker (`*` traversant
+  `/` comme GoTrue, et `**` seul). `site_url` = origine déclarée
+  (`NEXT_PUBLIC_SITE_URL`, identique dans `.env` et `web/.env.local`), donc le
+  repli ne part pas ailleurs ; aucune barre finale, donc `{{ .SiteURL }}` +
+  `/auth/confirm` ne donne pas `//auth/confirm` ; aucun motif n'accepte une
+  origine tierce, le « second verrou » de `confirmation.mjs:282` tient.
+  *Cible prouvée vivante, sans consommer de jeton* : `/auth/confirm` → **307**
+  `/forgot-password?echec=invalide`, et `/auth/confirm?flux=recuperation` →
+  **307** identique — la route existe, la requête ne la détourne pas ;
+  `/forgot-password?echec=invalide` → **200**, message rendu. `ssl=0` sur tout.
+  *Ce qui reste non prouvé, et le restera sans un envoi réel* : que GoTrue
+  accepte ce `redirect_to` **à l'exécution** d'un envoi de courriel. Un envoi est
+  une écriture (courriel parti) : il n'a pas été fait. La conformité porte donc
+  sur la configuration **enregistrée** confrontée aux URL du code, pas sur un
+  message reçu. Un seul envoi réel, le jour voulu, la transformera en preuve
+  d'exécution.
+  *Un avertissement, nommé et bénin* : aucun motif `http://localhost:3000`.
+  Conséquence réelle **nulle** aujourd'hui, parce que `NEXT_PUBLIC_SITE_URL`
+  vaut `https://fideliatest.site` dans `web/.env.local` : en développement,
+  `origineDepuisEntetes` rend l'origine déclarée, pas `localhost`. Le manque ne
+  mord que si cette variable est retirée.
+  *Outillage livré et vert* : `tools/rea/url-auth.mjs` (juge pur, hors ligne, ne
+  recopie aucun domaine : ses URL sortent de `urlConfirmation()` /
+  `urlReinitialisation()`) + `tools/rea/verifier-url-auth.mjs` (CLI : lit un JSON,
+  n'affiche que les deux clés, n'ouvre ni `.env` ni le réseau — vérifié avec un
+  `jwt_secret` parasite dans l'entrée : non affiché) + **20 tests**. Suite
+  complète : **861 tests / 860 ✔ / 0 échec / 1 ignoré** (841/840 avant).
+  *Re-mesures du même jour, inchangées* : `/login` et `/card/f8cd3881…` → **200**,
+  `/` et `/settings` → **307** `/login`, `ssl=0` ; `/auth/v1/settings` → **200**,
+  huit clés, toujours **sans** `site_url` ni `uri_allow_list` (c'est pourquoi la
+  valeur ne pouvait venir que de la console).
+
+
+- **2026-11-09 (session 6) — re-mesure de reprise : rien n'a bougé, et la seule
+  porte reste humaine.** Mesuré sans écrire : `enregistrer_fiche_etablissement`
+  expose toujours **14** paramètres (`p_lien_localisation` compris),
+  `loyalty_programs` n'a **ni** `latitude` **ni** `longitude`, et la sonde de
+  **résolution** rend **404 `PGRST202`** — *« Searched for the function
+  public.enregistrer_fiche_etablissement with parameters p_latitude, p_longitude
+  … no matches were found in the schema cache »* — donc **aucun corps de fonction
+  n'a été exécuté**. `/login` et `/card/f8cd3881…` → **200**, `/` et `/settings`
+  → **307**, `ssl=0` sur les quatre.
+  **Le jeton Management n'existe toujours pas** : **0** occurrence de `sbp_` dans
+  `.env`, `.env.example`, `web/.env.local`, `web/.env.example`,
+  `env.supabase.md`, et **0** variable `SUPABASE_*` dans le shell. Et
+  `/auth/v1/settings` → **200** mais **ne publie pas** `site_url` (rendu mesuré :
+  `external`, `disable_signup`, `mailer_autoconfirm`, `phone_autoconfirm`,
+  `sms_provider`, `saml_enabled`, `passkeys_enabled`) : la configuration URL
+  **n'est pas observable** sans jeton. Action humaine, et rien d'autre.
+  *Préparé, non appliqué* : `0017` (431 lignes, `sha256 a0ca9d75…0b8ec0e3`) et sa
+  garde **10/10 verte** (`node --test tools/rea/tests/migration-0017.test.mjs`) ;
+  `loyalty_programs` = **1** ligne (`test1`) avec `lien_localisation` **vide** ⇒
+  la reprise de `0017` n'a **rien à convertir**, aucune perte possible.
+  *Risque nommé pour le jour où elle sera appliquée* : `0017` réécrit aussi
+  `carte_pour_wallet()`, qui porte la page publique `/card/…` (200 aujourd'hui) —
+  re-mesurer cette URL fait donc partie de la preuve, pas du confort.
+  *Décision du 2026-11-09* : l'action humaine est prise en charge par le
+  propriétaire (console Supabase), qui rendra la sortie de
+  `GET /v1/projects/sevqegfhmdezsqwvwsam/config/auth` — `site_url` et
+  `uri_allow_list`, deux valeurs **non secrètes**. Tant que cette preuve n'est pas
+  arrivée, **aucune** affirmation sur la configuration URL ne sera écrite ici.
+
+
 - **2026-11-08 (nuit, 5) — audit des écrans authentifiés : la bannière de migration
   est morte partout, sauf sur l'enregistrement de `/settings` (`0017` absente).
   Et l'abonnement push de `/card` était cassé pour *tout* corps valide.**
@@ -2719,9 +2842,17 @@
       appliquée** (signature à 14 paramètres au lieu de 15, mesuré). La bannière
       n'est donc pas un symptôme diffus : c'est **un fichier nommé**, et l'écran le
       nomme déjà. `/apparence` → **404** (la route est `/branding`, aucun lien
-      interne ne casse). Reste : *Site URL* + `https://fideliatest.site/**` dans
-      Supabase → URL Configuration — **bloqué faute de jeton Management (`sbp_…`)**,
-      action humaine d'une minute (détail au § Statut Actuel, point 5).
+      interne ne casse).
+      **Terminé le 2026-11-09 (session 7)** : *Site URL* =
+      `https://fideliatest.site`, *Redirect URLs* = `https://fideliatest.site/**`
+      (« Total URLs: 1 »), jugés **conformes** par
+      `tools/rea/verifier-url-auth.mjs` — les **deux** URL que le code envoie
+      (`/auth/confirm` et `/auth/confirm?flux=recuperation`) acceptées
+      **certainement**. Cible prouvée vivante : `/auth/confirm` → **307**
+      `/forgot-password?echec=invalide` (détail au § Statut Actuel, session 7).
+      **Reste de cet item** : `0017` préparée (garde 10/10), **non appliquée** —
+      sur demande explicite seulement, et sa preuve inclura `/card/<uuid>`
+      **200**, puisqu'elle réécrit `carte_pour_wallet()`.
 - [ ] **R3 — l'étape 1 est désormais FAITE, l'étape 3 reste interdite.**
       *(Correction du 2026-11-08 : la consigne ci-dessous, « coller le DDL
       `0009`→`0016` », est périmée.)* La base porte **25** fonctions publiques,
@@ -3704,14 +3835,17 @@
       `carteInconnue`** (503 avant le correctif), quatre corps invalides ⇒ **400
       `abonnementInvalide`**, `/card/<uuid>` et `/login` ⇒ **200**, **0** ligne
       écrite.
-- [ ] **Supabase → URL Configuration — BLOQUÉE, action humaine.** Aucun jeton
-      Management (`sbp_…`) sur la machine ; la config GoTrue n'est pas en base et
-      `/auth/v1/settings` (mesuré, **200**) ne publie pas `site_url`. L'app passe
-      **toujours** un `redirectTo` explicite, mais GoTrue retombe sur le Site URL
-      quand le `redirect_to` n'est pas dans l'**allowlist** — un Site URL resté sur
-      `localhost` casserait la confirmation d'e-mail et la réinitialisation.
-      **À faire en console** : *Site URL* = `https://fideliatest.site`,
-      *Redirect URLs* + `https://fideliatest.site/**`.
+- [x] **Supabase → URL Configuration — FAITE le 2026-11-09 (session 7).**
+      Valeurs enregistrées en console : *Site URL* = `https://fideliatest.site`,
+      *Redirect URLs* = `https://fideliatest.site/**` (« Total URLs: 1 »).
+      Preuve : `node tools/rea/verifier-url-auth.mjs` → **CONFORME** (code 0),
+      les deux URL du code acceptées **certainement** ; `/auth/confirm` → **307**
+      `/forgot-password?echec=invalide`, `?flux=recuperation` compris, et
+      `/forgot-password?echec=invalide` → **200**. Avertissement non bloquant :
+      aucun motif `http://localhost:3000` (sans effet, `NEXT_PUBLIC_SITE_URL` est
+      déclarée jusque dans `web/.env.local`).
+      *Non prouvé, et non prouvable sans écriture* : qu'un envoi réel de courriel
+      accepte ce `redirect_to` — un envoi est une écriture, il n'a pas été fait.
 
 
 ### ⛔ Périmètre & décisions
@@ -3723,7 +3857,7 @@
 
 ---
 
-## 🔄 Prompt de relais (écrit le 2026-11-08, nuit 5 — état mesuré, pas déclaré)
+## 🔄 Prompt de relais (écrit le 2026-11-08, nuit 5 ; réécrit le 2026-11-09, session 7 — état mesuré, pas déclaré)
 
 ### 🔄 PROMPT POUR LA PROCHAINE TÂCHE
 *(Utilisateur, copie-colle ce bloc lors de notre prochaine interaction pour que je reprenne immédiatement le contexte)*
@@ -3760,6 +3894,29 @@
   (`rpc('carte_publique')`, `enregistrer_abonnement_push`).
 
 **Ce qui vient d'être fait :**
+- **Session 8 (2026-11-09) — incident « page noire à la connexion » fermé, et
+  prouvé par une connexion réelle.** Le formulaire partait sur `/`
+  (`POST / 400, 30 o`, `Next-Action: y`) : `/` est prérendue (`s-maxage` d'un
+  an) et ne porte aucune action. Correctif `38b57c8` déployé :
+  `lib/action-perdue.mjs` (règle pure) + `proxy.js` en **303** +
+  `app/page.jsx` en `force-dynamic` + `?etat=reprise`. Mesures après
+  déploiement : `POST /` ⇒ **303** `/login?etat=reprise`, `GET /` sans
+  `s-maxage`, `/card/<uuid>` **200**, et **`/login` → `/dashboard` rendu** au
+  navigateur, 0 erreur console, déconnexion OK. Suite **868/867/0/1**. Compte
+  d'épreuve créé puis **supprimé** (0 utilisateur, 0 identité, 0 session ;
+  données métier inchangées). `0017` **non appliquée** (pré-vol fait seulement).
+- **Session 7 (2026-11-09) — point 5 clos par la preuve, pas par la déclaration.**
+  Les deux valeurs de la console ont été reçues et jugées par un outil neuf :
+  `tools/rea/url-auth.mjs` (juge pur, hors ligne, ne recopie aucun domaine — ses
+  URL sortent de `urlConfirmation()` / `urlReinitialisation()`) et
+  `tools/rea/verifier-url-auth.mjs` (CLI : lit un JSON, n'affiche que les deux
+  clés, n'ouvre ni `.env` ni le réseau). **20 tests** ajoutés ; suite
+  **861 / 860 ✔ / 0 échec / 1 ignoré**. Verdict **CONFORME** sur
+  `site_url=https://fideliatest.site` + `uri_allow_list=https://fideliatest.site/**` :
+  `/auth/confirm` **et** `/auth/confirm?flux=recuperation` acceptés
+  **certainement**, aucune origine tierce acceptée, pas de barre finale.
+  Cible vivante : `/auth/confirm` → **307** `/forgot-password?echec=invalide`
+  (?flux compris), puis **200**. **Rien n'a été écrit** en base ni par courriel.
 - **Session 5 (2026-11-08, nuit) — audit terminé, un vrai bug corrigé.**
   1. **`0017` manque** : c'est **la seule** bannière de migration encore
      atteignable, et par un seul chemin — l'**enregistrement** de `/settings`
@@ -3809,14 +3966,16 @@
   c'est `POST /api/projects/:id/routing/retry` qui l'écrit, **sans rebuild**.
 
 **La prochaine mission :**
-1. **(Humain, 1 minute — c'est le seul point bloquant)** Supabase → URL
-   Configuration : *Site URL* = `https://fideliatest.site`, *Redirect URLs* +
-   `https://fideliatest.site/**`. L'agent ne peut pas le faire : aucun jeton
-   Management (`sbp_…`) n'est présent sur la machine. Variante sans console (le
-   secret reste chez vous, **jamais dans le chat**) : `curl -X PATCH -H
-   "Authorization: Bearer $SUPABASE_PAT" -H 'Content-Type: application/json' -d
-   '{"site_url":"https://fideliatest.site","uri_allow_list":"https://fideliatest.site/**"}'
-   https://api.supabase.com/v1/projects/sevqegfhmdezsqwvwsam/config/auth`
+1. **(FAIT le 2026-11-09, session 7)** Supabase → URL Configuration : *Site URL* =
+   `https://fideliatest.site`, *Redirect URLs* = `https://fideliatest.site/**`
+   (« Total URLs: 1 »). Jugée **conforme** hors ligne
+   (`tools/rea/verifier-url-auth.mjs`, code 0) : les deux URL du code
+   (`/auth/confirm`, `/auth/confirm?flux=recuperation`) sont acceptées
+   **certainement** ; cible vivante mesurée (`/auth/confirm` → **307**
+   `/forgot-password?echec=invalide`, puis **200**). Rien à refaire en console.
+   *Seule réserve, non bloquante* : aucun motif `http://localhost:3000` — sans
+   effet tant que `NEXT_PUBLIC_SITE_URL` est déclarée, y compris dans
+   `web/.env.local`.
 2. **(Agent)** `0017_proximite_coordonnees.sql` — **seulement sur demande
    explicite** (changement de schéma en production). Passer le fichier
    **verbatim** par `apply_migration`, puis prouver la bannière éteinte : les deux
@@ -3835,19 +3994,18 @@
 
 **Instructions de démarrage :**
 > "Agis en tant que développeur principal. Lis `PROGRESS.md` (§ Statut Actuel
-> « 2026-11-08 nuit 5 » et « 🚀 Mise en ligne ») pour te resynchroniser. L'audit
-> des écrans authentifiés est **fait** : onze des douze bannières de migration
-> sont inatteignables, et la seule qui reste est celle de l'**enregistrement** de
-> `/settings`, parce que **`0017` n'est pas appliquée**. Le bug de
-> `/api/push/subscribe` (503 sur tout corps valide, `corpsAbonnement` confondu
-> avec les clés de la couche données) est **corrigé et testé**. Ta mission :
-> faire appliquer **Supabase → URL Configuration** (*Site URL* +
-> `https://fideliatest.site/**`) — bloqué faute de jeton Management, donc demande
-> l'action humaine et ne réclame **jamais** le secret dans le chat ; puis, **si et
-> seulement si c'est demandé explicitement**, appliquer `0017` et prouver que la
-> dernière bannière s'éteint. Contraintes : aucune écriture de données en
-> production, toute mesure par `curl` sur `https://fideliatest.site`, et un
-> `git push` sur `main` suffit à déployer."
+> « 2026-11-09 session 7 »). L'URL Configuration Supabase est **faite et jugée
+> conforme** : `site_url=https://fideliatest.site`,
+> `uri_allow_list=https://fideliatest.site/**`, verdict **CONFORME** de
+> `tools/rea/verifier-url-auth.mjs`, cible `/auth/confirm` mesurée **307** puis
+> **200**. Le seul reste du point « mise en ligne » est **`0017`**, préparée
+> (garde 10/10) et **non appliquée** : tu ne l'appliques que sur demande
+> explicite, **verbatim** (`apply_migration`, `begin`/`commit` inclus), et ta
+> preuve inclut **`/card/<uuid>` toujours 200**, puisqu'elle réécrit
+> `carte_pour_wallet()`. Contraintes : aucune écriture de données en production,
+> toute mesure par `curl` sur `https://fideliatest.site`, secrets jamais dans le
+> chat, et un `git push` sur `main` suffit à déployer."
+
 
 **Outillage à reconstruire s'il a disparu :**
 - **Deux contrats de nommage, à ne jamais confondre** (défaut mesuré le
