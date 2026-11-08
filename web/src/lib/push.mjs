@@ -209,6 +209,21 @@ export function corpsAbonnement({ carte, endpoint, p256dh, auth }) {
   return { card_id: carte, endpoint, p256dh, auth }
 }
 
+/**
+ * Le corps à donner à `enregistrerAbonnementPush()` — clés `carte/endpoint/
+ * p256dh/auth`, celles de la couche données.
+ *
+ * Ne pas confondre avec `corpsAbonnement()` ci-dessus, qui décrit ce que le
+ * **navigateur envoie** (`card_id`). Mesuré le 2026-11-08 en production : les
+ * deux avaient été confondus, la route passait `{card_id}` à une fonction qui
+ * lit `carte` ⇒ `p_card_id: ''` ⇒ `22P02` ⇒ **503 sur tout abonnement valide**.
+ *
+ * @param {{carte: string, endpoint: string, p256dh: string, auth: string}} lu
+ */
+export function abonnementDepuisAnalyse(lu) {
+  return { carte: lu.carte, endpoint: lu.endpoint, p256dh: lu.p256dh, auth: lu.auth }
+}
+
 /** Ce que la route répond, et ce que l'écran en dit. */
 export const ETATS_REPONSE = Object.freeze({
   ok: 'ok',

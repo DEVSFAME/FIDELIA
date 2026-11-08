@@ -25,7 +25,7 @@
 import { NextResponse } from 'next/server'
 
 import { enregistrerAbonnementPush } from '@/lib/donnees.mjs'
-import { analyserAbonnement, corpsAbonnement } from '@/lib/push.mjs'
+import { abonnementDepuisAnalyse, analyserAbonnement } from '@/lib/push.mjs'
 
 export const dynamic = 'force-dynamic'
 
@@ -47,9 +47,7 @@ export async function POST(requete) {
   const lu = analyserAbonnement(corps)
   if (lu.etat !== 'ok') return refus(400, 'abonnementInvalide')
 
-  const resultat = await enregistrerAbonnementPush(
-    corpsAbonnement({ carte: lu.carte, endpoint: lu.endpoint, p256dh: lu.p256dh, auth: lu.auth })
-  )
+  const resultat = await enregistrerAbonnementPush(abonnementDepuisAnalyse(lu))
 
   if (resultat.etat === 'ok') {
     return NextResponse.json(

@@ -33,6 +33,7 @@ import {
   cleDepuisBase64url,
   cleStockage,
   corpsAbonnement,
+  abonnementDepuisAnalyse,
   etatDepuisReponse,
   etatInitial,
   lireCleVapid,
@@ -120,6 +121,38 @@ test('push — le corps accepté est exactement celui de la cible', () => {
     p256dh: P256DH,
     auth: AUTH,
   })
+})
+
+/* Défaut mesuré **en production** le 2026-11-08 : la route rebaptisait le corps
+   navigateur (`card_id`) pour en faire l'entrée de la couche données, qui lit
+   `carte`. Résultat : `p_card_id: ''` ⇒ `22P02` ⇒ `503 indisponible` sur
+   **tout** abonnement pourtant valide, et le client se désabonnait tout seul
+   (il appelle `unsubscribe()` dès que la réponse n'est pas `ok`). Les deux
+   formes ne sont pas interchangeables : `corpsAbonnement` décrit l'entrée du
+   navigateur, `abonnementDepuisAnalyse` la sortie vers la RPC. */
+test('push — la carte survit au passage vers la couche données', () => {
+  const lu = analyserAbonnement({ card_id: CARTE, endpoint: ENDPOINT, p256dh: P256DH, auth: AUTH })
+  assert.equal(lu.etat, 'ok')
+
+  const enregistrable = abonnementDepuisAnalyse(lu)
+  assert.deepEqual(Object.keys(enregistrable), ['carte', 'endpoint', 'p256dh', 'auth'])
+  assert.deepEqual(enregistrable, { carte: CARTE, endpoint: ENDPOINT, p256dh: P256DH, auth: AUTH })
+  assert.equal(enregistrable.carte, CARTE, 'la carte n’est jamais vide')
+  assert.equal('card_id' in enregistrable, false, '`card_id` est le nom du navigateur, pas celui de la RPC')
+})
+
+test('push — la route n’envoie pas le corps navigateur à la couche données', () => {
+  const route = readFileSync(
+    join(RACINE, 'web', 'src', 'app', 'api', 'push', 'subscribe', 'route.js'),
+    'utf8'
+  )
+
+  assert.match(route, /enregistrerAbonnementPush\(abonnementDepuisAnalyse\(lu\)\)/)
+  assert.equal(
+    /enregistrerAbonnementPush\(\s*corpsAbonnement/.test(route),
+    false,
+    'confondre les deux formes rend `p_card_id` vide et la RPC échoue en 22P02'
+  )
 })
 
 test('push — un refus par champ, jamais un fourre-tout', () => {

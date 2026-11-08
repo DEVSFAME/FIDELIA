@@ -4,6 +4,94 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
+- **2026-11-08 (nuit, 5) — audit des écrans authentifiés : la bannière de migration
+  est morte partout, sauf sur l'enregistrement de `/settings` (`0017` absente).
+  Et l'abonnement push de `/card` était cassé pour *tout* corps valide.**
+  *Méthode* : pas de session de production (en créer une serait une écriture), donc
+  la preuve passe par **trois mesures indépendantes** — les signatures réelles en
+  base (`pg_proc`), l'énumération exhaustive des bannières dans le code, et les
+  codes rendus par l'API publique.
+  1. **Une seule migration manque, et ce n'est pas `0018`/`0019` : c'est `0017`.**
+     Mesuré sur `sevqegfhmdezsqwvwsam` : `loyalty_programs` **n'a pas**
+     `latitude`/`longitude` et porte toujours `lien_localisation` ;
+     `enregistrer_fiche_etablissement` expose **14** paramètres (version `0011`,
+     `p_lien_localisation`) au lieu des **15** de `0017`. Tous les autres objets
+     attendus sont présents (`operations_caisse`→`0016`, `messages_envoyes`→`0013`,
+     `staff`→`0006`, `push_abonnements`→`0019`, les 4 colonnes d'apparence→`0015`,
+     `credits_par_euro`→`0008`, `devise`→`0010`). La ligne « les 18 fichiers de
+     migration sont à jour » était donc **fausse d'un fichier**.
+     **Conséquence unique et précise** : `web/src/lib/donnees.mjs:443` envoie
+     `p_latitude`/`p_longitude` ⇒ PostgREST ne peut pas résoudre la fonction ⇒
+     `PGRST202` ⇒ état `nonMigre` ⇒ `enregistrer()` redirige sur
+     `/settings?etat=migration` et l'écran réclame
+     « migrations/0011_fiche_etablissement.sql puis
+     migrations/0017_proximite_coordonnees.sql » (l'écran nommait déjà les deux —
+     il savait). Le refus est **cité mot pour mot** par PostgREST : l'indice de
+     `PGRST202` nomme la signature cherchée (`…p_latitude, p_longitude…`) et propose
+     l'ancienne (`…p_lien_localisation…`) — la divergence est donc **lue dans la
+     réponse**, pas déduite. La **lecture** reste saine : `fiche_du_commerce()` existe (version
+     `0011`), rend `ok`, donc aucune bannière à l'affichage. **Aucune migration
+     appliquée** : `0017` ajoute deux colonnes et **supprime** une fonction, c'est
+     un changement de schéma en production, hors du mandat « aucune écriture ».
+  2. **La bannière de migration est énumérable, et elle est éteinte.** Douze écrans
+     portent `<EtatBloque commande="migrations/…">` (`billing`→`0012`,
+     `branding`→`0015`, `caisse`→`0003`, `caisses`→`0007`, `customers`→`0004`,
+     `notifications`→`0013`, `program`→`0010`, `qrcode`→`0003`, `rewards`→`0003`,
+     `scan`→`0003`, `settings`→`0011`+`0017`, `ContenuTableau`→`0005`). Comme
+     `donnees.mjs:130` ne rend `nonMigre` **que** sur `PGRST202`, et que les 22 RPC
+     utilisées par le code existent toutes, **onze de ces bannières sont
+     inatteignables** ; la douzième (`settings`) ne l'est que par l'enregistrement,
+     pour la raison du point 1. Vérifié aussi que les arguments omis sont couverts
+     par un `DEFAULT` côté base (`equipe_du_commerce` 3/3, `join_loyalty_program`
+     2/2, `enregistrer_reglages_programme` et `enfiler_message` 1/1) : sans ces
+     défauts, un appel amputé produirait le même `PGRST202` qu'une fonction absente.
+     Au passage : **zéro accès direct aux tables** dans `web/src` (`from('…')` :
+     aucune occurrence hors de `conversation.md`) — tout passe par RPC, ce qui
+     explique pourquoi ce défaut est binaire et dénombrable.
+  3. **`/apparence` n'existe pas — la route est `/branding`.** Mesuré :
+     `/apparence` → **404**, `/branding` → **307** vers `/login`. Aucun lien interne
+     ne pointe vers `/apparence` (seuls `PROGRESS.md` et un import
+     `@/components/apparence/` portent le mot) : c'est un **nom d'écran**, pas une
+     URL. Les écrans de la mission répondent bien : `/dashboard`, `/caisse`,
+     `/rewards`, `/settings`, `/branding` → **307** `/login` (les routes existent et
+     le garde d'authentification s'applique) ; `/card/<uuid>` → **200**.
+  4. **`/card` — l'abonnement push rendait 503 sur tout corps valide. Trouvé,
+     corrigé, prouvé.** Les refus *locaux* sont corrects : corps non-JSON, `{}`,
+     `endpoint` en `http://`, `card_id` non-UUID ⇒ **400 `abonnementInvalide`**
+     (quatre cas mesurés, aucune écriture — la route refuse **avant** la base).
+     Mais un corps **valide** (UUID conforme, `endpoint https`, `p256dh`/`auth`
+     base64url aux bonnes bornes) rendait **503 `indisponible`** au lieu du `404
+     carteInconnue` attendu. **Cause mesurée, pas devinée** :
+     `analyserAbonnement()` rend déjà `{carte,…}`, mais la route le repassait par
+     `corpsAbonnement()` — qui décrit l'entrée du **navigateur** (`card_id`) — avant
+     de le donner à `enregistrerAbonnementPush()`, qui lit `carte`. Donc
+     `carte: undefined` ⇒ `p_card_id: ''` ⇒ la base répond
+     **`22P02 invalid input syntax for type uuid: ""`** (vérifié par appel direct de
+     la RPC en `anon`), code absent de `CODES_CONNUS` ⇒ `indisponible` ⇒ 503.
+     Aggravant : le composant appelle `unsubscribe()` dès que la réponse n'est pas
+     `ok` — **chaque tentative valide détruisait l'abonnement du navigateur**.
+     Aucune ligne n'a jamais été écrite (`push_abonnements` = **0** avant et après),
+     ce qui explique enfin ce zéro permanent.
+     *Correctif* : `abonnementDepuisAnalyse(lu)` dans `lib/push.mjs` (le mapping
+     manquant, nommé et documenté), utilisé par la route ; deux tests ajoutés
+     (mapping + garde de source interdisant
+     `enregistrerAbonnementPush(corpsAbonnement…)`). Suite : **841 tests / 840 ✔ /
+     0 échec / 1 ignoré** (839/838 avant).
+  5. **Supabase → URL Configuration : NON FAITE, et pas faisable d'ici.** Aucun jeton
+     d'API Management (`sbp_…`) n'existe sur la machine — ni `.env`, ni
+     `env.supabase.md`, ni le dépôt. L'API Management
+     (`PATCH /v1/projects/sevqegfhmdezsqwvwsam/config/auth`) est le seul chemin : la
+     configuration GoTrue n'est pas en base et `/auth/v1/settings` (mesuré, **200**)
+     ne publie pas `site_url`. **Ce que la mesure dit du risque** : l'application
+     passe **toujours** un `redirectTo` explicite (`urlConfirmation(origine)` à
+     l'inscription, `urlReinitialisation(origineDepuisEntetes(…))` au mot de passe
+     oublié) ; le Site URL n'est que le **repli** (`confirmation.mjs:306`) — mais
+     GoTrue substitue **aussi** ce repli quand le `redirect_to` demandé n'est pas
+     dans l'allowlist. Un Site URL resté sur `localhost` casserait donc les liens de
+     confirmation et de réinitialisation. **Action humaine** (une minute, console) :
+     *Site URL* = `https://fideliatest.site`, *Redirect URLs* +
+     `https://fideliatest.site/**`.
+
 - **2026-11-08 (soir, 4) — `www.fideliatest.site` est sous certificat et redirige
   vers l'apex.** L'`A` parking a été supprimé côté OVH (humain) ; mesuré **à la
   source** : `www` → `141.253.120.188` **seul** sur `ns103.ovh.net` **et** sur
@@ -2615,14 +2703,19 @@
 
 ## 🚧 Tâche Active (Work in Progress)
 
-- [ ] **Mise en ligne — reste l'URL Configuration Supabase et l'audit des écrans
-      authentifiés.** *(Mis à jour le 2026-11-08, soir 4.)* Sont réglés et
-      prouvés : la page carte (`0018`+`0019`, `/card/<uuid>` **200** avec solde)
-      et **`www`** (`A` unique, domaine `dom_E5BBkbZGYbFT5jZV`, 301 vers l'apex,
-      `CN=www.fideliatest.site`). Restent : *Site URL* +
-      `https://fideliatest.site/**` dans Supabase → URL Configuration, et le
-      parcours **authentifié** de `/dashboard`, `/caisse`, `/rewards`,
-      `/apparence` pour relever tout écran encore en attente de migration.
+- [x] **Mise en ligne — l'audit des écrans authentifiés est FAIT ; il ne reste que
+      l'URL Configuration Supabase.** *(Mis à jour le 2026-11-08, nuit 5.)* Prouvés :
+      la page carte (`0018`+`0019`, `/card/<uuid>` **200** avec solde), **`www`**
+      (`A` unique, `dom_E5BBkbZGYbFT5jZV`, 301 vers l'apex, `CN=www.fideliatest.site`),
+      et **l'audit** : les 22 RPC utilisées existent, donc **onze des douze
+      bannières de migration sont inatteignables** ; la douzième (`/settings`) ne
+      s'allume que sur l'**enregistrement**, parce que **`0017` n'est pas
+      appliquée** (signature à 14 paramètres au lieu de 15, mesuré). La bannière
+      n'est donc pas un symptôme diffus : c'est **un fichier nommé**, et l'écran le
+      nomme déjà. `/apparence` → **404** (la route est `/branding`, aucun lien
+      interne ne casse). Reste : *Site URL* + `https://fideliatest.site/**` dans
+      Supabase → URL Configuration — **bloqué faute de jeton Management (`sbp_…`)**,
+      action humaine d'une minute (détail au § Statut Actuel, point 5).
 - [ ] **R3 — l'étape 1 est désormais FAITE, l'étape 3 reste interdite.**
       *(Correction du 2026-11-08 : la consigne ci-dessous, « coller le DDL
       `0009`→`0016` », est périmée.)* La base porte **25** fonctions publiques,
@@ -3564,6 +3657,51 @@
       (`/login`, `/card/<uuid>`, `/favicon.ico`, `/icon.svg` = **200**). Le
       `Connection reset by peer` vu juste après le retry était le **rechargement
       nginx** : re-mesurer avant de conclure.
+- [x] **Audit des écrans authentifiés — la bannière de migration n'est pas un
+      symptôme diffus** *(2026-11-08, nuit 5)*. Mesure sans session (en créer une
+      serait une écriture) : signatures réelles en base + énumération exhaustive
+      des bannières + codes rendus par l'API publique. Douze écrans portent un
+      `<EtatBloque commande="migrations/…">` ; comme `donnees.mjs` ne rend
+      `nonMigre` **que** sur `PGRST202` et que **les 22 RPC existent**, onze sont
+      **inatteignables**. Les écrans de la mission répondent : `/dashboard`,
+      `/caisse`, `/rewards`, `/settings`, `/branding` → **307** `/login` ;
+      `/card/<uuid>` → **200**. **`/apparence` → 404 : la route est `/branding`**
+      (nom d'écran, pas URL ; aucun lien interne ne casse).
+- [ ] **`0017_proximite_coordonnees.sql` n'est PAS appliquée — c'est la seule
+      bannière encore atteignable, et par un seul chemin.** Mesuré :
+      `loyalty_programs` n'a pas `latitude`/`longitude` et porte toujours
+      `lien_localisation` ; `enregistrer_fiche_etablissement` expose **14**
+      paramètres (version `0011`) au lieu de **15**. Donc l'**enregistrement** de
+      `/settings` envoie `p_latitude`/`p_longitude` ⇒ `PGRST202` ⇒ `nonMigre` ⇒
+      `/settings?etat=migration` et la bannière réclame « `0011` puis `0017` ». La
+      **lecture** est saine (`fiche_du_commerce()` existe). **Non appliquée
+      volontairement** : elle ajoute deux colonnes et **supprime** une fonction —
+      changement de schéma en production, hors du mandat « aucune écriture ».
+      Pour la passer quand ce sera demandé : `apply_migration` avec le fichier
+      **verbatim**, puis `POST /settings` par l'écran pour voir la bannière
+      disparaître.
+- [x] **`/card` — l'abonnement push rendait 503 sur *tout* corps valide : trouvé et
+      corrigé** *(2026-11-08, nuit 5)*. Refus locaux corrects et mesurés en
+      production : corps non-JSON, `{}`, `endpoint` en `http://`, `card_id`
+      non-UUID ⇒ **400 `abonnementInvalide`**, refusés **avant** la base (aucune
+      écriture). Mais un corps **valide** rendait **503 `indisponible`** : la route
+      rebaptisait `{carte,…}` en `{card_id,…}` via `corpsAbonnement()` avant de le
+      donner à `enregistrerAbonnementPush()`, qui lit `carte` ⇒ `p_card_id: ''` ⇒
+      **`22P02 invalid input syntax for type uuid: ""`** (mesuré par appel direct
+      de la RPC en `anon`) ⇒ code inconnu ⇒ 503. Et le composant appelle
+      `unsubscribe()` sur toute réponse non `ok` : **chaque tentative valide
+      détruisait l'abonnement**. **Correctif** : `abonnementDepuisAnalyse(lu)` dans
+      `web/src/lib/push.mjs`, utilisée par la route ; **deux tests** ajoutés
+      (mapping + garde de source). `push_abonnements` = **0** avant et après ;
+      suite **841 / 840 ✔ / 0 échec / 1 ignoré**.
+- [ ] **Supabase → URL Configuration — BLOQUÉE, action humaine.** Aucun jeton
+      Management (`sbp_…`) sur la machine ; la config GoTrue n'est pas en base et
+      `/auth/v1/settings` (mesuré, **200**) ne publie pas `site_url`. L'app passe
+      **toujours** un `redirectTo` explicite, mais GoTrue retombe sur le Site URL
+      quand le `redirect_to` n'est pas dans l'**allowlist** — un Site URL resté sur
+      `localhost` casserait la confirmation d'e-mail et la réinitialisation.
+      **À faire en console** : *Site URL* = `https://fideliatest.site`,
+      *Redirect URLs* + `https://fideliatest.site/**`.
 
 
 ### ⛔ Périmètre & décisions
@@ -3575,7 +3713,7 @@
 
 ---
 
-## 🔄 Prompt de relais (écrit le 2026-11-08, soir 4 — état mesuré, pas déclaré)
+## 🔄 Prompt de relais (écrit le 2026-11-08, nuit 5 — état mesuré, pas déclaré)
 
 ### 🔄 PROMPT POUR LA PROCHAINE TÂCHE
 *(Utilisateur, copie-colle ce bloc lors de notre prochaine interaction pour que je reprenne immédiatement le contexte)*
@@ -3594,10 +3732,13 @@
   convention `web/src/app/` (`icon.svg` **+** `favicon.ico`).
 - Base Supabase : projet **`sevqegfhmdezsqwvwsam`** (« FIDELIXY »), programme
   **`test1`** / « TEST » / `active = true`, **5** cartes et **5** clients
-  (dont la carte de test `C-FC8273`). **Les 18 fichiers de migration sont à
-  jour** (`0001`, puis `0003`→`0019` — il n'y a pas de `0002`) : `0018` et
-  `0019` appliquées le 2026-11-08 (25 fonctions publiques, `push_abonnements`
-  créée, RLS sans politique).
+  (dont la carte de test `C-FC8273`). **25 fonctions publiques.** Migrations :
+  `0001`, puis `0003`→`0019` (pas de `0002`) — **mais `0017` N'EST PAS
+  APPLIQUÉE**, mesuré le 2026-11-08 : `loyalty_programs` n'a pas
+  `latitude`/`longitude`, porte encore `lien_localisation`, et
+  `enregistrer_fiche_etablissement` a **14** paramètres au lieu de **15**. La
+  phrase « les 18 fichiers sont à jour » qui figurait ici était fausse d'un
+  fichier. Tous les autres objets attendus sont présents (mesuré).
 - DNS OVH : `A @` → `141.253.120.188` ✅ et **`A www` unique** → `141.253.120.188`
   ✅ (le parking `213.186.33.5` est supprimé, mesuré sur l'autoritaire et sur
   `8.8.8.8`). `www` est déclaré côté OpenShip (`dom_E5BBkbZGYbFT5jZV`,
@@ -3609,6 +3750,28 @@
   (`rpc('carte_publique')`, `enregistrer_abonnement_push`).
 
 **Ce qui vient d'être fait :**
+- **Session 5 (2026-11-08, nuit) — audit terminé, un vrai bug corrigé.**
+  1. **`0017` manque** : c'est **la seule** bannière de migration encore
+     atteignable, et par un seul chemin — l'**enregistrement** de `/settings`
+     (`donnees.mjs:443` envoie `p_latitude`/`p_longitude` ⇒ `PGRST202` ⇒
+     `nonMigre`). La lecture reste saine. **Non appliquée** : elle ajoute deux
+     colonnes et supprime une fonction = changement de schéma, hors mandat.
+  2. **Onze des douze bannières sont inatteignables** : `donnees.mjs` ne rend
+     `nonMigre` que sur `PGRST202`, et **les 22 RPC existent** toutes (mesuré sur
+     `pg_proc`, `DEFAULT` vérifiés là où le code omet un argument). `web/src` ne
+     lit **aucune** table directement.
+  3. **`/apparence` → 404** : la route est `/branding` (nom d'écran, pas URL ;
+     aucun lien interne ne casse). `/dashboard`, `/caisse`, `/rewards`,
+     `/settings`, `/branding` → **307** `/login` ; `/card/<uuid>` → **200**.
+  4. **Bug réel corrigé — `/api/push/subscribe` rendait 503 sur tout corps
+     valide.** La route rebaptisait `{carte,…}` en `{card_id,…}` via
+     `corpsAbonnement()` avant `enregistrerAbonnementPush()` qui lit `carte` ⇒
+     `p_card_id: ''` ⇒ **`22P02`** ⇒ `indisponible` ⇒ 503 ; et le client
+     `unsubscribe()` sur tout non-`ok`, donc chaque tentative valide **détruisait**
+     l'abonnement. Correctif : `abonnementDepuisAnalyse()` + 2 tests. Les refus
+     **locaux** étaient déjà bons (4 corps invalides → **400
+     `abonnementInvalide`**, aucune écriture). `push_abonnements` = 0 avant/après.
+     Suite **841 / 840 ✔ / 0 échec / 1 ignoré**.
 - **`0018` puis `0019` appliquées à la production, et `/card/<uuid>` est
   vivante.** Les deux fichiers ont été passés **verbatim** (MCP Supabase
   `apply_migration`, `begin`/`commit` conservés), `success: true` deux fois ;
@@ -3636,36 +3799,55 @@
   c'est `POST /api/projects/:id/routing/retry` qui l'écrit, **sans rebuild**.
 
 **La prochaine mission :**
-1. **(Agent)** terminer **Supabase → URL Configuration** (*Site URL* +
-   `https://fideliatest.site/**`) — en attente depuis la veille ; c'est ce qui
-   fait pointer les liens de confirmation d'e-mail vers le bon domaine.
-2. **(Agent)** parcours **authentifié** des écrans `/dashboard`, `/caisse`,
-   `/rewards`, `/apparence` : vérifier qu'aucun autre écran ne réclame un fichier
-   de migration (le retard de `0018`/`0019` était ciblé, il reste à le confirmer
-   écran par écran), et relever les écarts visibles.
-3. **(Agent)** `/card/<uuid>` : éprouver le chemin d'abonnement web push **sans
-   écrire** de ligne réelle (corps invalide → `ABONNEMENT_INVALIDE` renvoyé par
-   la route, pas un 500) et confirmer que le bouton Google Wallet reste masqué
-   tant que `NEXT_PUBLIC_VAPID_PUBLIC_KEY` est vide (`clePublique: ""` mesuré
-   dans le HTML).
+1. **(Humain, 1 minute — c'est le seul point bloquant)** Supabase → URL
+   Configuration : *Site URL* = `https://fideliatest.site`, *Redirect URLs* +
+   `https://fideliatest.site/**`. L'agent ne peut pas le faire : aucun jeton
+   Management (`sbp_…`) n'est présent sur la machine. Variante sans console (le
+   secret reste chez vous, **jamais dans le chat**) : `curl -X PATCH -H
+   "Authorization: Bearer $SUPABASE_PAT" -H 'Content-Type: application/json' -d
+   '{"site_url":"https://fideliatest.site","uri_allow_list":"https://fideliatest.site/**"}'
+   https://api.supabase.com/v1/projects/sevqegfhmdezsqwvwsam/config/auth`
+2. **(Agent)** `0017_proximite_coordonnees.sql` — **seulement sur demande
+   explicite** (changement de schéma en production). Passer le fichier
+   **verbatim** par `apply_migration`, puis prouver la bannière éteinte : les deux
+   colonnes présentes, la fonction à **15** paramètres, et l'enregistrement de la
+   fiche par l'écran ⇒ plus de `?etat=migration`.
+3. **(Agent)** Re-mesurer `/api/push/subscribe` **après** le déploiement du
+   correctif : un corps **valide** avec une carte **inconnue** doit rendre
+   **404 `carteInconnue`** (et non plus 503), toujours **sans écrire** de ligne.
+4. **(Backlog, inchangé)** `P0-3b/P0-3c` (`/billing` attend un état d'abonnement),
+   `R3` étape 3 (rejeu de caisse : exige une écriture réelle), `R5` recette.
 - **Règles à appliquer** : `chef-de-projet` (lire/écrire `PROGRESS.md` avant et
   après), `clinerules-code` (test après implémentation), `Gestion du Contexte`
   (pagination, pas de fichier entier).
 
 **Instructions de démarrage :**
-> "Agis en tant que développeur principal. Lis `PROGRESS.md` (§ Statut Actuel et
-> « 🚀 Mise en ligne ») pour te resynchroniser. `0018`/`0019` sont appliquées,
-> `/card/f8cd3881-e125-4b2e-974d-10cff9aba04f` rend **200** avec son solde, et
-> `www.fideliatest.site` est sous certificat avec redirection 301 vers l'apex.
-> Ta mission : **Supabase → URL Configuration** (*Site URL* +
-> `https://fideliatest.site/**`), puis le parcours **authentifié** de
-> `/dashboard`, `/caisse`, `/rewards`, `/apparence` pour relever tout écran
-> encore en attente de migration, et éprouver l'abonnement push de `/card` par un
-> corps **invalide** (refus nommé, aucune écriture). Contraintes : aucune écriture
-> de données en production, toute mesure par `curl` sur
-> `https://fideliatest.site`, et un `git push` sur `main` suffit à déployer."
+> "Agis en tant que développeur principal. Lis `PROGRESS.md` (§ Statut Actuel
+> « 2026-11-08 nuit 5 » et « 🚀 Mise en ligne ») pour te resynchroniser. L'audit
+> des écrans authentifiés est **fait** : onze des douze bannières de migration
+> sont inatteignables, et la seule qui reste est celle de l'**enregistrement** de
+> `/settings`, parce que **`0017` n'est pas appliquée**. Le bug de
+> `/api/push/subscribe` (503 sur tout corps valide, `corpsAbonnement` confondu
+> avec les clés de la couche données) est **corrigé et testé**. Ta mission :
+> faire appliquer **Supabase → URL Configuration** (*Site URL* +
+> `https://fideliatest.site/**`) — bloqué faute de jeton Management, donc demande
+> l'action humaine et ne réclame **jamais** le secret dans le chat ; puis, **si et
+> seulement si c'est demandé explicitement**, appliquer `0017` et prouver que la
+> dernière bannière s'éteint. Contraintes : aucune écriture de données en
+> production, toute mesure par `curl` sur `https://fideliatest.site`, et un
+> `git push` sur `main` suffit à déployer."
 
 **Outillage à reconstruire s'il a disparu :**
+- **Deux contrats de nommage, à ne jamais confondre** (défaut mesuré le
+  2026-11-08) : `corpsAbonnement()` décrit ce que le **navigateur envoie**
+  (`card_id`), `abonnementDepuisAnalyse()` ce que la **couche données** attend
+  (`carte`). Les croiser donne `p_card_id: ''` ⇒ `22P02` ⇒ 503, et le client se
+  désabonne. Règle générale : quand une route relaie un corps validé, vérifier le
+  **nom** des clés attendues par le `rpc()`, pas seulement leur valeur.
+- **Prouver un `PGRST202` sans écrire** : appeler la RPC avec les noms
+  d'arguments du code ; PostgREST échoue à la **résolution** de la fonction, donc
+  aucun corps de fonction n'est exécuté, aucune ligne n'est touchée. C'est ainsi
+  que la divergence de `0017` a été prouvée (`p_latitude` inconnu en base).
 - Session CLI OpenShip : `POST /api/system/cli-session` avec l'en-tête
   `X-Internal-Token` lu par
   `docker exec openship-api-1 printenv INTERNAL_TOKEN`, puis
