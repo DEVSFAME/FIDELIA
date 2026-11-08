@@ -34,8 +34,13 @@
   `/favicon.ico`, `/icon.svg` = **200**, `ssl=0`. Le
   `Connection reset by peer` observé sur `/` juste après le retry était le
   **rechargement nginx** (mesuré 301 sur les quatre chemins quinze secondes plus
-  tard) : sur l'edge, re-mesurer avant de conclure. Aucun code applicatif touché,
-  aucun déploiement nécessaire.
+  tard) : sur l'edge, re-mesurer avant de conclure. Même chose pendant le
+  redéploiement déclenché par le push de suivi : un `302` vers
+  `http://www.fideliatest.site` sur `http://www/login` a été vu une fois, puis le
+  `301` correct est revenu. **Vérifié aussi en port 80** : `http://www/login` →
+  `301 https://fideliatest.site/login`, chaîne suivie → **200** en 1 redirection
+  (le vhost `www` porte bien le `return 301` sur `listen 80` **et**
+  `listen 443`). Aucun code applicatif touché, aucun déploiement nécessaire.
 - **2026-11-08 (soir, 3) — `/card/<uuid>` est VIVANTE en production, et le retard
   de migrations est soldé.** `0018_carte_publique.sql` puis
   `0019_push_abonnements.sql` appliquées à `sevqegfhmdezsqwvwsam` via l'API
