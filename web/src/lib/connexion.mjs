@@ -39,8 +39,15 @@
  *
  * `null` est le défaut **volontaire** : une URL se modifie à la main, et
  * recopier une valeur inconnue à l'écran serait le défaut qu'on vient de
- * fermer, en sens inverse. Seul `configuration` — la seule valeur que la garde
- * du tableau de bord produit — a un texte.
+ * fermer, en sens inverse. Deux valeurs ont un texte, et deux seulement :
+ *
+ *   - `configuration` — produite par la garde du tableau de bord quand le client
+ *     Supabase ne peut pas être construit ;
+ *   - `reprise` — produite par le proxy quand une soumission ne pouvait aboutir
+ *     (mesure du 2026-11-09 : `POST /` ⇒ 400 muet ⇒ page d'erreur Chrome). La
+ *     copie réutilise `auth.connexion.champsVides` : après ce détour les champs
+ *     sont réellement vides, donc la phrase est vraie. Aucune copie inventée —
+ *     la cible n'a pas d'écran pour ce cas.
  *
  * @param {string|null|undefined} valeur
  * @returns {string|null} clé de dictionnaire
@@ -49,6 +56,8 @@ export function messageEtat(valeur) {
   switch (valeur) {
     case 'configuration':
       return 'auth.connexion.etatConfiguration'
+    case 'reprise':
+      return 'auth.connexion.champsVides'
     default:
       return null
   }
