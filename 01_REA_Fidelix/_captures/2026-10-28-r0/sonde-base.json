@@ -1,0 +1,407 @@
+{
+  "outil": "tools/rea/sonder-base.mjs",
+  "horodatage": "2026-10-28T01:30:46.735Z",
+  "regle": "GET uniquement ; aucune RPC appelée ; aucune écriture ; aucune clé dans la sortie",
+  "hote": "https://sevqegfhmdezsqwvwsam.supabase.co",
+  "openapi": {
+    "statut": 200,
+    "octets": 13805
+  },
+  "postgrest": "14.18",
+  "tables": [
+    {
+      "nom": "clients",
+      "colonnes_openapi": [
+        {
+          "nom": "id",
+          "type": "string",
+          "format": "uuid",
+          "maxLength": null,
+          "pk": true,
+          "fk": null,
+          "defaut": "gen_random_uuid()"
+        },
+        {
+          "nom": "first_name",
+          "type": "string",
+          "format": "character varying",
+          "maxLength": 100,
+          "pk": false,
+          "fk": null,
+          "defaut": null
+        },
+        {
+          "nom": "last_name",
+          "type": "string",
+          "format": "character varying",
+          "maxLength": 100,
+          "pk": false,
+          "fk": null,
+          "defaut": null
+        },
+        {
+          "nom": "email",
+          "type": "string",
+          "format": "character varying",
+          "maxLength": 255,
+          "pk": false,
+          "fk": null,
+          "defaut": null
+        },
+        {
+          "nom": "created_at",
+          "type": "string",
+          "format": "timestamp with time zone",
+          "maxLength": null,
+          "pk": false,
+          "fk": null,
+          "defaut": "now()"
+        }
+      ],
+      "colonnes_vues": [],
+      "colonnes_declarees_non_vues": [
+        "id",
+        "first_name",
+        "last_name",
+        "email",
+        "created_at"
+      ],
+      "service_role": {
+        "verdict": "lisible",
+        "lignes": 0,
+        "octets": 2,
+        "erreur": null
+      },
+      "anon": {
+        "verdict": "lisible",
+        "lignes": 0,
+        "octets": 2,
+        "erreur": null
+      }
+    },
+    {
+      "nom": "loyalty_cards",
+      "colonnes_openapi": [
+        {
+          "nom": "id",
+          "type": "string",
+          "format": "uuid",
+          "maxLength": null,
+          "pk": true,
+          "fk": null,
+          "defaut": "gen_random_uuid()"
+        },
+        {
+          "nom": "client_id",
+          "type": "string",
+          "format": "uuid",
+          "maxLength": null,
+          "pk": false,
+          "fk": "clients.id",
+          "defaut": null
+        },
+        {
+          "nom": "card_token",
+          "type": "string",
+          "format": "character varying",
+          "maxLength": 64,
+          "pk": false,
+          "fk": null,
+          "defaut": null
+        },
+        {
+          "nom": "current_points",
+          "type": "integer",
+          "format": "int32",
+          "maxLength": null,
+          "pk": false,
+          "fk": null,
+          "defaut": 0
+        },
+        {
+          "nom": "updated_at",
+          "type": "string",
+          "format": "timestamp with time zone",
+          "maxLength": null,
+          "pk": false,
+          "fk": null,
+          "defaut": "now()"
+        },
+        {
+          "nom": "created_at",
+          "type": "string",
+          "format": "timestamp with time zone",
+          "maxLength": null,
+          "pk": false,
+          "fk": null,
+          "defaut": "now()"
+        }
+      ],
+      "colonnes_vues": [],
+      "colonnes_declarees_non_vues": [
+        "id",
+        "client_id",
+        "card_token",
+        "current_points",
+        "updated_at",
+        "created_at"
+      ],
+      "service_role": {
+        "verdict": "lisible",
+        "lignes": 0,
+        "octets": 2,
+        "erreur": null
+      },
+      "anon": {
+        "verdict": "lisible",
+        "lignes": 0,
+        "octets": 2,
+        "erreur": null
+      }
+    },
+    {
+      "nom": "loyalty_transactions",
+      "colonnes_openapi": [
+        {
+          "nom": "id",
+          "type": "string",
+          "format": "uuid",
+          "maxLength": null,
+          "pk": true,
+          "fk": null,
+          "defaut": "gen_random_uuid()"
+        },
+        {
+          "nom": "card_id",
+          "type": "string",
+          "format": "uuid",
+          "maxLength": null,
+          "pk": false,
+          "fk": "loyalty_cards.id",
+          "defaut": null
+        },
+        {
+          "nom": "amount_spent",
+          "type": "number",
+          "format": "numeric",
+          "maxLength": null,
+          "pk": false,
+          "fk": null,
+          "defaut": null
+        },
+        {
+          "nom": "points_awarded",
+          "type": "integer",
+          "format": "int32",
+          "maxLength": null,
+          "pk": false,
+          "fk": null,
+          "defaut": null
+        },
+        {
+          "nom": "staff_id",
+          "type": "string",
+          "format": "uuid",
+          "maxLength": null,
+          "pk": false,
+          "fk": null,
+          "defaut": null
+        },
+        {
+          "nom": "created_at",
+          "type": "string",
+          "format": "timestamp with time zone",
+          "maxLength": null,
+          "pk": false,
+          "fk": null,
+          "defaut": "now()"
+        },
+        {
+          "nom": "reward_label",
+          "type": "string",
+          "format": "character varying",
+          "maxLength": 150,
+          "pk": false,
+          "fk": null,
+          "defaut": null
+        }
+      ],
+      "colonnes_vues": [],
+      "colonnes_declarees_non_vues": [
+        "id",
+        "card_id",
+        "amount_spent",
+        "points_awarded",
+        "staff_id",
+        "created_at",
+        "reward_label"
+      ],
+      "service_role": {
+        "verdict": "lisible",
+        "lignes": 0,
+        "octets": 2,
+        "erreur": null
+      },
+      "anon": {
+        "verdict": "lisible",
+        "lignes": 0,
+        "octets": 2,
+        "erreur": null
+      }
+    }
+  ],
+  "rpc": [
+    {
+      "nom": "award_loyalty_points",
+      "methodes": [
+        "post"
+      ],
+      "parametres": [
+        {
+          "nom": "p_amount_spent",
+          "type": "number",
+          "format": "numeric",
+          "requis": true
+        },
+        {
+          "nom": "p_card_token",
+          "type": "string",
+          "format": "character varying",
+          "requis": true
+        },
+        {
+          "nom": "p_points_to_add",
+          "type": "integer",
+          "format": "int32",
+          "requis": true
+        },
+        {
+          "nom": "p_staff_id",
+          "type": "string",
+          "format": "uuid",
+          "requis": false
+        }
+      ],
+      "corpsSansParametre": false
+    },
+    {
+      "nom": "redeem_loyalty_reward",
+      "methodes": [
+        "post"
+      ],
+      "parametres": [
+        {
+          "nom": "p_card_token",
+          "type": "string",
+          "format": "character varying",
+          "requis": true
+        },
+        {
+          "nom": "p_points_cost",
+          "type": "integer",
+          "format": "int32",
+          "requis": true
+        },
+        {
+          "nom": "p_reward_label",
+          "type": "string",
+          "format": "character varying",
+          "requis": true
+        },
+        {
+          "nom": "p_staff_id",
+          "type": "string",
+          "format": "uuid",
+          "requis": false
+        }
+      ],
+      "corpsSansParametre": false
+    }
+  ],
+  "comparaison_modele_cible": {
+    "tablesManquantes": [
+      "automations",
+      "customers",
+      "loyalty_programs",
+      "restaurants",
+      "reward_tiers",
+      "till_sessions",
+      "transactions"
+    ],
+    "tablesEnPlus": [
+      "clients",
+      "loyalty_cards",
+      "loyalty_transactions"
+    ],
+    "colonnes": {}
+  },
+  "conforme_modele_cible": false,
+  "non_mesure": [
+    "RLS activée ou non : indissociable d'une table vide par une lecture. Il faut soit une ligne, soit `pg_policies` — non exposé par PostgREST.",
+    "Politiques RLS effectives : la règle qui décide n'est pas lisible ; seule l'issue l'est (ligne renvoyée ou refus).",
+    "Droits d'écriture (INSERT/UPDATE/DELETE) : les tester exigerait d'écrire. Non testés, donc non affirmés.",
+    "EXECUTE sur les RPC pour `anon` : l'appeler serait une écriture. La présence dans OpenAPI prouve la ROUTE, pas le droit.",
+    "Contraintes (UNIQUE, CHECK, NOT NULL) au-delà de la PK : non exposées par PostgREST.",
+    "Triggers, index et extensions : hors de portée du REST."
+  ],
+  "comparaison_conversation": {
+    "tablesManquantes": [],
+    "tablesEnPlus": [],
+    "colonnes": {
+      "clients": {
+        "nonMesuree": false,
+        "etat": "declaree",
+        "manquantes": [],
+        "enPlus": []
+      },
+      "loyalty_cards": {
+        "nonMesuree": false,
+        "etat": "declaree",
+        "manquantes": [],
+        "enPlus": []
+      },
+      "loyalty_transactions": {
+        "nonMesuree": false,
+        "etat": "declaree",
+        "manquantes": [],
+        "enPlus": []
+      }
+    }
+  },
+  "conforme_conversation": true,
+  "comparaison_specification": {
+    "tablesManquantes": [],
+    "tablesEnPlus": [],
+    "colonnes": {
+      "clients": {
+        "nonMesuree": false,
+        "etat": "declaree",
+        "manquantes": [],
+        "enPlus": []
+      },
+      "loyalty_cards": {
+        "nonMesuree": false,
+        "etat": "declaree",
+        "manquantes": [
+          "total_spent"
+        ],
+        "enPlus": []
+      },
+      "loyalty_transactions": {
+        "nonMesuree": false,
+        "etat": "declaree",
+        "manquantes": [
+          "points_delta",
+          "staff_user_id",
+          "notes"
+        ],
+        "enPlus": [
+          "points_awarded",
+          "staff_id",
+          "reward_label"
+        ]
+      }
+    }
+  },
+  "conforme_specification": false
+}

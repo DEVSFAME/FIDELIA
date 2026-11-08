@@ -1,0 +1,1495 @@
+{
+ "date": "2026-10-27T00:58:59.014Z",
+ "assets": "/Users/yacinehida/Desktop/Reverse engineering/FIDELIX/01_REA_Fidelix/_captures/2026-10-27-auth-s3/raw/assets",
+ "bundles": [
+  "_next_static_chunks_1356-d70661dbb27f8921.js",
+  "_next_static_chunks_2128-b9b66b772b5c53ed.js",
+  "_next_static_chunks_2619-04bc32f026a0d946.js",
+  "_next_static_chunks_2654-f904b27dafb2e06e.js",
+  "_next_static_chunks_2790-7c9f7ae4e92006cd.js",
+  "_next_static_chunks_3298-6aea7ad7e7b0886a.js",
+  "_next_static_chunks_3678-440d3a9d39d4d438.js",
+  "_next_static_chunks_4008-20a2f032cea8775a.js",
+  "_next_static_chunks_4167-b104bcb9293fa340.js",
+  "_next_static_chunks_44530001-699706df5f232cb6.js",
+  "_next_static_chunks_4bd1b696-100b9d70ed4e49c1.js",
+  "_next_static_chunks_5040-aeb547ab6e2684c9.js",
+  "_next_static_chunks_5125-50030ac1e7a06359.js",
+  "_next_static_chunks_5909-f5777b5e6058bc9e.js",
+  "_next_static_chunks_6211-7842671c235cadeb.js",
+  "_next_static_chunks_6440-243331ba7628778e.js",
+  "_next_static_chunks_6676-5b319050e87794bd.js",
+  "_next_static_chunks_6866-2c6ed19830232270.js",
+  "_next_static_chunks_7383-6e66436aba33b87c.js",
+  "_next_static_chunks_7413-10a0d05da8189c5c.js",
+  "_next_static_chunks_7631-29ff0d20f794a902.js",
+  "_next_static_chunks_7cb1fa1f-9c1d16e5e8123936.js",
+  "_next_static_chunks_800-6f25c91bf5ec2545.js",
+  "_next_static_chunks_8417-ef61b80c3d87bde9.js",
+  "_next_static_chunks_9709-c5361a29f00a68c8.js",
+  "_next_static_chunks_9779-f3dd8d5274e4301e.js",
+  "_next_static_chunks_9835-ed31649ce3163097.js",
+  "_next_static_chunks_app__admin__layout-a5191742e5074e3d.js",
+  "_next_static_chunks_app__auth__layout-06d42ad8b90aae00.js",
+  "_next_static_chunks_app__dashboard__automations_layout-1d4ff5a6bba295ee.js",
+  "_next_static_chunks_app__dashboard__automations_page-40a8f7970e15e9d4.js",
+  "_next_static_chunks_app__dashboard__billing_layout-f827b9806e2e63e0.js",
+  "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js",
+  "_next_static_chunks_app__dashboard__branding_layout-a5191742e5074e3d.js",
+  "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js",
+  "_next_static_chunks_app__dashboard__caisses_layout-1d4ff5a6bba295ee.js",
+  "_next_static_chunks_app__dashboard__caisses_page-f3a37a6ee6e86b7c.js",
+  "_next_static_chunks_app__dashboard__campaigns_layout-1d4ff5a6bba295ee.js",
+  "_next_static_chunks_app__dashboard__campaigns_page-1054315515ce4dbf.js",
+  "_next_static_chunks_app__dashboard__customers_layout-1d4ff5a6bba295ee.js",
+  "_next_static_chunks_app__dashboard__customers_page-f24f6e2af0f3860b.js",
+  "_next_static_chunks_app__dashboard__dashboard_page-ce32e785073304b1.js",
+  "_next_static_chunks_app__dashboard__equipe_layout-1d4ff5a6bba295ee.js",
+  "_next_static_chunks_app__dashboard__equipe_page-27ea831f06ca5ecf.js",
+  "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js",
+  "_next_static_chunks_app__dashboard__notifications_layout-1d4ff5a6bba295ee.js",
+  "_next_static_chunks_app__dashboard__notifications_page-955a13495c2b4d76.js",
+  "_next_static_chunks_app__dashboard__program_layout-f827b9806e2e63e0.js",
+  "_next_static_chunks_app__dashboard__program_page-b105120c8ee3b818.js",
+  "_next_static_chunks_app__dashboard__qrcode_page-db893966db8148a6.js",
+  "_next_static_chunks_app__dashboard__reviews_page-483aefed6d36761b.js",
+  "_next_static_chunks_app__dashboard__rewards_layout-1d4ff5a6bba295ee.js",
+  "_next_static_chunks_app__dashboard__rewards_page-41726642a0c59dbf.js",
+  "_next_static_chunks_app__dashboard__scan_page-6f6c5cccfb991ce1.js",
+  "_next_static_chunks_app__dashboard__settings_layout-f827b9806e2e63e0.js",
+  "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js",
+  "_next_static_chunks_app_caisse_error-b985e36f751e8914.js",
+  "_next_static_chunks_app_caisse_layout-fc5aca2fd66ae01b.js",
+  "_next_static_chunks_app_caisse_page-e18fb03a63b24353.js",
+  "_next_static_chunks_app_error-23078366a69e8840.js",
+  "_next_static_chunks_app_layout-d5fb31becfa9e593.js",
+  "_next_static_chunks_app_recompenses_%5Bslug%5D_page-06d42ad8b90aae00.js",
+  "_next_static_chunks_main-app-abf8cea03753baf0.js",
+  "_next_static_chunks_polyfills-42372ed130431b0a.js",
+  "_next_static_chunks_webpack-adc53dc381a5cfbf.js"
+ ],
+ "contrats": [
+  {
+   "url": "/api/auth/reinitialiser",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "manifeste",
+     "fichier": "_next_static_chunks_main-app-abf8cea03753baf0.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/automations/save",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__automations_page-40a8f7970e15e9d4.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "type",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "is_active",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "message",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "days",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "type",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "is_active",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "titre",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "message",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "jours",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "type",
+       "etalement": false,
+       "sousCles": [],
+       "branche": ":"
+      },
+      {
+       "nom": "is_active",
+       "etalement": false,
+       "sousCles": [],
+       "branche": ":"
+      },
+      {
+       "nom": "remaining",
+       "etalement": false,
+       "sousCles": [],
+       "branche": ":"
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__automations_page-40a8f7970e15e9d4.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/billing/pack-emails",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "supplement",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/billing/resiliation",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "action",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "raison",
+       "etalement": false,
+       "sousCles": [],
+       "branche": "?"
+      },
+      {
+       "nom": "action",
+       "etalement": false,
+       "sousCles": [],
+       "branche": ":"
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/branding/save",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "name",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "primary_color",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "commerce_type",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "void 0!==r?{logo_url:r}:{}",
+       "etalement": true,
+       "sousCles": [
+        "logo_url"
+       ]
+      },
+      {
+       "nom": "void 0!==s?{wallet_bg_url:s}:{}",
+       "etalement": true,
+       "sousCles": [
+        "wallet_bg_url"
+       ]
+      },
+      {
+       "nom": "style_bandeau",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "stamp_icon",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "\"stamps\"===Z&&a.stamps_total?{stamps_total:a.stamps_total}:{}",
+       "etalement": true,
+       "sousCles": [
+        "stamps_total"
+       ]
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/branding/upload",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "formdata",
+     "cles": [
+      {
+       "nom": "file",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "kind",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/caisse/appairer",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "route",
+     "fichier": "_next_static_chunks_2128-b9b66b772b5c53ed.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/caisse/cadeau-filleul",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "cardId",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/caisse/parrainage-valide",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "cardId",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/caisse/reviews",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app_caisse_page-e18fb03a63b24353.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "claimId",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "action",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app_caisse_page-e18fb03a63b24353.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/caisses/appairage",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "aide",
+     "fichier": "_next_static_chunks_app__dashboard__caisses_page-f3a37a6ee6e86b7c.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/caisses/create",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "aide",
+     "fichier": "_next_static_chunks_app__dashboard__caisses_page-f3a37a6ee6e86b7c.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/caisses/revoke",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "aide",
+     "fichier": "_next_static_chunks_app__dashboard__caisses_page-f3a37a6ee6e86b7c.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/commerce/actif",
+   "methodes": [
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__automations_page-40a8f7970e15e9d4.js"
+    },
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js"
+    },
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__caisses_page-f3a37a6ee6e86b7c.js"
+    },
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__notifications_page-955a13495c2b4d76.js"
+    },
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__program_page-b105120c8ee3b818.js"
+    },
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__rewards_page-41726642a0c59dbf.js"
+    },
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/commerce/select",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "commerceId",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/email/campaign",
+   "methodes": [
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__campaigns_page-1054315515ce4dbf.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "subject",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "message",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "cta_label",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "cta_url",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "only_consented",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__campaigns_page-1054315515ce4dbf.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/email/welcome",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "manifeste",
+     "fichier": "_next_static_chunks_main-app-abf8cea03753baf0.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/equipe/activer",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "route",
+     "fichier": "_next_static_chunks_2128-b9b66b772b5c53ed.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/equipe/managers",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__equipe_page-27ea831f06ca5ecf.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "restaurantId",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "label",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__equipe_page-27ea831f06ca5ecf.js"
+    },
+    {
+     "genre": "brut",
+     "cles": [],
+     "exemple": "JSON.stringify(e)",
+     "methode": "DELETE",
+     "fichier": "_next_static_chunks_app__dashboard__equipe_page-27ea831f06ca5ecf.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/equipe/managers?restaurantId=",
+   "methodes": [
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__equipe_page-27ea831f06ca5ecf.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/fidelia",
+   "methodes": [
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/fidelia?resume=1",
+   "methodes": [
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/liste-attente",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "manifeste",
+     "fichier": "_next_static_chunks_main-app-abf8cea03753baf0.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/notifications",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__notifications_page-955a13495c2b4d76.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "restaurant_id",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "title",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "body",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "cta_url",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__notifications_page-955a13495c2b4d76.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/payments/payzone/initiate",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js"
+    },
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "purpose",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js"
+    },
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "purpose",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "pack_emails",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js"
+    },
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "purpose",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "rythme",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "points_de_vente",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "confirmer",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/program/save",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__program_page-b105120c8ee3b818.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "reward_description",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "reward_threshold",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "points_per_purchase",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "min_purchase_mad",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "stamps_total",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "points_expiry_days",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "referral_reward",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "review_reward_enabled",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "review_reward",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "google_review_url",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "stamp_icon",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "devise",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "\"points\"===T?{deduction_libre:!0===e.deduction_libre}:{}",
+       "etalement": true,
+       "sousCles": [
+        "deduction_libre"
+       ]
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__program_page-b105120c8ee3b818.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/push/subscribe",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "manifeste",
+     "fichier": "_next_static_chunks_main-app-abf8cea03753baf0.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/reviews/claims",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__reviews_page-483aefed6d36761b.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "claimId",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "action",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__reviews_page-483aefed6d36761b.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/rewards/save",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__rewards_page-41726642a0c59dbf.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "tiers",
+       "etalement": false,
+       "sousCles": [
+        "id",
+        "title",
+        "description",
+        "cost"
+       ]
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__rewards_page-41726642a0c59dbf.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/scan/card?id=",
+   "methodes": [
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/scan/cards",
+   "methodes": [
+    {
+     "methode": "GET",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ],
+   "corps": []
+  },
+  {
+   "url": "/api/settings/password",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "currentPassword",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "newPassword",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/settings/save",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "name",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "type_activite",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "phone",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "address",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "city",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "description",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "site_url",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "instagram_url",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "facebook_url",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "tiktok_url",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "reservation_url",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "lien_localisation",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "geofence_radius_m",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "geofence_texte",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/transaction",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "card_id",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "type",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "amount_mad",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "client_operation_id",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    },
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "card_id",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "type",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "amount_mad",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "reward_tier_id",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "points",
+       "etalement": false,
+       "sousCles": []
+      },
+      {
+       "nom": "client_operation_id",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ]
+  },
+  {
+   "url": "/api/transaction/annuler",
+   "methodes": [
+    {
+     "methode": "POST",
+     "genre": "fetch",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ],
+   "corps": [
+    {
+     "genre": "json",
+     "cles": [
+      {
+       "nom": "transaction_id",
+       "etalement": false,
+       "sousCles": []
+      }
+     ],
+     "methode": "POST",
+     "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+    }
+   ]
+  }
+ ],
+ "schemas": [
+  {
+   "nom": "P",
+   "module": "i",
+   "champs": [
+    {
+     "nom": "name",
+     "zod": "z.string().min(2)"
+    },
+    {
+     "nom": "primary_color",
+     "zod": "z.string().regex(/^#[0-9A-Fa-f]{6}$/)"
+    },
+    {
+     "nom": "commerce_type",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "style_bandeau",
+     "zod": "z.enum([\"tampons\",\"photo\"]).optional()"
+    },
+    {
+     "nom": "stamps_total",
+     "zod": "z.coerce.number().min(2).max(30).optional()"
+    }
+   ],
+   "fichier": "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js"
+  },
+  {
+   "nom": "C",
+   "module": "i",
+   "champs": [
+    {
+     "nom": "title",
+     "zod": "z.string().min(3,\"Titre trop court\").max(50,\"Titre trop long (50 caract\\xe8res max)\")"
+    },
+    {
+     "nom": "body",
+     "zod": "z.string().min(10,\"Message trop court\").max(150,\"Message trop long (150 caract\\xe8res max)\")"
+    },
+    {
+     "nom": "cta_url",
+     "zod": "z.string().url(\"URL invalide\").optional().or(z.literal(\"\"))"
+    }
+   ],
+   "fichier": "_next_static_chunks_app__dashboard__notifications_page-955a13495c2b4d76.js"
+  },
+  {
+   "nom": "R",
+   "module": "i",
+   "champs": [
+    {
+     "nom": "reward_description",
+     "zod": "z.string().min(3,\"Requis\")"
+    },
+    {
+     "nom": "reward_threshold",
+     "zod": "z.coerce.number().min(1)"
+    },
+    {
+     "nom": "points_per_purchase",
+     "zod": "z.coerce.number().min(0).optional()"
+    },
+    {
+     "nom": "min_purchase_mad",
+     "zod": "z.coerce.number().min(0).optional()"
+    },
+    {
+     "nom": "stamps_total",
+     "zod": "z.coerce.number().min(2).max(30).optional()"
+    },
+    {
+     "nom": "points_expiry_days",
+     "zod": "z.coerce.number().min(0).optional()"
+    },
+    {
+     "nom": "referral_reward",
+     "zod": "z.coerce.number().min(0).max(1e4).optional()"
+    },
+    {
+     "nom": "review_reward_enabled",
+     "zod": "z.boolean().optional()"
+    },
+    {
+     "nom": "review_reward",
+     "zod": "z.coerce.number().min(0).max(1e4).optional()"
+    },
+    {
+     "nom": "google_review_url",
+     "zod": "z.string().url(\"Lien invalide\").refine(M.cD,{message:M.O0}).or(z.literal(\"\")).optional()"
+    },
+    {
+     "nom": "stamp_icon",
+     "zod": "z.string().nullable().optional()"
+    },
+    {
+     "nom": "devise",
+     "zod": "z.enum(O.I9).optional()"
+    },
+    {
+     "nom": "deduction_libre",
+     "zod": "z.boolean().optional()"
+    }
+   ],
+   "fichier": "_next_static_chunks_app__dashboard__program_page-b105120c8ee3b818.js"
+  },
+  {
+   "nom": "_",
+   "module": "i",
+   "champs": [
+    {
+     "nom": "currentPassword",
+     "zod": "z.string().min(1,\"Mot de passe actuel requis\")"
+    },
+    {
+     "nom": "newPassword",
+     "zod": "z.string().min(8,\"8 caract\\xe8res minimum\").regex(/[A-Z]/,\"Une majuscule requise\").regex(/[0-9]/,\"Un chiffre requis\")"
+    },
+    {
+     "nom": "confirmPassword",
+     "zod": "z.string()"
+    }
+   ],
+   "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+  },
+  {
+   "nom": "T",
+   "module": "i",
+   "champs": [
+    {
+     "nom": "name",
+     "zod": "z.string().min(2)"
+    },
+    {
+     "nom": "type_activite",
+     "zod": "z.enum([\"physique\",\"en_ligne\",\"mixte\"])"
+    },
+    {
+     "nom": "phone",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "address",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "city",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "description",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "site_url",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "instagram_url",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "facebook_url",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "tiktok_url",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "reservation_url",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "lien_localisation",
+     "zod": "z.string().optional()"
+    },
+    {
+     "nom": "geofence_radius_m",
+     "zod": "z.preprocess(e=>\"\"===e||null==e?void 0:e,z.coerce.number().int().min(50).max(2e3).optional())"
+    },
+    {
+     "nom": "geofence_texte",
+     "zod": "z.string().max(120).optional()"
+    }
+   ],
+   "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js"
+  }
+ ],
+ "calibration": {
+  "ecarts": [],
+  "temoins": {
+   "positif": "/api/commerce/actif",
+   "positifPost": "/api/transaction",
+   "positifManifeste": "/api/liste-attente",
+   "leurre": "/api/broadcast",
+   "negatif": "/api/zzz-temoin-rea-inexistant"
+  }
+ },
+ "litteraux": {
+  "_next_static_chunks_1356-d70661dbb27f8921.js": [],
+  "_next_static_chunks_2128-b9b66b772b5c53ed.js": [
+   "/api/caisse/appairer",
+   "/api/equipe/activer"
+  ],
+  "_next_static_chunks_2619-04bc32f026a0d946.js": [],
+  "_next_static_chunks_2654-f904b27dafb2e06e.js": [],
+  "_next_static_chunks_2790-7c9f7ae4e92006cd.js": [],
+  "_next_static_chunks_3298-6aea7ad7e7b0886a.js": [],
+  "_next_static_chunks_3678-440d3a9d39d4d438.js": [],
+  "_next_static_chunks_4008-20a2f032cea8775a.js": [],
+  "_next_static_chunks_4167-b104bcb9293fa340.js": [],
+  "_next_static_chunks_44530001-699706df5f232cb6.js": [],
+  "_next_static_chunks_4bd1b696-100b9d70ed4e49c1.js": [],
+  "_next_static_chunks_5040-aeb547ab6e2684c9.js": [],
+  "_next_static_chunks_5125-50030ac1e7a06359.js": [],
+  "_next_static_chunks_5909-f5777b5e6058bc9e.js": [],
+  "_next_static_chunks_6211-7842671c235cadeb.js": [],
+  "_next_static_chunks_6440-243331ba7628778e.js": [],
+  "_next_static_chunks_6676-5b319050e87794bd.js": [],
+  "_next_static_chunks_6866-2c6ed19830232270.js": [
+   "/api/transaction",
+   "/api/scan/card?id=",
+   "/api/caisse/cadeau-filleul",
+   "/api/caisse/parrainage-valide",
+   "/api/transaction/annuler",
+   "/api/scan/cards"
+  ],
+  "_next_static_chunks_7383-6e66436aba33b87c.js": [
+   "/api/broadcast"
+  ],
+  "_next_static_chunks_7413-10a0d05da8189c5c.js": [],
+  "_next_static_chunks_7631-29ff0d20f794a902.js": [],
+  "_next_static_chunks_7cb1fa1f-9c1d16e5e8123936.js": [],
+  "_next_static_chunks_800-6f25c91bf5ec2545.js": [],
+  "_next_static_chunks_8417-ef61b80c3d87bde9.js": [],
+  "_next_static_chunks_9709-c5361a29f00a68c8.js": [],
+  "_next_static_chunks_9779-f3dd8d5274e4301e.js": [],
+  "_next_static_chunks_9835-ed31649ce3163097.js": [],
+  "_next_static_chunks_app__admin__layout-a5191742e5074e3d.js": [],
+  "_next_static_chunks_app__auth__layout-06d42ad8b90aae00.js": [],
+  "_next_static_chunks_app__dashboard__automations_layout-1d4ff5a6bba295ee.js": [],
+  "_next_static_chunks_app__dashboard__automations_page-40a8f7970e15e9d4.js": [
+   "/api/automations/save",
+   "/api/commerce/actif"
+  ],
+  "_next_static_chunks_app__dashboard__billing_layout-f827b9806e2e63e0.js": [],
+  "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js": [
+   "/api/payments/payzone/initiate",
+   "/api/billing/pack-emails"
+  ],
+  "_next_static_chunks_app__dashboard__branding_layout-a5191742e5074e3d.js": [],
+  "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js": [
+   "/api/branding/upload",
+   "/api/branding/save",
+   "/api/commerce/actif"
+  ],
+  "_next_static_chunks_app__dashboard__caisses_layout-1d4ff5a6bba295ee.js": [],
+  "_next_static_chunks_app__dashboard__caisses_page-f3a37a6ee6e86b7c.js": [
+   "/api/caisses/create",
+   "/api/caisses/appairage",
+   "/api/caisses/revoke",
+   "/api/commerce/actif"
+  ],
+  "_next_static_chunks_app__dashboard__campaigns_layout-1d4ff5a6bba295ee.js": [],
+  "_next_static_chunks_app__dashboard__campaigns_page-1054315515ce4dbf.js": [
+   "/api/email/campaign"
+  ],
+  "_next_static_chunks_app__dashboard__customers_layout-1d4ff5a6bba295ee.js": [],
+  "_next_static_chunks_app__dashboard__customers_page-f24f6e2af0f3860b.js": [],
+  "_next_static_chunks_app__dashboard__dashboard_page-ce32e785073304b1.js": [],
+  "_next_static_chunks_app__dashboard__equipe_layout-1d4ff5a6bba295ee.js": [],
+  "_next_static_chunks_app__dashboard__equipe_page-27ea831f06ca5ecf.js": [
+   "/api/equipe/managers?restaurantId=",
+   "/api/equipe/managers"
+  ],
+  "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js": [
+   "/api/fidelia",
+   "/api/fidelia?resume=1",
+   "/api/commerce/select",
+   "/api/payments/payzone/initiate"
+  ],
+  "_next_static_chunks_app__dashboard__notifications_layout-1d4ff5a6bba295ee.js": [],
+  "_next_static_chunks_app__dashboard__notifications_page-955a13495c2b4d76.js": [
+   "/api/notifications",
+   "/api/commerce/actif"
+  ],
+  "_next_static_chunks_app__dashboard__program_layout-f827b9806e2e63e0.js": [],
+  "_next_static_chunks_app__dashboard__program_page-b105120c8ee3b818.js": [
+   "/api/program/save",
+   "/api/commerce/actif"
+  ],
+  "_next_static_chunks_app__dashboard__qrcode_page-db893966db8148a6.js": [],
+  "_next_static_chunks_app__dashboard__reviews_page-483aefed6d36761b.js": [
+   "/api/reviews/claims"
+  ],
+  "_next_static_chunks_app__dashboard__rewards_layout-1d4ff5a6bba295ee.js": [],
+  "_next_static_chunks_app__dashboard__rewards_page-41726642a0c59dbf.js": [
+   "/api/rewards/save",
+   "/api/commerce/actif"
+  ],
+  "_next_static_chunks_app__dashboard__scan_page-6f6c5cccfb991ce1.js": [],
+  "_next_static_chunks_app__dashboard__settings_layout-f827b9806e2e63e0.js": [],
+  "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js": [
+   "/api/settings/password",
+   "/api/billing/resiliation",
+   "/api/settings/save",
+   "/api/commerce/actif"
+  ],
+  "_next_static_chunks_app_caisse_error-b985e36f751e8914.js": [],
+  "_next_static_chunks_app_caisse_layout-fc5aca2fd66ae01b.js": [],
+  "_next_static_chunks_app_caisse_page-e18fb03a63b24353.js": [
+   "/api/caisse/reviews"
+  ],
+  "_next_static_chunks_app_error-23078366a69e8840.js": [],
+  "_next_static_chunks_app_layout-d5fb31becfa9e593.js": [],
+  "_next_static_chunks_app_recompenses_%5Bslug%5D_page-06d42ad8b90aae00.js": [],
+  "_next_static_chunks_main-app-abf8cea03753baf0.js": [
+   "/api/email/welcome",
+   "/api/push/subscribe",
+   "/api/auth/reinitialiser",
+   "/api/liste-attente"
+  ],
+  "_next_static_chunks_polyfills-42372ed130431b0a.js": [],
+  "_next_static_chunks_webpack-adc53dc381a5cfbf.js": []
+ }
+}

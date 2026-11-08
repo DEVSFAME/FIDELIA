@@ -1,0 +1,17 @@
+# Ce qui n'a rien à faire dans le contexte de build.
+#
+# `.env.local` est **exclu** : les deux valeurs publiques passent par des
+# `ARG`, et un fichier d'environnement dans une couche d'image finirait par
+# contenir une clé de service le jour où quelqu'un l'y ajoute.
+node_modules
+.next
+.next-build
+out
+.turbo
+.env
+.env.local
+.env.*.local
+!.env.example
+.DS_Store
+npm-debug.log*
+*.tsbuildinfo

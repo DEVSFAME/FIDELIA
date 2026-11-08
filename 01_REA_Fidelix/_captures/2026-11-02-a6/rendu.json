@@ -1,0 +1,359 @@
+{
+  "passe": "REA-FX-2026-11-02-A6 — re-mesure de la parité fonctionnelle (session marchand déjà ouverte)",
+  "manifeste": "01_REA_Fidelix/_captures/cibles-auth-2026-11-02.json",
+  "date": "2026-11-02-a6",
+  "horodatage": "2026-11-01T23:29:43.586Z",
+  "source": "FIDELIX/tools/rea/capturer-rendu.mjs",
+  "base": "https://fidelix.ma",
+  "mode": "PROFIL",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "viewport": "1440x900",
+  "cibles": 15,
+  "captures": 13,
+  "rejetees": 2,
+  "erreurs": 0,
+  "releves": [
+    {
+      "id": "a01-dashboard",
+      "chemin": "/dashboard",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/dashboard",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [
+        "POST /rest/v1/rpc/parrainages_du_commerce 200"
+      ],
+      "journaux": 1,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 459102,
+        "sha256": "60bb276d3a6b3ac418c419451615bfd28389c9d095f412db984816d1dd75b9d8"
+      },
+      "html": {
+        "octets": 130570,
+        "sha256": "e0a0602cdfd0ef76fc5adc2007734ad98419baa464bb48b6ae0d700bf69c6a68"
+      }
+    },
+    {
+      "id": "a02-program",
+      "chemin": "/program",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/program",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200",
+        "GET /api/commerce/actif 200"
+      ],
+      "supabaseObserve": [
+        "GET /auth/v1/user 200",
+        "GET /rest/v1/restaurants 200",
+        "GET /rest/v1/loyalty_programs 200"
+      ],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 585808,
+        "sha256": "0b0a6cd49a4b7f0bb0098a44c6f0a18252b3d645cbde3ad97323c85ce3f40a01"
+      },
+      "html": {
+        "octets": 87736,
+        "sha256": "e305897cff49cc30319fa71c3411b58112c555857e45780815acb3d2a482afa3"
+      }
+    },
+    {
+      "id": "a03-rewards",
+      "chemin": "/rewards",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/rewards",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200",
+        "GET /api/commerce/actif 200"
+      ],
+      "supabaseObserve": [
+        "GET /auth/v1/user 200",
+        "GET /rest/v1/restaurants 200",
+        "GET /rest/v1/loyalty_programs 200",
+        "POST /rest/v1/rpc/mon_role_point_de_vente 200",
+        "GET /rest/v1/reward_tiers 200"
+      ],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 488345,
+        "sha256": "c533ac482d9dc58834983157eeaaa74f772cf271a96175de782570cce46db89c"
+      },
+      "html": {
+        "octets": 86874,
+        "sha256": "4d6fa09d2e94513596bc944965a8f612f590dc817ee2ed36a1ff3e6daec89dba"
+      }
+    },
+    {
+      "id": "a04-scan",
+      "chemin": "/scan",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/scan",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200",
+        "GET /api/scan/cards 200"
+      ],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 422335,
+        "sha256": "e43a07b63ad42e4897388ecd7354c5a8827e6b177329492b6d0659a16d24cb7a"
+      },
+      "html": {
+        "octets": 75166,
+        "sha256": "f65cc656f92c616bd64a1ba386c85cabef876c4a3f01e41ca206f4df488f06b5"
+      }
+    },
+    {
+      "id": "a05-reviews",
+      "chemin": "/reviews",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/reviews",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 434041,
+        "sha256": "0f5ccf67bfc3baad94d8d94ba4cbf6e2930e880bbead972d1cbaed96e076bbd9"
+      },
+      "html": {
+        "octets": 76440,
+        "sha256": "cf9fc5e4751aff94765ab49620fcc98867318014a087cb08093ddf8833a267c6"
+      }
+    },
+    {
+      "id": "a06-qrcode",
+      "chemin": "/qrcode",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/qrcode",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 493285,
+        "sha256": "9464855d9d2541ec7e43c4ac34867dce01d8568430385dd69e1df57710df8106"
+      },
+      "html": {
+        "octets": 112480,
+        "sha256": "e663df33bd48d166e10405a1611ee607760d6310f1363629a4dc8ff28b3b6ab3"
+      }
+    },
+    {
+      "id": "a07-automations",
+      "chemin": "/automations",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/automations",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200",
+        "GET /api/commerce/actif 200"
+      ],
+      "supabaseObserve": [
+        "GET /auth/v1/user 200",
+        "GET /rest/v1/loyalty_programs 200",
+        "GET /rest/v1/automations 200"
+      ],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 420710,
+        "sha256": "f63c443257ee8194cfa3c55f4d1b5db58dc2ce3e50cd166bc835a9d921fbc166"
+      },
+      "html": {
+        "octets": 84363,
+        "sha256": "234a595d64b96bc197297bf6fa8a429260af9984169ae125733eceb1ff71a0e7"
+      }
+    },
+    {
+      "id": "a08-branding",
+      "chemin": "/branding",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/branding",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200",
+        "GET /api/commerce/actif 200"
+      ],
+      "supabaseObserve": [
+        "GET /auth/v1/user 200",
+        "GET /rest/v1/restaurants 200",
+        "GET /rest/v1/loyalty_programs 200",
+        "GET /rest/v1/reward_tiers 200"
+      ],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 467386,
+        "sha256": "651ba6222fc3e184147f36c7d240f8e58b4622f62688c29d70def351224897a3"
+      },
+      "html": {
+        "octets": 103581,
+        "sha256": "867796e4c9ad3b87204b0487f5162f35048c9c8229bd0384799ae2d9aa885bd7"
+      }
+    },
+    {
+      "id": "a09-caisses",
+      "chemin": "/caisses",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/caisses",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200",
+        "GET /api/commerce/actif 200"
+      ],
+      "supabaseObserve": [
+        "GET /auth/v1/user 200",
+        "GET /rest/v1/till_sessions 200",
+        "GET /rest/v1/loyalty_programs 200",
+        "POST /rest/v1/rpc/classement_caisses 200"
+      ],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 485133,
+        "sha256": "e93cb5e3e3af393ae91fa3c50ac64804307a70c5fcf458856f856e842c25fdc0"
+      },
+      "html": {
+        "octets": 87134,
+        "sha256": "21f717b5ccc442cdd0c2a8e631e70213465ecbdb50650a6ad745ed58560e6e2e"
+      }
+    },
+    {
+      "id": "a10-loyalty",
+      "chemin": "/loyalty",
+      "http": 404,
+      "urlFinale": "https://fidelix.ma/loyalty",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [],
+      "supabaseObserve": [],
+      "journaux": 1,
+      "titre": "Page introuvable — Fidelix",
+      "png": {
+        "octets": 439128,
+        "sha256": "e5c38b787bbcced12763dc0c52fbd7c0243d42a13077380094c74ab5c6a2357d"
+      },
+      "html": {
+        "octets": 38144,
+        "sha256": "260ba0a6f1bb243c9721f483d38f93b499d16a1e4a09f4278c79dae5fb2bf39c"
+      }
+    },
+    {
+      "id": "a11-admin",
+      "chemin": "/admin",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/dashboard",
+      "redirection": true,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [
+        "POST /rest/v1/rpc/parrainages_du_commerce 200"
+      ],
+      "journaux": 1,
+      "rejete": "atterri sur /dashboard — aucun fichier écrit (route différente de /admin)"
+    },
+    {
+      "id": "a12-onboarding",
+      "chemin": "/onboarding",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/dashboard",
+      "redirection": true,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [
+        "POST /rest/v1/rpc/parrainages_du_commerce 200"
+      ],
+      "journaux": 1,
+      "rejete": "atterri sur /dashboard — aucun fichier écrit (route différente de /onboarding)"
+    },
+    {
+      "id": "a13-account",
+      "chemin": "/account",
+      "http": 404,
+      "urlFinale": "https://fidelix.ma/account",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [],
+      "supabaseObserve": [],
+      "journaux": 1,
+      "titre": "Page introuvable — Fidelix",
+      "png": {
+        "octets": 439128,
+        "sha256": "e5c38b787bbcced12763dc0c52fbd7c0243d42a13077380094c74ab5c6a2357d"
+      },
+      "html": {
+        "octets": 38378,
+        "sha256": "8e7551260e1f548fdcb31cc724dc4cc25d14c0132ca84a9c9aa815694c969b36"
+      }
+    },
+    {
+      "id": "a14-abonnement",
+      "chemin": "/abonnement",
+      "http": 404,
+      "urlFinale": "https://fidelix.ma/abonnement",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [],
+      "supabaseObserve": [],
+      "journaux": 1,
+      "titre": "Page introuvable — Fidelix",
+      "png": {
+        "octets": 439204,
+        "sha256": "3d89a6e7306b4eaa94c00f25d5c0972fdb3f7a5b94d39396b52754d7e83b58d1"
+      },
+      "html": {
+        "octets": 38381,
+        "sha256": "f5a4b6c12cba991ad6ef14e998d7700cca3d6bfe15f1109a0125ff9f312a09e8"
+      }
+    },
+    {
+      "id": "a15-caisse",
+      "chemin": "/caisse",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/caisse",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Caisse — Fidelix",
+      "png": {
+        "octets": 441583,
+        "sha256": "23248be96957f58891dbabae391bee68eaa2502d38b9288a95249564f3294aee"
+      },
+      "html": {
+        "octets": 40042,
+        "sha256": "a8ddc6be80fcb69a1d02fcc855d37468374621cb56b5c7f1cbb25496928dd962"
+      }
+    }
+  ]
+}

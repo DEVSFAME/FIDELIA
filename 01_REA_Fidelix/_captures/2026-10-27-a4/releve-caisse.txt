@@ -1,0 +1,90 @@
+Bundles lus        : 48  (01_REA_Fidelix/_captures/2026-10-26/raw/assets)
+Pages lues         : 21  (01_REA_Fidelix/_captures/2026-10-26/raw/pages)
+
+CALIBRATION (témoins — la réponse est connue avant de lire)
+  positif base        : fidelix-caisse           trouvé
+  positif magasin     : file_attente             trouvé
+  positif clé LS      : fidelix_caisse_programme trouvé
+  positif idempotence : client_operation_id      trouvé
+  positif prose       : en attente d'envoi       trouvé  (après décodage)
+  positif solde       : Solde au dernier passage trouvé  (après décodage)
+  négatif             : workbox                  non sorti
+  négatif             : idb-keyval               non sorti
+  négatif             : Background Sync          non sorti
+  leurre auth-js      : localStorage             7 jeton(s) dans auth-js, 0 magasin de file, 0 prose
+  VERDICT : calibré
+
+OCCURRENCES PAR ORIGINE — le point de l’étape
+  hôte navigateur          43
+  magasin local            13
+  contrat réseau            9
+  prose                     8
+
+PAR JETON
+  localStorage                                    31   hôte navigateur:31
+  tentatives                                       5   magasin local:4 prose:1
+  serviceWorker                                    4   hôte navigateur:4
+  navigator.onLine                                 4   hôte navigateur:4
+  cree_le                                          3   magasin local:3
+  crypto.randomUUID                                2   hôte navigateur:2
+  /api/transaction                                 2   contrat réseau:2
+  client_operation_id                              2   contrat réseau:2
+  fidelix_caisse_devise                            2   magasin local:2
+  file_attente                                     1   magasin local:1
+  indexedDB                                        1   hôte navigateur:1
+  fidelix-caisse                                   1   magasin local:1
+  maj_le                                           1   magasin local:1
+  fidelix_caisse_programme                         1   magasin local:1
+  /api/scan/card?id=                               1   contrat réseau:1
+  /api/caisse/cadeau-filleul                       1   contrat réseau:1
+  /api/caisse/parrainage-valide                    1   contrat réseau:1
+  /api/transaction/annuler                         1   contrat réseau:1
+  /api/scan/cards                                  1   contrat réseau:1
+  /sw.js                                           1   hôte navigateur:1
+  en attente d'envoi                               1   prose:1
+  Hors ligne — les                                 1   prose:1
+  Solde au dernier passage                         1   prose:1
+  ne peuvent pas être remises hors ligne           1   prose:1
+  ne peut pas être déduit hors ligne               1   prose:1
+  hors ligne refus                                 1   prose:1
+  sont enregistrés sur cet appareil                1   prose:1
+
+MAGASINS LOCAUX  (IndexedDB puis localStorage — ce ne sont pas des contrats réseau)
+  IndexedDB « fidelix-caisse » v2   _next_static_chunks_6866-2c6ed19830232270.js
+      magasin file_attente   keyPath=id
+      magasin cartes         keyPath=id   (effacé à la montée de version)
+  localStorage « fidelix_caisse_programme »  écritures=1 lectures=1   _next_static_chunks_6866-2c6ed19830232270.js
+  localStorage « fidelix_caisse_devise »  écritures=1 lectures=1   _next_static_chunks_6866-2c6ed19830232270.js
+  localStorage « supabase.gotrue-js.locks.debug »  écritures=0 lectures=1   _next_static_chunks_7383-6e66436aba33b87c.js
+  localStorage « utf8 »  écritures=2 lectures=0   _next_static_chunks_7383-6e66436aba33b87c.js
+  localStorage « fidelix_consentement_meta »  écritures=2 lectures=1   _next_static_chunks_app__auth__register_page-624b8d1e8d80be44.js
+  localStorage « fidelix_prospect »  écritures=1 lectures=1   _next_static_chunks_app__auth__register_page-624b8d1e8d80be44.js
+  localStorage « en_ligne »  écritures=1 lectures=1   _next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js
+  localStorage « fidelix_conseiller_ »  écritures=2 lectures=1   _next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js
+  localStorage « premium »  écritures=2 lectures=1   _next_static_chunks_app_demarrer_page-33d3f2c3a9dce215.js
+  localStorage « fidelix_prospect »  écritures=1 lectures=1   _next_static_chunks_app_demarrer_page-33d3f2c3a9dce215.js
+  localStorage « fidelix-carte- »  écritures=2 lectures=1   _next_static_chunks_app_join_%5Bslug%5D_page-5ffb58c0ed9fd59d.js
+
+POLITIQUE DE REJEU  (déjà relevée en A2 §3.1 — ici EXTRAITE du code)
+  _next_static_chunks_6866-2c6ed19830232270.js
+      jette sur  : {400,403,404,422}
+      bloque à   : tentatives >= 3
+      délai      :   3000 ms   sur « ()=>{J.current&&eE(!1)} »
+      délai      :  65000 ms   sur « ()=>void eW() »
+
+CONTRATS DE LA CAISSE
+  /api/transaction               [fetch]  <- rejouée par la file
+  /api/caisse/cadeau-filleul     [fetch]
+  /api/caisse/parrainage-valide  [fetch]
+  /api/scan/card?id=             [fetch]
+  /api/scan/cards                [fetch]
+  /api/transaction/annuler       [fetch]
+  chemins hôte : /sw.js
+  types mis en file        : {add_stamp, earn_points}
+  types refusés hors ligne : {redeem_points, redeem_reward}
+
+OÙ VIT LA FILE  (le nom du fichier n’est pas le propriétaire du code)
+  _next_static_chunks_6866-2c6ed19830232270.js   (43 occurrence(s) classée(s))
+  chunk 6866 chargé par 1/21 page(s) : p09-caisse.html
+
+JSON : /Users/yacinehida/Desktop/Reverse engineering/FIDELIX/01_REA_Fidelix/_captures/2026-10-27-a4/releve-caisse.json

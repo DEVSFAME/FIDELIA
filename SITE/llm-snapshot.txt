@@ -1,0 +1,118 @@
+[1] <a href="/" aria-label="Fidelix — accueil">
+[2] <span>
+[3] <span>
+[4] <img>
+[5] <span role="img" aria-label="Fidelix">
+[6] <span>
+[7] <span>
+[8] <img>
+[9] <span role="img" aria-label="Fidelix">
+[10] <a href="#fonctionnalites">Fonctionnalités
+[11] <a href="#etapes">Comment ça marche
+[12] <a href="#tarifs">Tarifs
+[13] <a href="/">FR
+[14] <a href="/ar">AR
+[15] <a href="/en">EN
+[16] <a href="/login">Connexion
+[17] <a href="/register">Commencer
+[18] <svg>
+[19] <line>
+[20] <line>
+[21] <line>
+[22] <a href="/register">Commencer gratuitement
+[23] <svg>
+[24] <path>
+[25] <path>
+[26] <a href="/rendez-vous">Demander une démo
+[27] <img>
+[28] <p>POINTS
+[29] <span>
+[30] <svg>
+[31] <p>POINTS
+[32] <img>
+[33] <a href="#etapes">Voir comment ça marche
+[34] <svg>
+[35] <path>
+[36] <path>
+[37] <span>
+[38] <svg>
+[39] <span>
+[40] <svg>
+[41] <span>
+[42] <svg>
+[43] <span>
+[44] <svg>
+[45] <span>
+[46] <svg>
+[47] <span>
+[48] <svg>
+[49] <span>
+[50] <svg>
+[51] <span>
+[52] <svg>
+[53] <span>50
+[54] <input id="roi-clients" type="range" value="50">50
+[55] <span>70 DH
+[56] <input id="roi-panier" type="range" value="70">70
+[57] <span>26
+[58] <input id="roi-jours" type="range" value="26">26
+[59] <span>10 %
+[60] <input id="roi-gain" type="range" value="10">10
+[61] <svg>
+[62] <span>/ mois
+[63] <span>×23
+[64] <img>
+[65] <img>
+[66] <img>
+[67] <img>
+[68] <img>
+[69] <svg>
+[70] <svg>
+[71] <svg>
+[72] <a href="/demarrer">Créer mon espace gratuit
+[73] <button type="button" aria-label="Un point de vente de moins">
+[74] <svg>
+[75] <button type="button" aria-label="Un point de vente de plus">
+[76] <svg>
+[77] <path>
+[78] <path>
+[79] <button role="radio">Mensuel
+[80] <button role="radio">Semestriel
+[81] <button role="radio">Annuel
+[82] <span>/ mois
+[83] <svg>
+[84] <svg>
+[85] <svg>
+[86] <svg>
+[87] <svg>
+[88] <svg>
+[89] <svg>
+[90] <svg>
+[91] <svg>
+[92] <svg>
+[93] <svg>
+[94] <svg>
+[95] <svg>
+[96] <a href="/register">Commencer maintenant
+[97] <a href="/rendez-vous">Demander une démo
+[98] <svg>
+[99] <svg>
+[100] <a href="https://wa.me/212642695137?text=Bonjour%2C%20je%20souhaite%20un%20tarif%20sur%20mesure%20pour%20Fidelix%20(API%20ou%20commande%20de%20cartes%20en%20volume).%20Mon%20commerce%20%3A%20">Demander mon tarif
+[101] <svg>
+[102] <path>
+[103] <span>150
+[104] <span>MAD
+[105] <a href="/register">Créer mon espace gratuit
+[106] <svg>
+[107] <path>
+[108] <path>
+[109] <span>
+[110] <img>
+[111] <a href="#fonctionnalites">Fonctionnalités
+[112] <a href="#tarifs">Tarifs
+[113] <a href="/login">Connexion
+[114] <a href="/confidentialite">Confidentialité
+[115] <a href="/conditions">Conditions générales de vente
+[116] <a href="/mentions-legales">Mentions légales
+[117] <div role="region" aria-label="Notifications (F8)" tabindex="-1">
+[118] <ol tabindex="-1">

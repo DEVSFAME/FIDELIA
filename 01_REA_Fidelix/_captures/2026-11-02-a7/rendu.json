@@ -1,0 +1,155 @@
+{
+  "passe": "REA-FX-2026-11-02-A7 — les 6 modules découverts par la passe A6 (liens du DOM privé)",
+  "manifeste": "01_REA_Fidelix/_captures/cibles-a7-2026-11-02.json",
+  "date": "2026-11-02-a7",
+  "horodatage": "2026-11-01T23:32:53.551Z",
+  "source": "FIDELIX/tools/rea/capturer-rendu.mjs",
+  "base": "https://fidelix.ma",
+  "mode": "PROFIL",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "viewport": "1440x900",
+  "cibles": 6,
+  "captures": 6,
+  "rejetees": 0,
+  "erreurs": 0,
+  "releves": [
+    {
+      "id": "c01-settings",
+      "chemin": "/settings",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/settings",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200",
+        "GET /api/commerce/actif 200"
+      ],
+      "supabaseObserve": [
+        "GET /auth/v1/user 200",
+        "GET /rest/v1/restaurants 200",
+        "GET /rest/v1/subscriptions 200"
+      ],
+      "journaux": 1,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 656948,
+        "sha256": "2fabc73562331384528091c76446ea3423c13ca9f6e023d6235bb81d5bd406bb"
+      },
+      "html": {
+        "octets": 94026,
+        "sha256": "9aa64bb3d4faf66a6df002917c240c3dd8f664f19fea6bebaa24bc3fa1b361ca"
+      }
+    },
+    {
+      "id": "c02-billing",
+      "chemin": "/billing",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/billing",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 684357,
+        "sha256": "742ba4450ef40df8da8a50131383b0309623aa1cef4c12929457f397b616e230"
+      },
+      "html": {
+        "octets": 94043,
+        "sha256": "f8071849f9b1513c0bad495e074f17759e33342ed4da30b559d0ed4c964f9dfb"
+      }
+    },
+    {
+      "id": "c03-api-cles",
+      "chemin": "/api-cles",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/api-cles",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/cles-api 200",
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 462088,
+        "sha256": "519948047d3032a1d41f351d8e5da1a80a69bd291f415744183874b6e8cae33a"
+      },
+      "html": {
+        "octets": 76761,
+        "sha256": "9f42fd2cd259627181e595cb0e8ca00295e0ddc32fb7ddaef0962d58e3a619ff"
+      }
+    },
+    {
+      "id": "c04-equipe",
+      "chemin": "/equipe",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/equipe",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/equipe/managers 200",
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 454241,
+        "sha256": "544f947fdebdf4a7e2bbe4ad9b52cf6920622f56989e91ea9ac57956e1179547"
+      },
+      "html": {
+        "octets": 76303,
+        "sha256": "b03b329e58e365de703683a3c805b572d8e685c63ec76348c526206b06798e26"
+      }
+    },
+    {
+      "id": "c05-campaigns",
+      "chemin": "/campaigns",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/campaigns",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/email/campaign 200",
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 454151,
+        "sha256": "6a1734e1bd8225152c71cf47ab60b092687cbb3d7c36d5883db012a539ebf176"
+      },
+      "html": {
+        "octets": 77656,
+        "sha256": "4192d485a6fee394201d21a56c33368d32e6b273d7a13e4bbac457901d32cb04"
+      }
+    },
+    {
+      "id": "c06-client-nul",
+      "chemin": "/customers/00000000-0000-0000-0000-000000000000",
+      "http": 404,
+      "urlFinale": "https://fidelix.ma/customers/00000000-0000-0000-0000-000000000000",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [],
+      "supabaseObserve": [],
+      "journaux": 2,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 439128,
+        "sha256": "e5c38b787bbcced12763dc0c52fbd7c0243d42a13077380094c74ab5c6a2357d"
+      },
+      "html": {
+        "octets": 51130,
+        "sha256": "898329d35befa08271758abf0c109e80d4f11ab12e7477f1a2fc7829ae7a6a63"
+      }
+    }
+  ]
+}

@@ -1,0 +1,676 @@
+{
+ "date": "2026-10-27T02:02:15.593Z",
+ "corpus": [
+  {
+   "dossier": "/Users/yacinehida/Desktop/Reverse engineering/FIDELIX/01_REA_Fidelix/_captures/2026-10-26/raw/assets",
+   "bundles": [
+    "_next_static_chunks_1356-d70661dbb27f8921.js",
+    "_next_static_chunks_2128-b9b66b772b5c53ed.js",
+    "_next_static_chunks_2619-04bc32f026a0d946.js",
+    "_next_static_chunks_3678-440d3a9d39d4d438.js",
+    "_next_static_chunks_4008-20a2f032cea8775a.js",
+    "_next_static_chunks_4167-b104bcb9293fa340.js",
+    "_next_static_chunks_44530001-699706df5f232cb6.js",
+    "_next_static_chunks_4873-f86daf35ab2cfcb6.js",
+    "_next_static_chunks_4bd1b696-100b9d70ed4e49c1.js",
+    "_next_static_chunks_5040-aeb547ab6e2684c9.js",
+    "_next_static_chunks_5125-50030ac1e7a06359.js",
+    "_next_static_chunks_5875-e395be5dc8cdada4.js",
+    "_next_static_chunks_6211-7842671c235cadeb.js",
+    "_next_static_chunks_6440-243331ba7628778e.js",
+    "_next_static_chunks_6676-5b319050e87794bd.js",
+    "_next_static_chunks_6866-2c6ed19830232270.js",
+    "_next_static_chunks_7383-6e66436aba33b87c.js",
+    "_next_static_chunks_7631-29ff0d20f794a902.js",
+    "_next_static_chunks_7cb1fa1f-9c1d16e5e8123936.js",
+    "_next_static_chunks_800-6f25c91bf5ec2545.js",
+    "_next_static_chunks_8743-379ddb6d2683feb0.js",
+    "_next_static_chunks_9477-3b9f7e72181dff6d.js",
+    "_next_static_chunks_9779-f3dd8d5274e4301e.js",
+    "_next_static_chunks_app__admin__layout-a5191742e5074e3d.js",
+    "_next_static_chunks_app__auth__forgot-password_page-c17cec5863baf4b5.js",
+    "_next_static_chunks_app__auth__layout-06d42ad8b90aae00.js",
+    "_next_static_chunks_app__auth__login_page-fdb96a58c9171993.js",
+    "_next_static_chunks_app__auth__register_page-624b8d1e8d80be44.js",
+    "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js",
+    "_next_static_chunks_app_ar_page-e58c6cc42de01714.js",
+    "_next_static_chunks_app_caisse_error-b985e36f751e8914.js",
+    "_next_static_chunks_app_caisse_layout-fc5aca2fd66ae01b.js",
+    "_next_static_chunks_app_caisse_page-e18fb03a63b24353.js",
+    "_next_static_chunks_app_conditions_page-258e00637359cf37.js",
+    "_next_static_chunks_app_confidentialite_page-258e00637359cf37.js",
+    "_next_static_chunks_app_demarrer_page-33d3f2c3a9dce215.js",
+    "_next_static_chunks_app_en_page-70f335be27fb1693.js",
+    "_next_static_chunks_app_error-23078366a69e8840.js",
+    "_next_static_chunks_app_guide_page-258e00637359cf37.js",
+    "_next_static_chunks_app_join_%5Bslug%5D_page-5ffb58c0ed9fd59d.js",
+    "_next_static_chunks_app_layout-d5fb31becfa9e593.js",
+    "_next_static_chunks_app_mentions-legales_page-258e00637359cf37.js",
+    "_next_static_chunks_app_page-f1fb15e26c6b9d7e.js",
+    "_next_static_chunks_app_recompenses_%5Bslug%5D_page-06d42ad8b90aae00.js",
+    "_next_static_chunks_app_rendez-vous_page-411166a80d509344.js",
+    "_next_static_chunks_main-app-abf8cea03753baf0.js",
+    "_next_static_chunks_polyfills-42372ed130431b0a.js",
+    "_next_static_chunks_webpack-adc53dc381a5cfbf.js"
+   ]
+  },
+  {
+   "dossier": "/Users/yacinehida/Desktop/Reverse engineering/FIDELIX/01_REA_Fidelix/_captures/2026-10-27-auth-s3/raw/assets",
+   "bundles": [
+    "_next_static_chunks_1356-d70661dbb27f8921.js",
+    "_next_static_chunks_2128-b9b66b772b5c53ed.js",
+    "_next_static_chunks_2619-04bc32f026a0d946.js",
+    "_next_static_chunks_2654-f904b27dafb2e06e.js",
+    "_next_static_chunks_2790-7c9f7ae4e92006cd.js",
+    "_next_static_chunks_3298-6aea7ad7e7b0886a.js",
+    "_next_static_chunks_3678-440d3a9d39d4d438.js",
+    "_next_static_chunks_4008-20a2f032cea8775a.js",
+    "_next_static_chunks_4167-b104bcb9293fa340.js",
+    "_next_static_chunks_44530001-699706df5f232cb6.js",
+    "_next_static_chunks_4bd1b696-100b9d70ed4e49c1.js",
+    "_next_static_chunks_5040-aeb547ab6e2684c9.js",
+    "_next_static_chunks_5125-50030ac1e7a06359.js",
+    "_next_static_chunks_5909-f5777b5e6058bc9e.js",
+    "_next_static_chunks_6211-7842671c235cadeb.js",
+    "_next_static_chunks_6440-243331ba7628778e.js",
+    "_next_static_chunks_6676-5b319050e87794bd.js",
+    "_next_static_chunks_6866-2c6ed19830232270.js",
+    "_next_static_chunks_7383-6e66436aba33b87c.js",
+    "_next_static_chunks_7413-10a0d05da8189c5c.js",
+    "_next_static_chunks_7631-29ff0d20f794a902.js",
+    "_next_static_chunks_7cb1fa1f-9c1d16e5e8123936.js",
+    "_next_static_chunks_800-6f25c91bf5ec2545.js",
+    "_next_static_chunks_8417-ef61b80c3d87bde9.js",
+    "_next_static_chunks_9709-c5361a29f00a68c8.js",
+    "_next_static_chunks_9779-f3dd8d5274e4301e.js",
+    "_next_static_chunks_9835-ed31649ce3163097.js",
+    "_next_static_chunks_app__admin__layout-a5191742e5074e3d.js",
+    "_next_static_chunks_app__auth__layout-06d42ad8b90aae00.js",
+    "_next_static_chunks_app__dashboard__automations_layout-1d4ff5a6bba295ee.js",
+    "_next_static_chunks_app__dashboard__automations_page-40a8f7970e15e9d4.js",
+    "_next_static_chunks_app__dashboard__billing_layout-f827b9806e2e63e0.js",
+    "_next_static_chunks_app__dashboard__billing_page-da74b6d395479a05.js",
+    "_next_static_chunks_app__dashboard__branding_layout-a5191742e5074e3d.js",
+    "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js",
+    "_next_static_chunks_app__dashboard__caisses_layout-1d4ff5a6bba295ee.js",
+    "_next_static_chunks_app__dashboard__caisses_page-f3a37a6ee6e86b7c.js",
+    "_next_static_chunks_app__dashboard__campaigns_layout-1d4ff5a6bba295ee.js",
+    "_next_static_chunks_app__dashboard__campaigns_page-1054315515ce4dbf.js",
+    "_next_static_chunks_app__dashboard__customers_layout-1d4ff5a6bba295ee.js",
+    "_next_static_chunks_app__dashboard__customers_page-f24f6e2af0f3860b.js",
+    "_next_static_chunks_app__dashboard__dashboard_page-ce32e785073304b1.js",
+    "_next_static_chunks_app__dashboard__equipe_layout-1d4ff5a6bba295ee.js",
+    "_next_static_chunks_app__dashboard__equipe_page-27ea831f06ca5ecf.js",
+    "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js",
+    "_next_static_chunks_app__dashboard__notifications_layout-1d4ff5a6bba295ee.js",
+    "_next_static_chunks_app__dashboard__notifications_page-955a13495c2b4d76.js",
+    "_next_static_chunks_app__dashboard__program_layout-f827b9806e2e63e0.js",
+    "_next_static_chunks_app__dashboard__program_page-b105120c8ee3b818.js",
+    "_next_static_chunks_app__dashboard__qrcode_page-db893966db8148a6.js",
+    "_next_static_chunks_app__dashboard__reviews_page-483aefed6d36761b.js",
+    "_next_static_chunks_app__dashboard__rewards_layout-1d4ff5a6bba295ee.js",
+    "_next_static_chunks_app__dashboard__rewards_page-41726642a0c59dbf.js",
+    "_next_static_chunks_app__dashboard__scan_page-6f6c5cccfb991ce1.js",
+    "_next_static_chunks_app__dashboard__settings_layout-f827b9806e2e63e0.js",
+    "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js",
+    "_next_static_chunks_app_caisse_error-b985e36f751e8914.js",
+    "_next_static_chunks_app_caisse_layout-fc5aca2fd66ae01b.js",
+    "_next_static_chunks_app_caisse_page-e18fb03a63b24353.js",
+    "_next_static_chunks_app_error-23078366a69e8840.js",
+    "_next_static_chunks_app_layout-d5fb31becfa9e593.js",
+    "_next_static_chunks_app_recompenses_%5Bslug%5D_page-06d42ad8b90aae00.js",
+    "_next_static_chunks_main-app-abf8cea03753baf0.js",
+    "_next_static_chunks_polyfills-42372ed130431b0a.js",
+    "_next_static_chunks_webpack-adc53dc381a5cfbf.js"
+   ]
+  },
+  {
+   "dossier": "/Users/yacinehida/Desktop/Reverse engineering/FIDELIX/01_REA_Fidelix/_captures/2026-10-27-a3/raw/assets",
+   "bundles": [
+    "_next_static_chunks_app_card_%5BcardId%5D_page-198959bafc7eadc0.js"
+   ]
+  }
+ ],
+ "releve": {
+  "parOrigine": {
+   "code": 5,
+   "supabase auth-js": 40,
+   "prose": 58,
+   "chunk partagé": 1,
+   "page applicative": 31,
+   "champ": 4,
+   "mesure": 1,
+   "route": 4
+  },
+  "parJeton": {
+   "wallet": {
+    "total": 53,
+    "origines": {
+     "code": 5,
+     "prose": 48
+    }
+   },
+   "wallet_bg_url": {
+    "total": 2,
+    "origines": {
+     "champ": 2
+    }
+   },
+   "Apple Wallet": {
+    "total": 5,
+    "origines": {
+     "prose": 5
+    }
+   },
+   "Google Wallet": {
+    "total": 5,
+    "origines": {
+     "prose": 5
+    }
+   },
+   "taux_desinscription_wallet": {
+    "total": 1,
+    "origines": {
+     "mesure": 1
+    }
+   },
+   "walletEnabled": {
+    "total": 1,
+    "origines": {
+     "champ": 1
+    }
+   },
+   "googleWalletEnabled": {
+    "total": 1,
+    "origines": {
+     "champ": 1
+    }
+   },
+   "/api/wallet/": {
+    "total": 4,
+    "origines": {
+     "route": 4
+    }
+   }
+  },
+  "parFichier": [
+   {
+    "fichier": "_next_static_chunks_44530001-699706df5f232cb6.js",
+    "foyer": "supabase auth-js",
+    "total": 20,
+    "items": [
+     {
+      "jeton": "wallet",
+      "origine": "code",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "code",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_5875-e395be5dc8cdada4.js",
+    "foyer": "chunk partagé",
+    "total": 1,
+    "items": [
+     {
+      "jeton": "wallet",
+      "origine": "code",
+      "mot": "wallet"
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_44530001-699706df5f232cb6.js",
+    "foyer": "supabase auth-js",
+    "total": 20,
+    "items": [
+     {
+      "jeton": "wallet",
+      "origine": "code",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "code",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_app__dashboard__automations_page-40a8f7970e15e9d4.js",
+    "foyer": "page applicative",
+    "total": 1,
+    "items": [
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_app__dashboard__branding_page-be46047240a028d5.js",
+    "foyer": "page applicative",
+    "total": 4,
+    "items": [
+     {
+      "jeton": "wallet_bg_url",
+      "origine": "champ",
+      "mot": "wallet_bg_url"
+     },
+     {
+      "jeton": "wallet_bg_url",
+      "origine": "champ",
+      "mot": "wallet_bg_url"
+     },
+     {
+      "jeton": "Apple Wallet",
+      "origine": "prose",
+      "mot": "Apple Wallet"
+     },
+     {
+      "jeton": "Google Wallet",
+      "origine": "prose",
+      "mot": "Google Wallet"
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_app__dashboard__notifications_page-955a13495c2b4d76.js",
+    "foyer": "page applicative",
+    "total": 2,
+    "items": [
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "taux_desinscription_wallet",
+      "origine": "mesure",
+      "mot": "taux_desinscription_wallet"
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_app__dashboard__qrcode_page-db893966db8148a6.js",
+    "foyer": "page applicative",
+    "total": 1,
+    "items": [
+     {
+      "jeton": "Google Wallet",
+      "origine": "prose",
+      "mot": "Google Wallet"
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_app__dashboard__settings_page-7bb560c4de073cfb.js",
+    "foyer": "page applicative",
+    "total": 2,
+    "items": [
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_app_card_%5BcardId%5D_page-198959bafc7eadc0.js",
+    "foyer": "page applicative",
+    "total": 21,
+    "items": [
+     {
+      "jeton": "walletEnabled",
+      "origine": "champ",
+      "mot": "walletEnabled"
+     },
+     {
+      "jeton": "googleWalletEnabled",
+      "origine": "champ",
+      "mot": "googleWalletEnabled"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "/api/wallet/",
+      "origine": "route",
+      "genre": "fetch",
+      "route": "/api/wallet/apple/<var>/statut"
+     },
+     {
+      "jeton": "/api/wallet/",
+      "origine": "route",
+      "genre": "fetch",
+      "route": "/api/wallet/apple/<var>/statut"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "Apple Wallet",
+      "origine": "prose",
+      "mot": "Apple Wallet"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "Apple Wallet",
+      "origine": "prose",
+      "mot": "Apple Wallet"
+     },
+     {
+      "jeton": "Apple Wallet",
+      "origine": "prose",
+      "mot": "Apple Wallet"
+     },
+     {
+      "jeton": "Google Wallet",
+      "origine": "prose",
+      "mot": "Google Wallet"
+     },
+     {
+      "jeton": "/api/wallet/",
+      "origine": "route",
+      "genre": "navigation",
+      "route": "/api/wallet/apple/<var>"
+     },
+     {
+      "jeton": "wallet",
+      "origine": "prose",
+      "mot": "wallet"
+     },
+     {
+      "jeton": "Apple Wallet",
+      "origine": "prose",
+      "mot": "Apple Wallet"
+     },
+     {
+      "jeton": "/api/wallet/",
+      "origine": "route",
+      "genre": "navigation",
+      "route": "/api/wallet/google/<var>"
+     },
+     {
+      "jeton": "Google Wallet",
+      "origine": "prose",
+      "mot": "Google Wallet"
+     },
+     {
+      "jeton": "Google Wallet",
+      "origine": "prose",
+      "mot": "Google Wallet"
+     }
+    ]
+   }
+  ],
+  "routes": [
+   {
+    "route": "/api/wallet/apple/<var>/statut",
+    "genres": [
+     "fetch"
+    ],
+    "jetons": [
+     "/api/wallet/"
+    ],
+    "fichiers": [
+     "_next_static_chunks_app_card_%5BcardId%5D_page-198959bafc7eadc0.js"
+    ]
+   },
+   {
+    "route": "/api/wallet/apple/<var>",
+    "genres": [
+     "navigation"
+    ],
+    "jetons": [
+     "/api/wallet/"
+    ],
+    "fichiers": [
+     "_next_static_chunks_app_card_%5BcardId%5D_page-198959bafc7eadc0.js"
+    ]
+   },
+   {
+    "route": "/api/wallet/google/<var>",
+    "genres": [
+     "navigation"
+    ],
+    "jetons": [
+     "/api/wallet/"
+    ],
+    "fichiers": [
+     "_next_static_chunks_app_card_%5BcardId%5D_page-198959bafc7eadc0.js"
+    ]
+   }
+  ]
+ },
+ "calibration": {
+  "ecarts": [],
+  "temoins": {
+   "positifRoute": "/api/wallet/apple/",
+   "positifChamp": "wallet_bg_url",
+   "positifProse": "Ajouter \\xe0 Apple Wallet",
+   "leurreFoyer": "@supabase/auth-js",
+   "negatif": "pkpass",
+   "negatif2": "passTypeIdentifier",
+   "negatifRoute": "/api/wallet/zzz-inexistant"
+  }
+ }
+}

@@ -1,0 +1,1572 @@
+{
+  "source": "FIDELIX/tools/rea/decouvrir-cibles.mjs",
+  "passe": "01_REA_Fidelix/_captures/2026-10-26-auth",
+  "horodatage": "2026-10-26T23:16:45.802Z",
+  "manifesteCompare": "01_REA_Fidelix/_captures/cibles-auth-s3.json",
+  "rendus": 13,
+  "cibles": 21,
+  "nouvelles": 0,
+  "releve": {
+    "rendus": 13,
+    "pages": [
+      {
+        "chemin": "/dashboard",
+        "motif": "/dashboard",
+        "occurrences": 20,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses",
+          "a10-loyalty",
+          "a13-account",
+          "a14-abonnement"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/billing",
+        "motif": "/billing",
+        "occurrences": 18,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/customers",
+        "motif": "/customers",
+        "occurrences": 18,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/notifications",
+        "motif": "/notifications",
+        "occurrences": 18,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/settings",
+        "motif": "/settings",
+        "occurrences": 18,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/branding",
+        "motif": "/branding",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/caisses",
+        "motif": "/caisses",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/qrcode",
+        "motif": "/qrcode",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/reviews",
+        "motif": "/reviews",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/rewards",
+        "motif": "/rewards",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/scan",
+        "motif": "/scan",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/",
+        "motif": "/",
+        "occurrences": 16,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses",
+          "a10-loyalty",
+          "a13-account",
+          "a14-abonnement",
+          "a15-caisse"
+        ],
+        "statuts": [
+          307
+        ]
+      },
+      {
+        "chemin": "/api/fidelia",
+        "motif": "/api/fidelia",
+        "occurrences": 9,
+        "types": [
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/api/commerce/actif",
+        "motif": "/api/commerce/actif",
+        "occurrences": 7,
+        "types": [
+          "xhr"
+        ],
+        "pages": [
+          "a02-program",
+          "a03-rewards",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/equipe",
+        "motif": "/equipe",
+        "occurrences": 3,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/program",
+        "motif": "/program",
+        "occurrences": 3,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a02-program",
+          "a03-rewards"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/campaigns",
+        "motif": "/campaigns",
+        "occurrences": 2,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a07-automations"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/api/scan/cards",
+        "motif": "/api/scan/cards",
+        "occurrences": 1,
+        "types": [
+          "xhr"
+        ],
+        "pages": [
+          "a04-scan"
+        ],
+        "statuts": [
+          200
+        ]
+      },
+      {
+        "chemin": "/automations",
+        "motif": "/automations",
+        "occurrences": 1,
+        "types": [
+          "href"
+        ],
+        "pages": [
+          "a07-automations"
+        ],
+        "statuts": []
+      },
+      {
+        "chemin": "/customers/b365a328-1326-4e6c-bed6-213696be797a",
+        "motif": "/customers/:id",
+        "occurrences": 1,
+        "types": [
+          "href"
+        ],
+        "pages": [
+          "a01-dashboard"
+        ],
+        "statuts": [],
+        "exemple": "/customers/b365a328-1326-4e6c-bed6-213696be797a"
+      },
+      {
+        "chemin": "/recompenses/impetus-fqvw",
+        "motif": "/recompenses/impetus-fqvw",
+        "occurrences": 1,
+        "types": [
+          "href"
+        ],
+        "pages": [
+          "a03-rewards"
+        ],
+        "statuts": []
+      }
+    ],
+    "supabase": [
+      {
+        "chemin": "/auth/v1/user",
+        "methodes": [
+          "GET"
+        ],
+        "pages": [
+          "a02-program",
+          "a03-rewards",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "occurrences": 5
+      },
+      {
+        "chemin": "/rest/v1/automations",
+        "methodes": [
+          "GET"
+        ],
+        "pages": [
+          "a07-automations"
+        ],
+        "occurrences": 1
+      },
+      {
+        "chemin": "/rest/v1/loyalty_programs",
+        "methodes": [
+          "GET"
+        ],
+        "pages": [
+          "a02-program",
+          "a03-rewards",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "occurrences": 5
+      },
+      {
+        "chemin": "/rest/v1/restaurants",
+        "methodes": [
+          "GET"
+        ],
+        "pages": [
+          "a02-program",
+          "a03-rewards",
+          "a08-branding"
+        ],
+        "occurrences": 5
+      },
+      {
+        "chemin": "/rest/v1/reward_tiers",
+        "methodes": [
+          "GET"
+        ],
+        "pages": [
+          "a03-rewards",
+          "a08-branding"
+        ],
+        "occurrences": 2
+      },
+      {
+        "chemin": "/rest/v1/rpc/classement_caisses",
+        "methodes": [
+          "POST"
+        ],
+        "pages": [
+          "a09-caisses"
+        ],
+        "occurrences": 1
+      },
+      {
+        "chemin": "/rest/v1/rpc/mon_role_point_de_vente",
+        "methodes": [
+          "POST"
+        ],
+        "pages": [
+          "a03-rewards"
+        ],
+        "occurrences": 1
+      },
+      {
+        "chemin": "/rest/v1/rpc/parrainages_du_commerce",
+        "methodes": [
+          "POST"
+        ],
+        "pages": [
+          "a01-dashboard"
+        ],
+        "occurrences": 1
+      },
+      {
+        "chemin": "/rest/v1/till_sessions",
+        "methodes": [
+          "GET"
+        ],
+        "pages": [
+          "a09-caisses"
+        ],
+        "occurrences": 1
+      }
+    ],
+    "ignores": [
+      {
+        "valeur": "/_next/static/css/d34d95ecc21099a8.css",
+        "raison": "asset Next.js",
+        "occurrences": 26
+      },
+      {
+        "valeur": "/_next/static/css/0baee74d463a534b.css",
+        "raison": "asset Next.js",
+        "occurrences": 26
+      },
+      {
+        "valeur": "/_next/static/media/36966cca54120369-s.p.woff2",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 25
+      },
+      {
+        "valeur": "/_next/static/media/46bdd75a3ff56824-s.p.woff2",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 25
+      },
+      {
+        "valeur": "/_next/static/media/62c97acc3aa63787-s.p.woff2",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 25
+      },
+      {
+        "valeur": "/_next/static/media/bb3ef058b751a6ad-s.p.woff2",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 25
+      },
+      {
+        "valeur": "/_next/static/media/e4af272ccee01ff0-s.p.woff2",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 25
+      },
+      {
+        "valeur": "/_next/static/chunks/webpack-adc53dc381a5cfbf.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 25
+      },
+      {
+        "valeur": "/manifest.webmanifest",
+        "raison": "fichier, pas une route",
+        "occurrences": 21
+      },
+      {
+        "valeur": "/icon.png",
+        "raison": "fichier, pas une route",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/apple-icon.png",
+        "raison": "fichier, pas une route",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/image",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/7631-29ff0d20f794a902.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/main-app-abf8cea03753baf0.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/2619-04bc32f026a0d946.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/app/error-23078366a69e8840.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/9779-f3dd8d5274e4301e.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/3678-440d3a9d39d4d438.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/5040-aeb547ab6e2684c9.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/app/layout-d5fb31becfa9e593.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/1356-d70661dbb27f8921.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/6211-7842671c235cadeb.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/brand/wordmark-white.png",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/c8392ed1a2553f1f/script.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 13
+      },
+      {
+        "valeur": "/_next/static/chunks/44530001-699706df5f232cb6.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 12
+      },
+      {
+        "valeur": "/_next/static/chunks/7383-6e66436aba33b87c.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 12
+      },
+      {
+        "valeur": "/_next/static/chunks/4167-b104bcb9293fa340.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 12
+      },
+      {
+        "valeur": "/_next/static/chunks/800-6f25c91bf5ec2545.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 12
+      },
+      {
+        "valeur": "/_next/static/chunks/6676-5b319050e87794bd.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 12
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/layout-aa8914c1bd963665.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 12
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(auth)/layout-06d42ad8b90aae00.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 12
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(admin)/layout-a5191742e5074e3d.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 10
+      },
+      {
+        "valeur": "/icon-192.png",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 9
+      },
+      {
+        "valeur": "/_next/static/chunks/2790-7c9f7ae4e92006cd.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 3
+      },
+      {
+        "valeur": "/_next/static/chunks/8417-ef61b80c3d87bde9.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "/_next/static/chunks/7413-10a0d05da8189c5c.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "/_next/static/chunks/3298-6aea7ad7e7b0886a.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "/_next/static/chunks/5125-50030ac1e7a06359.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "/_next/static/chunks/2654-f904b27dafb2e06e.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "/_next/static/chunks/7cb1fa1f-9c1d16e5e8123936.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "/_next/static/chunks/6440-243331ba7628778e.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "/_next/static/chunks/4008-20a2f032cea8775a.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "/_next/static/chunks/6866-2c6ed19830232270.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 2
+      },
+      {
+        "valeur": "https://wa.me/212642695137?text=Bonjour%2C%20je%20souhaite%20commander%20ma%20carte%20NFC%20Fidelix.%0A%0ACommerce%20%3A%20impetus%0ALien%20%3A%20fidelix.ma%2Fjoin%2Fimpetus-fqvw%0A%0AMerci%20de%20me%20la%20configurer.",
+        "raison": "hors site ou non routable",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/dashboard",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/5909-f5777b5e6058bc9e.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/dashboard/page-ce32e785073304b1.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://developers.google.com/maps/documentation/places/web-service/place-id?hl=fr",
+        "raison": "hors site ou non routable",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://wa.me/212642695137?text=Je%20souhaite%20avoir%20mon%20Place%20ID%20pour%20le%20bonus%20d'avis%20Google.%0A%0ACommerce%20%3A%20impetus",
+        "raison": "hors site ou non routable",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/program",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/program/page-b105120c8ee3b818.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/program/layout-f827b9806e2e63e0.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/rewards",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/rewards/page-41726642a0c59dbf.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/rewards/layout-1d4ff5a6bba295ee.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/scan",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/scan/page-6f6c5cccfb991ce1.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/reviews",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/reviews/page-483aefed6d36761b.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/qrcode",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/qrcode/page-db893966db8148a6.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/automations",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/automations/page-40a8f7970e15e9d4.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/automations/layout-1d4ff5a6bba295ee.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/branding",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/branding/page-be46047240a028d5.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/branding/layout-a5191742e5074e3d.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/caisses",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/9835-ed31649ce3163097.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/caisses/page-f3a37a6ee6e86b7c.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/(dashboard)/caisses/layout-1d4ff5a6bba295ee.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/loyalty",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/account",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/abonnement",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/caisse/manifest.webmanifest",
+        "raison": "fichier, pas une route",
+        "occurrences": 1
+      },
+      {
+        "valeur": "https://fidelix.ma/caisse",
+        "raison": "la page capturée elle-même (auto-référence)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/caisse/layout-fc5aca2fd66ae01b.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/2128-b9b66b772b5c53ed.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/caisse/page-e18fb03a63b24353.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      },
+      {
+        "valeur": "/_next/static/chunks/app/caisse/error-b985e36f751e8914.js",
+        "raison": "asset ou fichier (requête de rendu)",
+        "occurrences": 1
+      }
+    ]
+  },
+  "diff": {
+    "nouvelles": [],
+    "connues": [
+      {
+        "chemin": "/dashboard",
+        "motif": "/dashboard",
+        "occurrences": 20,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses",
+          "a10-loyalty",
+          "a13-account",
+          "a14-abonnement"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a01-dashboard"
+        }
+      },
+      {
+        "chemin": "/billing",
+        "motif": "/billing",
+        "occurrences": 18,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a16-billing"
+        }
+      },
+      {
+        "chemin": "/customers",
+        "motif": "/customers",
+        "occurrences": 18,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a17-customers"
+        }
+      },
+      {
+        "chemin": "/notifications",
+        "motif": "/notifications",
+        "occurrences": 18,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a20-notifications"
+        }
+      },
+      {
+        "chemin": "/settings",
+        "motif": "/settings",
+        "occurrences": 18,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a21-settings"
+        }
+      },
+      {
+        "chemin": "/branding",
+        "motif": "/branding",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a08-branding"
+        }
+      },
+      {
+        "chemin": "/caisses",
+        "motif": "/caisses",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a09-caisses"
+        }
+      },
+      {
+        "chemin": "/qrcode",
+        "motif": "/qrcode",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a06-qrcode"
+        }
+      },
+      {
+        "chemin": "/reviews",
+        "motif": "/reviews",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a05-reviews"
+        }
+      },
+      {
+        "chemin": "/rewards",
+        "motif": "/rewards",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a03-rewards"
+        }
+      },
+      {
+        "chemin": "/scan",
+        "motif": "/scan",
+        "occurrences": 17,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a04-scan"
+        }
+      },
+      {
+        "chemin": "/",
+        "motif": "/",
+        "occurrences": 16,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses",
+          "a10-loyalty",
+          "a13-account",
+          "a14-abonnement",
+          "a15-caisse"
+        ],
+        "statuts": [
+          307
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a24-racine-derivee"
+        }
+      },
+      {
+        "chemin": "/api/fidelia",
+        "motif": "/api/fidelia",
+        "occurrences": 9,
+        "types": [
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a02-program",
+          "a03-rewards",
+          "a04-scan",
+          "a05-reviews",
+          "a06-qrcode",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "sonde",
+          "id": "b13-api-fidelia-resume"
+        }
+      },
+      {
+        "chemin": "/api/commerce/actif",
+        "motif": "/api/commerce/actif",
+        "occurrences": 7,
+        "types": [
+          "xhr"
+        ],
+        "pages": [
+          "a02-program",
+          "a03-rewards",
+          "a07-automations",
+          "a08-branding",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "sonde",
+          "id": "b21-api-commerce-actif"
+        }
+      },
+      {
+        "chemin": "/equipe",
+        "motif": "/equipe",
+        "occurrences": 3,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a01-dashboard",
+          "a09-caisses"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a19-equipe"
+        }
+      },
+      {
+        "chemin": "/program",
+        "motif": "/program",
+        "occurrences": 3,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a02-program",
+          "a03-rewards"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a02-program"
+        }
+      },
+      {
+        "chemin": "/campaigns",
+        "motif": "/campaigns",
+        "occurrences": 2,
+        "types": [
+          "href",
+          "xhr"
+        ],
+        "pages": [
+          "a07-automations"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "page",
+          "id": "a22-campaigns"
+        }
+      },
+      {
+        "chemin": "/api/scan/cards",
+        "motif": "/api/scan/cards",
+        "occurrences": 1,
+        "types": [
+          "xhr"
+        ],
+        "pages": [
+          "a04-scan"
+        ],
+        "statuts": [
+          200
+        ],
+        "connu": {
+          "famille": "sonde",
+          "id": "b06-api-scan-cards"
+        }
+      },
+      {
+        "chemin": "/automations",
+        "motif": "/automations",
+        "occurrences": 1,
+        "types": [
+          "href"
+        ],
+        "pages": [
+          "a07-automations"
+        ],
+        "statuts": [],
+        "connu": {
+          "famille": "page",
+          "id": "a07-automations"
+        }
+      },
+      {
+        "chemin": "/customers/b365a328-1326-4e6c-bed6-213696be797a",
+        "motif": "/customers/:id",
+        "occurrences": 1,
+        "types": [
+          "href"
+        ],
+        "pages": [
+          "a01-dashboard"
+        ],
+        "statuts": [],
+        "exemple": "/customers/b365a328-1326-4e6c-bed6-213696be797a",
+        "connu": {
+          "famille": "page",
+          "id": "a18-customer-detail"
+        }
+      },
+      {
+        "chemin": "/recompenses/impetus-fqvw",
+        "motif": "/recompenses/impetus-fqvw",
+        "occurrences": 1,
+        "types": [
+          "href"
+        ],
+        "pages": [
+          "a03-rewards"
+        ],
+        "statuts": [],
+        "connu": {
+          "famille": "page",
+          "id": "a23-recompense-publique"
+        }
+      }
+    ],
+    "disparues": [
+      {
+        "motif": "/loyalty",
+        "famille": "page",
+        "id": "a10-loyalty"
+      },
+      {
+        "motif": "/admin",
+        "famille": "page",
+        "id": "a11-admin"
+      },
+      {
+        "motif": "/onboarding",
+        "famille": "page",
+        "id": "a12-onboarding"
+      },
+      {
+        "motif": "/account",
+        "famille": "page",
+        "id": "a13-account"
+      },
+      {
+        "motif": "/abonnement",
+        "famille": "page",
+        "id": "a14-abonnement"
+      },
+      {
+        "motif": "/caisse",
+        "famille": "page",
+        "id": "a15-caisse"
+      },
+      {
+        "motif": "/api/me",
+        "famille": "sonde",
+        "id": "b01-api-me"
+      },
+      {
+        "motif": "/api/auth/session",
+        "famille": "sonde",
+        "id": "b02-api-auth-session"
+      },
+      {
+        "motif": "/api/health",
+        "famille": "sonde",
+        "id": "b03-api-health"
+      },
+      {
+        "motif": "/api/transaction",
+        "famille": "sonde",
+        "id": "b04-api-transaction"
+      },
+      {
+        "motif": "/api/transaction/annuler",
+        "famille": "sonde",
+        "id": "b05-api-transaction-annuler"
+      },
+      {
+        "motif": "/api/scan/card",
+        "famille": "sonde",
+        "id": "b07-api-scan-card"
+      },
+      {
+        "motif": "/api/caisse/appairer",
+        "famille": "sonde",
+        "id": "b08-api-caisse-appairer"
+      },
+      {
+        "motif": "/api/caisse/cadeau-filleul",
+        "famille": "sonde",
+        "id": "b09-api-caisse-cadeau-filleul"
+      },
+      {
+        "motif": "/api/caisse/parrainage-valide",
+        "famille": "sonde",
+        "id": "b10-api-caisse-parrainage-valide"
+      },
+      {
+        "motif": "/api/caisse/reviews",
+        "famille": "sonde",
+        "id": "b11-api-caisse-reviews"
+      },
+      {
+        "motif": "/api/payments/payzone/initiate",
+        "famille": "sonde",
+        "id": "b14-api-payzone-initiate"
+      },
+      {
+        "motif": "/api/commerce/select",
+        "famille": "sonde",
+        "id": "b15-api-commerce-select"
+      },
+      {
+        "motif": "/api/equipe/activer",
+        "famille": "sonde",
+        "id": "b16-api-equipe-activer"
+      },
+      {
+        "motif": "/api/broadcast",
+        "famille": "sonde",
+        "id": "b17-api-broadcast"
+      },
+      {
+        "motif": "/api/push/subscribe",
+        "famille": "sonde",
+        "id": "b18-api-push-subscribe"
+      },
+      {
+        "motif": "/api/email/welcome",
+        "famille": "sonde",
+        "id": "b19-api-email-welcome"
+      },
+      {
+        "motif": "/api/demarrer",
+        "famille": "sonde",
+        "id": "b20-api-demarrer"
+      }
+    ]
+  }
+}

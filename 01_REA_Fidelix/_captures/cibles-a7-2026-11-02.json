@@ -1,0 +1,15 @@
+{
+  "passe": "REA-FX-2026-11-02-A7 — les 6 modules découverts par la passe A6 (liens du DOM privé)",
+  "date": "2026-11-02-a7",
+  "base": "https://fidelix.ma",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "note": "A6 a lu 13 DOM privés et découvert 11 cibles absentes du manifeste d'origine. A7 ne mesure QUE les pages — aucune écriture, aucune sonde d'écriture. `/customers/:id` est capturé avec un UUID NUL (garde-fou §16 : un identifiant synthétique prouve le statut de la route, pas l'existence de la fiche). `/api-cles` porte le mot « clés » : la capture HTTP enregistre l'octet servi, donc un secret affiché à l'écran finirait dans raw/ — c'est précisément pour cela que le corps de cette page est vérifié avant écriture (voir le rapport).",
+  "pages": [
+    { "id": "c01-settings", "chemin": "/settings", "famille": "compte", "statut": "prouve", "pourquoi": "Entrée « Mon compte » du rail privé, mesurée dans les 9 DOM de A6 (13 occurrences)." },
+    { "id": "c02-billing", "chemin": "/billing", "famille": "compte", "statut": "prouve", "pourquoi": "Entrée « Voir l'abonnement » du rail privé (13 occurrences)." },
+    { "id": "c03-api-cles", "chemin": "/api-cles", "famille": "integration", "statut": "prouve", "pourquoi": "Entrée « API » du rail privé (13 occurrences) — module jamais inventorié avant A6." },
+    { "id": "c04-equipe", "chemin": "/equipe", "famille": "module", "statut": "prouve", "pourquoi": "3 occurrences dans 2 DOM (drill-down d'une caisse)." },
+    { "id": "c05-campaigns", "chemin": "/campaigns", "famille": "module", "statut": "prouve", "pourquoi": "2 occurrences dans 1 DOM (depuis /notifications)." },
+    { "id": "c06-client-nul", "chemin": "/customers/00000000-0000-0000-0000-000000000000", "famille": "module", "statut": "prouve", "pourquoi": "Fiche client (drill-down de /customers). UUID nul : le statut de la route se prouve sans extraire la fiche d'un client réel." }
+  ]
+}

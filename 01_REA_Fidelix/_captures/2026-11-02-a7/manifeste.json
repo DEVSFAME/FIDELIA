@@ -1,0 +1,133 @@
+{
+  "passe": "REA-FX-2026-11-02-A7 — les 6 modules découverts par la passe A6 (liens du DOM privé)",
+  "manifeste": "01_REA_Fidelix/_captures/cibles-a7-2026-11-02.json",
+  "date": "2026-11-02-a7",
+  "horodatage": "2026-11-01T23:31:53.703Z",
+  "source": "FIDELIX/tools/rea/capturer-fidelix.mjs",
+  "base": "https://fidelix.ma",
+  "mode": "AUTHENTIFIÉ",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "session": "profil par défaut /Users/yacinehida/Desktop/Reverse engineering/FIDELIX/.profil-rea (2 cookie(s), auth présente)",
+  "cibles": 6,
+  "ok": 5,
+  "redirections": 0,
+  "echecs": 0,
+  "stables": 6,
+  "dynamiques": 0,
+  "instables": 0,
+  "refusesAttendus": 0,
+  "refusesInattendus": 0,
+  "releves": [
+    {
+      "id": "c01-settings",
+      "famille": "compte",
+      "chemin": "/settings",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-02-a7/raw/pages/c01-settings.html",
+      "octets": 76839,
+      "sha256": "dd5c68af8313cfe41bb68f5b2fd155d59cd1dbe35570dd13e9ec4b8b1829e62d",
+      "sha256Stable": "dd5c68af8313cfe41bb68f5b2fd155d59cd1dbe35570dd13e9ec4b8b1829e62d",
+      "sha256Contenu": "0d636179b7df944d4b5932223baa60fbd2fdc80af0d12ae96fc48ff261f361f9",
+      "contenu": {
+        "titre": "Fidelix — La fidélité qui régale",
+        "octetsTexte": 606,
+        "liens": 19
+      },
+      "normalisations": 0
+    },
+    {
+      "id": "c02-billing",
+      "famille": "compte",
+      "chemin": "/billing",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-02-a7/raw/pages/c02-billing.html",
+      "octets": 95704,
+      "sha256": "5a3a70ac7b71a4450ca73824c051a6e8069f4401879b0c109d59a2d40d0acff8",
+      "sha256Stable": "5a3a70ac7b71a4450ca73824c051a6e8069f4401879b0c109d59a2d40d0acff8",
+      "sha256Contenu": "00e19d80ce33b3f93b6a851b66da31440f81b3a746fc689da13347319789af62",
+      "contenu": {
+        "titre": "Fidelix — La fidélité qui régale",
+        "octetsTexte": 2849,
+        "liens": 20
+      },
+      "normalisations": 0
+    },
+    {
+      "id": "c03-api-cles",
+      "famille": "integration",
+      "chemin": "/api-cles",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-02-a7/raw/pages/c03-api-cles.html",
+      "octets": 78892,
+      "sha256": "6516653f54c03e5a018cc2d5d6781a747d60ef11450e9aa65f0f3c356d58ff6b",
+      "sha256Stable": "6516653f54c03e5a018cc2d5d6781a747d60ef11450e9aa65f0f3c356d58ff6b",
+      "sha256Contenu": "17488aa3607deabb353c435cddd486ec2e38a149f079f8d31ba07efad831bbea",
+      "contenu": {
+        "titre": "Fidelix — La fidélité qui régale",
+        "octetsTexte": 868,
+        "liens": 19
+      },
+      "normalisations": 0
+    },
+    {
+      "id": "c04-equipe",
+      "famille": "module",
+      "chemin": "/equipe",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-02-a7/raw/pages/c04-equipe.html",
+      "octets": 78369,
+      "sha256": "13b9e3e7d12d875b2490f7e271dac74b7b35f1733d2b259cde7498dacd1fc8d7",
+      "sha256Stable": "13b9e3e7d12d875b2490f7e271dac74b7b35f1733d2b259cde7498dacd1fc8d7",
+      "sha256Contenu": "1666b44fe82a73a13b7eef56c343e14572f0c870ae6aff7b7711e38cf02bbb67",
+      "contenu": {
+        "titre": "Fidelix — La fidélité qui régale",
+        "octetsTexte": 785,
+        "liens": 19
+      },
+      "normalisations": 0
+    },
+    {
+      "id": "c05-campaigns",
+      "famille": "module",
+      "chemin": "/campaigns",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-02-a7/raw/pages/c05-campaigns.html",
+      "octets": 79523,
+      "sha256": "0673f28034375baecbce4779445da690d63dc3723c077334a77f9d85e3adb10a",
+      "sha256Stable": "0673f28034375baecbce4779445da690d63dc3723c077334a77f9d85e3adb10a",
+      "sha256Contenu": "eccfa44a53f3e76df36b41c84e74d9249d60d9e32c2439d1137d61ed0a14c75d",
+      "contenu": {
+        "titre": "Fidelix — La fidélité qui régale",
+        "octetsTexte": 796,
+        "liens": 20
+      },
+      "normalisations": 0
+    },
+    {
+      "id": "c06-client-nul",
+      "famille": "module",
+      "chemin": "/customers/00000000-0000-0000-0000-000000000000",
+      "http": 404,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-02-a7/raw/pages/c06-client-nul.html",
+      "octets": 41226,
+      "sha256": "1fe3b1014d4fa34f765e81b1ce0c632122526c37a0a6921c4a5ff07efda6c8e4",
+      "sha256Stable": "1fe3b1014d4fa34f765e81b1ce0c632122526c37a0a6921c4a5ff07efda6c8e4",
+      "sha256Contenu": "34a37d103538fed952702aba6cfa9a1dea725e74936e522bc926b3512e0a9896",
+      "contenu": {
+        "titre": "Page introuvable — Fidelix",
+        "octetsTexte": 26,
+        "liens": 4
+      },
+      "normalisations": 0
+    }
+  ],
+  "assets": [],
+  "erreurs": [],
+  "refuses": []
+}

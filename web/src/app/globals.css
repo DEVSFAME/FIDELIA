@@ -1,0 +1,38 @@
+/* ============================================================================
+   Base Tailwind + styles de document.
+
+   Ordre d'import (voir `src/app/(fr)/layout.jsx`) :
+     1. globals.css  → @tailwind base / components / utilities
+     2. tokens.css   → les variables mesurées
+     3. verre.css    → les classes .verre / .vitre
+
+   Pourquoi la couche « verre » vient **après** les utilitaires : dans la cible,
+   `[data-skin=premium] .rounded-2xl.bg-card` réécrit le fond d'une carte déjà
+   colorée par `bg-card`. Mettre le verre avant les utilitaires inverserait la
+   cascade et les cartes resteraient opaques.
+   ========================================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: rgb(var(--ink-rgb));
+    /* `--fond-page` n'existe que sous `[data-skin=premium]` ; le repli évite un
+       fond transparent au premier rendu. */
+    background-color: var(--fond-page, #efeae4);
+  }
+
+  /* Anneau de focus visible : sans lui, la navigation clavier est invisible sur
+     une surface en verre, où le contraste des bords est faible. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--coral-rgb) / 0.65);
+    outline-offset: 2px;
+  }
+}

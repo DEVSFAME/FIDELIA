@@ -1,0 +1,1457 @@
+{
+  "outil": "FIDELIX/tools/rea/mesurer-modele.mjs",
+  "horodatage": "2026-10-27T00:25:02.880Z",
+  "projet": "rozagopjfkkblyxtjdgw",
+  "urlBase": "https://rozagopjfkkblyxtjdgw.supabase.co",
+  "session": {
+    "source": "profil par défaut /Users/yacinehida/Desktop/Reverse engineering/FIDELIX/.profil-rea (2 cookie(s), auth présente)",
+    "role": "authenticated",
+    "exp": 1793063792
+  },
+  "rafraichissement": null,
+  "tablesDemandees": [
+    "loyalty_programs",
+    "automations",
+    "customers",
+    "transactions",
+    "rewards",
+    "restaurants",
+    "reward_tiers",
+    "till_sessions"
+  ],
+  "tirages": 6,
+  "echantillon": 3,
+  "openapi": {
+    "statut": 401,
+    "tables": 0,
+    "rpc": 0,
+    "erreur": {
+      "code": null,
+      "message": "Invalid API key",
+      "details": null,
+      "hint": "Only the `service_role` API key can be used for this endpoint."
+    }
+  },
+  "tables": [
+    {
+      "table": "loyalty_programs",
+      "url": "/rest/v1/loyalty_programs?select=*&limit=3",
+      "avecSession": {
+        "statut": 206,
+        "total": 309,
+        "colonnes": [
+          {
+            "nom": "id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "restaurant_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "name",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "type",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "points_per_purchase",
+            "types": [
+              "integer",
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "min_purchase_mad",
+            "types": [
+              "integer",
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "stamps_total",
+            "types": [
+              "integer",
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "reward_description",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "reward_threshold",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "points_expiry_days",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "is_active",
+            "types": [
+              "boolean"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "created_at",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "updated_at",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "referral_reward",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "review_reward",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "review_reward_enabled",
+            "types": [
+              "boolean"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "google_review_url",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "enseigne_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "stamp_icon",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "devise",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "deduction_libre",
+            "types": [
+              "boolean"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "referral_reward_filleul",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "referral_cadeau_filleul",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          }
+        ],
+        "erreur": null
+      },
+      "sansJeton": {
+        "statut": 206,
+        "total": 309,
+        "colonnes": [
+          "id",
+          "restaurant_id",
+          "name",
+          "type",
+          "points_per_purchase",
+          "min_purchase_mad",
+          "stamps_total",
+          "reward_description",
+          "reward_threshold",
+          "points_expiry_days",
+          "is_active",
+          "created_at",
+          "updated_at",
+          "referral_reward",
+          "review_reward",
+          "review_reward_enabled",
+          "google_review_url",
+          "enseigne_id",
+          "stamp_icon",
+          "devise",
+          "deduction_libre",
+          "referral_reward_filleul",
+          "referral_cadeau_filleul"
+        ],
+        "erreur": null
+      },
+      "declaree": {
+        "exposee": false,
+        "colonnes": [],
+        "methodes": []
+      },
+      "stabilite": {
+        "tirages": 6,
+        "formes": 1,
+        "totaux": [
+          309
+        ]
+      }
+    },
+    {
+      "table": "automations",
+      "url": "/rest/v1/automations?select=*&limit=3",
+      "avecSession": {
+        "statut": 200,
+        "total": 0,
+        "colonnes": [],
+        "erreur": null
+      },
+      "sansJeton": {
+        "statut": 200,
+        "total": 0,
+        "colonnes": [],
+        "erreur": null
+      },
+      "declaree": {
+        "exposee": false,
+        "colonnes": [],
+        "methodes": []
+      },
+      "stabilite": {
+        "tirages": 6,
+        "formes": 1,
+        "totaux": [
+          0
+        ]
+      }
+    },
+    {
+      "table": "customers",
+      "url": "/rest/v1/customers?select=*&limit=3",
+      "avecSession": {
+        "statut": 403,
+        "total": null,
+        "colonnes": [],
+        "erreur": {
+          "code": "42501",
+          "message": "permission denied for table customers",
+          "details": null,
+          "hint": "Grant the required privileges to the current role with: GRANT SELECT ON public.customers TO authenticated;"
+        }
+      },
+      "sansJeton": {
+        "statut": 401,
+        "total": null,
+        "colonnes": [],
+        "erreur": {
+          "code": "42501",
+          "message": "permission denied for table customers",
+          "details": null,
+          "hint": "Grant the required privileges to the current role with: GRANT SELECT ON public.customers TO anon;"
+        }
+      },
+      "declaree": {
+        "exposee": false,
+        "colonnes": [],
+        "methodes": []
+      },
+      "stabilite": {
+        "tirages": 6,
+        "formes": 1,
+        "totaux": []
+      }
+    },
+    {
+      "table": "transactions",
+      "url": "/rest/v1/transactions?select=*&limit=3",
+      "avecSession": {
+        "statut": 200,
+        "total": 1,
+        "colonnes": [
+          {
+            "nom": "id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "card_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "restaurant_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "type",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "points_delta",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "stamps_delta",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "amount_mad",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "note",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "employee_id",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "table_number",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "pos_reference",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "created_at",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "reward_tier_id",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "client_operation_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "till_session_id",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "auteur_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          }
+        ],
+        "erreur": null
+      },
+      "sansJeton": {
+        "statut": 200,
+        "total": 0,
+        "colonnes": [],
+        "erreur": null
+      },
+      "declaree": {
+        "exposee": false,
+        "colonnes": [],
+        "methodes": []
+      },
+      "stabilite": {
+        "tirages": 6,
+        "formes": 1,
+        "totaux": [
+          1
+        ]
+      }
+    },
+    {
+      "table": "rewards",
+      "url": "/rest/v1/rewards?select=*&limit=3",
+      "avecSession": {
+        "statut": 404,
+        "total": null,
+        "colonnes": [],
+        "erreur": {
+          "code": "PGRST205",
+          "message": "Could not find the table 'public.rewards' in the schema cache",
+          "details": null,
+          "hint": "Perhaps you meant the table 'public.reward_tiers'"
+        }
+      },
+      "sansJeton": {
+        "statut": 404,
+        "total": null,
+        "colonnes": [],
+        "erreur": {
+          "code": "PGRST205",
+          "message": "Could not find the table 'public.rewards' in the schema cache",
+          "details": null,
+          "hint": "Perhaps you meant the table 'public.reward_tiers'"
+        }
+      },
+      "declaree": {
+        "exposee": false,
+        "colonnes": [],
+        "methodes": []
+      },
+      "stabilite": {
+        "tirages": 6,
+        "formes": 1,
+        "totaux": []
+      }
+    },
+    {
+      "table": "restaurants",
+      "url": "/rest/v1/restaurants?select=*&limit=3",
+      "avecSession": {
+        "statut": 200,
+        "total": 1,
+        "colonnes": [
+          {
+            "nom": "id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "user_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "name",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "slug",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "description",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "phone",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "address",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "city",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "country",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "logo_url",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "primary_color",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "secondary_color",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "accent_color",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "is_active",
+            "types": [
+              "boolean"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "created_at",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "updated_at",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "commerce_type",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "wallet_bg_url",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "type_activite",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "message_wallet",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "message_wallet_le",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "latitude",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "longitude",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "geofence_radius_m",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "geofence_texte",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "billing_exempt",
+            "types": [
+              "boolean"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "site_url",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "instagram_url",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "facebook_url",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "tiktok_url",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "reservation_url",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "style_bandeau",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "enseigne_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          },
+          {
+            "nom": "country_code",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 1,
+            "lignes": 1
+          }
+        ],
+        "erreur": null
+      },
+      "sansJeton": {
+        "statut": 200,
+        "total": 0,
+        "colonnes": [],
+        "erreur": null
+      },
+      "declaree": {
+        "exposee": false,
+        "colonnes": [],
+        "methodes": []
+      },
+      "stabilite": {
+        "tirages": 6,
+        "formes": 1,
+        "totaux": [
+          1
+        ]
+      }
+    },
+    {
+      "table": "reward_tiers",
+      "url": "/rest/v1/reward_tiers?select=*&limit=3",
+      "avecSession": {
+        "statut": 206,
+        "total": 81,
+        "colonnes": [
+          {
+            "nom": "id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "program_id",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "title",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "description",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "cost",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "position",
+            "types": [
+              "integer"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "is_active",
+            "types": [
+              "boolean"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "created_at",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "updated_at",
+            "types": [
+              "string"
+            ],
+            "nullable": false,
+            "presents": 3,
+            "lignes": 3
+          },
+          {
+            "nom": "restaurant_id",
+            "types": [
+              "null"
+            ],
+            "nullable": true,
+            "presents": 3,
+            "lignes": 3
+          }
+        ],
+        "erreur": null
+      },
+      "sansJeton": {
+        "statut": 206,
+        "total": 81,
+        "colonnes": [
+          "id",
+          "program_id",
+          "title",
+          "description",
+          "cost",
+          "position",
+          "is_active",
+          "created_at",
+          "updated_at",
+          "restaurant_id"
+        ],
+        "erreur": null
+      },
+      "declaree": {
+        "exposee": false,
+        "colonnes": [],
+        "methodes": []
+      },
+      "stabilite": {
+        "tirages": 6,
+        "formes": 1,
+        "totaux": [
+          81
+        ]
+      }
+    },
+    {
+      "table": "till_sessions",
+      "url": "/rest/v1/till_sessions?select=*&limit=3",
+      "avecSession": {
+        "statut": 200,
+        "total": 0,
+        "colonnes": [],
+        "erreur": null
+      },
+      "sansJeton": {
+        "statut": 200,
+        "total": 0,
+        "colonnes": [],
+        "erreur": null
+      },
+      "declaree": {
+        "exposee": false,
+        "colonnes": [],
+        "methodes": []
+      },
+      "stabilite": {
+        "tirages": 6,
+        "formes": 1,
+        "totaux": [
+          0
+        ]
+      }
+    }
+  ],
+  "rpc": [
+    {
+      "nom": "classement_caisses",
+      "temoin": false,
+      "statut": 404,
+      "erreur": {
+        "code": "PGRST202",
+        "message": "Could not find the function public.classement_caisses without parameters in the schema cache",
+        "details": "Searched for the function public.classement_caisses without parameters, but no matches were found in the schema cache.",
+        "hint": null
+      }
+    },
+    {
+      "nom": "mon_role_point_de_vente",
+      "temoin": false,
+      "statut": 404,
+      "erreur": {
+        "code": "PGRST202",
+        "message": "Could not find the function public.mon_role_point_de_vente without parameters in the schema cache",
+        "details": "Searched for the function public.mon_role_point_de_vente without parameters, but no matches were found in the schema cache.",
+        "hint": null
+      }
+    },
+    {
+      "nom": "parrainages_du_commerce",
+      "temoin": false,
+      "statut": 404,
+      "erreur": {
+        "code": "PGRST202",
+        "message": "Could not find the function public.parrainages_du_commerce without parameters in the schema cache",
+        "details": "Searched for the function public.parrainages_du_commerce without parameters, but no matches were found in the schema cache.",
+        "hint": null
+      }
+    },
+    {
+      "nom": "journal_operateur",
+      "temoin": false,
+      "statut": 404,
+      "erreur": {
+        "code": "PGRST202",
+        "message": "Could not find the function public.journal_operateur without parameters in the schema cache",
+        "details": "Searched for the function public.journal_operateur without parameters, but no matches were found in the schema cache.",
+        "hint": null
+      }
+    },
+    {
+      "nom": "taux_desinscription_wallet",
+      "temoin": false,
+      "statut": 404,
+      "erreur": {
+        "code": "PGRST202",
+        "message": "Could not find the function public.taux_desinscription_wallet without parameters in the schema cache",
+        "details": "Searched for the function public.taux_desinscription_wallet without parameters, but no matches were found in the schema cache.",
+        "hint": null
+      }
+    },
+    {
+      "nom": "notifications_envoyees_aujourdhui",
+      "temoin": false,
+      "statut": 404,
+      "erreur": {
+        "code": "PGRST202",
+        "message": "Could not find the function public.notifications_envoyees_aujourdhui without parameters in the schema cache",
+        "details": "Searched for the function public.notifications_envoyees_aujourdhui without parameters, but no matches were found in the schema cache.",
+        "hint": null
+      }
+    },
+    {
+      "nom": "zzz_temoin_rea_inexistant",
+      "temoin": true,
+      "statut": 404,
+      "erreur": {
+        "code": "PGRST202",
+        "message": "Could not find the function public.zzz_temoin_rea_inexistant without parameters in the schema cache",
+        "details": "Searched for the function public.zzz_temoin_rea_inexistant without parameters, but no matches were found in the schema cache.",
+        "hint": "Perhaps you meant to call the function public.rejoindre_liste_attente"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "source": "loyalty_programs",
+      "cible": "automations",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'loyalty_programs' and 'automations' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'loyalty_programs' and 'automations' in the schema 'public', but no matches were found.",
+        "hint": null
+      }
+    },
+    {
+      "source": "loyalty_programs",
+      "cible": "transactions",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'loyalty_programs' and 'transactions' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'loyalty_programs' and 'transactions' in the schema 'public', but no matches were found.",
+        "hint": "Perhaps you meant 'enseignes' instead of 'transactions'."
+      }
+    },
+    {
+      "source": "loyalty_programs",
+      "cible": "restaurants",
+      "statut": 206,
+      "imbrique": "null",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "loyalty_programs",
+      "cible": "reward_tiers",
+      "statut": 206,
+      "imbrique": "array",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "loyalty_programs",
+      "cible": "till_sessions",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'loyalty_programs' and 'till_sessions' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'loyalty_programs' and 'till_sessions' in the schema 'public', but no matches were found.",
+        "hint": null
+      }
+    },
+    {
+      "source": "automations",
+      "cible": "loyalty_programs",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'automations' and 'loyalty_programs' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'automations' and 'loyalty_programs' in the schema 'public', but no matches were found.",
+        "hint": null
+      }
+    },
+    {
+      "source": "automations",
+      "cible": "transactions",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'automations' and 'transactions' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'automations' and 'transactions' in the schema 'public', but no matches were found.",
+        "hint": "Perhaps you meant 'automation_logs' instead of 'transactions'."
+      }
+    },
+    {
+      "source": "automations",
+      "cible": "restaurants",
+      "statut": 200,
+      "imbrique": null,
+      "observable": false,
+      "erreur": null
+    },
+    {
+      "source": "automations",
+      "cible": "reward_tiers",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'automations' and 'reward_tiers' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'automations' and 'reward_tiers' in the schema 'public', but no matches were found.",
+        "hint": "Perhaps you meant 'restaurant_stats' instead of 'reward_tiers'."
+      }
+    },
+    {
+      "source": "automations",
+      "cible": "till_sessions",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'automations' and 'till_sessions' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'automations' and 'till_sessions' in the schema 'public', but no matches were found.",
+        "hint": null
+      }
+    },
+    {
+      "source": "transactions",
+      "cible": "loyalty_programs",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'transactions' and 'loyalty_programs' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'transactions' and 'loyalty_programs' in the schema 'public', but no matches were found.",
+        "hint": "Perhaps you meant 'loyalty_cards' instead of 'loyalty_programs'."
+      }
+    },
+    {
+      "source": "transactions",
+      "cible": "automations",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'transactions' and 'automations' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'transactions' and 'automations' in the schema 'public', but no matches were found.",
+        "hint": null
+      }
+    },
+    {
+      "source": "transactions",
+      "cible": "restaurants",
+      "statut": 200,
+      "imbrique": "object",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "transactions",
+      "cible": "reward_tiers",
+      "statut": 200,
+      "imbrique": "null",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "transactions",
+      "cible": "till_sessions",
+      "statut": 200,
+      "imbrique": "null",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "restaurants",
+      "cible": "loyalty_programs",
+      "statut": 200,
+      "imbrique": "array",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "restaurants",
+      "cible": "automations",
+      "statut": 200,
+      "imbrique": "array",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "restaurants",
+      "cible": "transactions",
+      "statut": 200,
+      "imbrique": "array",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "restaurants",
+      "cible": "reward_tiers",
+      "statut": 200,
+      "imbrique": "array",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "restaurants",
+      "cible": "till_sessions",
+      "statut": 200,
+      "imbrique": "array",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "reward_tiers",
+      "cible": "loyalty_programs",
+      "statut": 206,
+      "imbrique": "object",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "reward_tiers",
+      "cible": "automations",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'reward_tiers' and 'automations' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'reward_tiers' and 'automations' in the schema 'public', but no matches were found.",
+        "hint": "Perhaps you meant 'transactions' instead of 'automations'."
+      }
+    },
+    {
+      "source": "reward_tiers",
+      "cible": "transactions",
+      "statut": 206,
+      "imbrique": "array",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "reward_tiers",
+      "cible": "restaurants",
+      "statut": 206,
+      "imbrique": "null",
+      "observable": true,
+      "erreur": null
+    },
+    {
+      "source": "reward_tiers",
+      "cible": "till_sessions",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'reward_tiers' and 'till_sessions' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'reward_tiers' and 'till_sessions' in the schema 'public', but no matches were found.",
+        "hint": "Perhaps you meant 'transactions' instead of 'till_sessions'."
+      }
+    },
+    {
+      "source": "till_sessions",
+      "cible": "loyalty_programs",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'till_sessions' and 'loyalty_programs' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'till_sessions' and 'loyalty_programs' in the schema 'public', but no matches were found.",
+        "hint": null
+      }
+    },
+    {
+      "source": "till_sessions",
+      "cible": "automations",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'till_sessions' and 'automations' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'till_sessions' and 'automations' in the schema 'public', but no matches were found.",
+        "hint": "Perhaps you meant 'transactions' instead of 'automations'."
+      }
+    },
+    {
+      "source": "till_sessions",
+      "cible": "transactions",
+      "statut": 200,
+      "imbrique": null,
+      "observable": false,
+      "erreur": null
+    },
+    {
+      "source": "till_sessions",
+      "cible": "restaurants",
+      "statut": 200,
+      "imbrique": null,
+      "observable": false,
+      "erreur": null
+    },
+    {
+      "source": "till_sessions",
+      "cible": "reward_tiers",
+      "statut": 400,
+      "imbrique": null,
+      "observable": false,
+      "erreur": {
+        "code": "PGRST200",
+        "message": "Could not find a relationship between 'till_sessions' and 'reward_tiers' in the schema cache",
+        "details": "Searched for a foreign key relationship between 'till_sessions' and 'reward_tiers' in the schema 'public', but no matches were found.",
+        "hint": "Perhaps you meant 'restaurant_stats' instead of 'reward_tiers'."
+      }
+    }
+  ]
+}

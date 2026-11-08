@@ -1,0 +1,299 @@
+/* ============================================================================
+   Tokens — copie fidèle de la couche de variables mesurée sur la cible.
+
+   SOURCE UNIQUE (ne pas remplacer par une valeur « à l'œil ») :
+     01_REA_Fidelix/_captures/2026-10-26/raw/assets/
+       _next_static_css_0baee74d463a534b.css
+     SHA-256 7374ee7821fc8cfed48b62e3c1aed3bff7669165d733fc0f0eda820ff73c68ad
+     (132 499 o, tailwindcss v3.4.19)
+
+   Preuve rejouable :
+     node tools/rea/verifier-design.mjs        # VERDICT : CONFORME  (exit 0)
+     node tools/rea/verifier-design.mjs --ledger
+
+   Le vérificateur compare **dans les deux sens** : aucune variable capturée ne
+   manque, aucune valeur ne diverge, aucune variable n'est ajoutée. Ajouter ici
+   une variable absente de la capture fait échouer la vérification — c'est
+   voulu : ce fichier n'est pas un espace de création, c'est une transcription.
+
+   Hors ledger (assumé, documenté dans `docs/design-system.md`) :
+     - `--grain-image` : posée en style inline par le composant (URL-encodée),
+       donc absente du CSS de la cible.
+     - `--reflet`, `--reflet-x`, `--reflet-y` : posées à l'exécution.
+     - `[data-skin=premium].dark.nuit` (peau « bleu nuit » du tableau de bord) :
+       une **seule** variable substituée. Déclarée dans `nuit.css` et inscrite à
+       la liste `HORS_LEDGER` du vérificateur — une déviation se déclare, elle ne
+       se cache pas.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   Palette claire (vocabulaire shadcn/Tailwind : `hsl(var(--background))`)
+   ------------------------------------------------------------------------ */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 6% 8%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 6 94% 60%;
+  --radius: 0.875rem;
+  --ink-rgb: 22 21 20;
+  --slate-50: 248 250 252;
+  --slate-100: 241 245 249;
+  --slate-200: 226 232 240;
+  --slate-300: 203 213 225;
+  --slate-400: 148 163 184;
+  --slate-500: 100 116 139;
+  --slate-600: 71 85 105;
+  --slate-700: 51 65 85;
+  --slate-800: 30 41 59;
+  --slate-900: 15 23 42;
+  --slate-950: 2 6 23;
+  --coral-rgb: 249 76 58;
+  --coral-dark-rgb: 226 61 44;
+  --coral-light-rgb: 255 107 91;
+  --brand-flame: #ff7a3d;
+  --brand-rose: #f94c3a;
+  --brand-coral: #f94c3a;
+  --brand-magenta: #e23d2c;
+  --brand-violet: #7c3aed;
+  --ink: #161514;
+  --ink-soft: #2a2826;
+  --cream: #fcede7;
+  --brand-gradient: linear-gradient(135deg, #ff7a3d, #f94c3a 55%, #e23d2c);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(255, 122, 61, 0.16), rgba(249, 76, 58, 0.16) 55%, rgba(226, 61, 44, 0.16));
+}
+
+/* ---------------------------------------------------------------------------
+   Palette sombre — les gris sont réchauffés et les `--slate-*` **s'inversent**
+   (50 = le plus sombre). Ce n'est pas une convention Tailwind : c'est mesuré.
+   ------------------------------------------------------------------------ */
+.dark {
+  --background: 30 5.9% 6.7%;
+  --foreground: 26 22.6% 93.9%;
+  --card: 20 5.9% 10.0%;
+  --card-foreground: 26 22.6% 93.9%;
+  --popover: 20 5.9% 10.0%;
+  --popover-foreground: 26 22.6% 93.9%;
+  --primary: 26 22.6% 93.9%;
+  --primary-foreground: 30 5.9% 6.7%;
+  --secondary: 24 7.5% 13.1%;
+  --secondary-foreground: 26 22.6% 93.9%;
+  --muted: 24 7.5% 13.1%;
+  --muted-foreground: 30 6.1% 61.6%;
+  --accent: 24 7.5% 13.1%;
+  --accent-foreground: 26 22.6% 93.9%;
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 24 5.6% 17.5%;
+  --input: 26 6.9% 19.8%;
+  --ring: 6 94% 60%;
+  --ink-rgb: 243 239 236;
+  --slate-50: 31 29 27;
+  --slate-100: 38 35 33;
+  --slate-200: 48 45 42;
+  --slate-300: 64 60 56;
+  --slate-400: 143 137 131;
+  --slate-500: 168 162 156;
+  --slate-600: 194 189 183;
+  --slate-700: 217 213 208;
+  --slate-800: 233 230 226;
+  --slate-900: 244 242 239;
+  --slate-950: 250 249 248;
+}
+
+
+
+/* Deux îlots restent clairs en mode sombre : une zone déclarée « garder clair »
+   et un QR code (l'inversion rendrait le code illisible). */
+.dark .garder-clair {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 6% 8%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 6 94% 60%;
+  --ink-rgb: 22 21 20;
+  --slate-50: 248 250 252;
+  --slate-100: 241 245 249;
+  --slate-200: 226 232 240;
+  --slate-300: 203 213 225;
+  --slate-400: 148 163 184;
+  --slate-500: 100 116 139;
+  --slate-600: 71 85 105;
+  --slate-700: 51 65 85;
+  --slate-800: 30 41 59;
+  --slate-900: 15 23 42;
+  --slate-950: 2 6 23;
+}
+
+.dark .qr-inversion-interdite {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 6% 8%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 6 94% 60%;
+  --ink-rgb: 22 21 20;
+  --slate-50: 248 250 252;
+  --slate-100: 241 245 249;
+  --slate-200: 226 232 240;
+  --slate-300: 203 213 225;
+  --slate-400: 148 163 184;
+  --slate-500: 100 116 139;
+  --slate-600: 71 85 105;
+  --slate-700: 51 65 85;
+  --slate-800: 30 41 59;
+  --slate-900: 15 23 42;
+  --slate-950: 2 6 23;
+}
+
+
+/* ============================================================================
+   La peau « premium » — celle que la cible sert par défaut.
+
+   `--verre` / `--verre-opacite` / `--verre-flou` … ne sont pas « jolis » : ce
+   sont les trois axes du matériau (teinte, densité, diffusion). Les décliner
+   ici suffit à obtenir les deux peaux ; c'est `verre.css` qui les consomme.
+   ========================================================================== */
+[data-skin=premium] {
+  --coral-rgb: 248 91 4;
+  --coral-dark-rgb: 193 71 3;
+  --coral-light-rgb: 250 127 59;
+  --sur-coral: #ffffff;
+  --coral-texte-rgb: 218 80 4;
+  --coral-sur-sombre-rgb: 248 91 4;
+  --champ-fond: rgb(255 255 255 / 0.62);
+  --champ-bord: rgb(22 21 20 / 0.13);
+  --brand-rose: #f85b04;
+  --brand-coral: #f85b04;
+  --brand-flame: #f9742a;
+  --brand-magenta: #da5004;
+  --brand-gradient: linear-gradient(135deg, #f9742a, #f85b04 55%, #da5004);
+  --brand-gradient-soft: linear-gradient(135deg, rgb(249 116 42 / 0.16), rgb(248 91 4 / 0.16) 55%, rgb(218 80 4 / 0.16));
+  --verre: 255 255 255;
+  --verre-opacite: 0.17;
+  --verre-opacite-forte: 0.1;
+  --verre-flou: 22px;
+  --verre-flou-fort: 34px;
+  --verre-saturation: 165%;
+  --arete-claire: 255 255 255;
+  --arete-claire-opacite: 0.72;
+  --arete-sombre: 22 21 20;
+  --arete-sombre-opacite: 0.07;
+  --verre-bord: 255 255 255;
+  --verre-bord-opacite: 0.42;
+  --verre-ombre: 22 21 20;
+  --verre-ombre-opacite: 0.1;
+  --fond-page: #efeae4;
+  --lumiere: var(--coral-rgb);
+  --lumiere-opacite: 0.1;
+  --grain-opacite: 0.045;
+}
+
+/* Accessibilité : quand l'utilisateur demande plus de contraste, le verre
+   devient **opaque**. Un fond translucide sur un texte est un échec WCAG. */
+@media (prefers-contrast: more) {
+  [data-skin=premium] {
+    --verre-opacite: 1;
+    --verre-opacite-forte: 1;
+    --verre-bord-opacite: 1;
+    --grain-opacite: 0;
+  }
+}
+
+/* Même intention, autre preférence : pas de transparence du tout. On retire
+   aussi le flou (inutile si l'on ne voit rien à travers) et le grain. */
+@media (prefers-reduced-transparency: reduce) {
+  [data-skin=premium] {
+    --verre-opacite: 0.97;
+    --verre-opacite-forte: 0.97;
+    --verre-flou: 0px;
+    --verre-flou-fort: 0px;
+    --verre-bord-opacite: 0.16;
+    --grain-opacite: 0;
+  }
+}
+
+/* Repli : sans `backdrop-filter`, un verre translucide laisse voir le fond et
+   le texte devient illisible. On remonte l'opacité au lieu de retirer l'effet. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-skin=premium] {
+    --verre-opacite: 0.94;
+    --verre-opacite-forte: 0.94;
+  }
+}
+
+/* Peau sombre : verre chaud (72 66 61), moins dense, arêtes plus discrètes. */
+[data-skin=premium].dark {
+  --champ-fond: rgb(255 255 255 / 0.06);
+  --champ-bord: rgb(255 255 255 / 0.14);
+  --verre: 72 66 61;
+  --verre-opacite: 0.26;
+  --verre-opacite-forte: 0.16;
+  --verre-saturation: 140%;
+  --arete-claire: 255 255 255;
+  --arete-claire-opacite: 0.14;
+  --arete-sombre: 0 0 0;
+  --arete-sombre-opacite: 0.4;
+  --verre-bord: 255 255 255;
+  --verre-bord-opacite: 0.09;
+  --verre-ombre: 0 0 0;
+  --verre-ombre-opacite: 0.55;
+  --fond-page: #141110;
+  --lumiere-opacite: 0.16;
+  --grain-opacite: 0.055;
+}
+
+/* ---------------------------------------------------------------------------
+   Polices — MESURÉES, mais **pas ici**.
+
+   Les cinq familles ne vivent pas dans `:root` : la cible les déclare sur les
+   classes `.__variable_*` émises par `next/font/local`, et c'est le `<body>` qui
+   porte ces classes (`class="__variable_d8ebd1 __variable_5e81af …"`). Mettre
+   `--font-sans` dans `:root` fonctionnerait — et serait une invention de
+   structure, immédiatement signalée par `verifier-design.mjs`.
+
+   Source : `web/src/styles/polices.css` (42 `@font-face`, 23 binaires) et
+   `web/src/styles/polices.mjs` (`CLASSES_POLICES`), tous deux générés par
+   `node tools/rea/extrait-polices.mjs --ecrire`.
+   ------------------------------------------------------------------------ */

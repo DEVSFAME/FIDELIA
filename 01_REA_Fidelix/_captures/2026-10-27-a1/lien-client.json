@@ -1,0 +1,129 @@
+{
+  "outil": "FIDELIX/tools/rea/verifier-lien-client.mjs",
+  "horodatage": "2026-10-27T00:33:23.641Z",
+  "chemin": "/dashboard",
+  "page": {
+    "url": "https://fidelix.ma/dashboard",
+    "statutHttp": 200,
+    "empreinte": {
+      "empreinte": "71d59c4aff36c253",
+      "longueur": 866
+    },
+    "serviceWorker": true
+  },
+  "lien": {
+    "href": "/customers/:uuid",
+    "uuidPresent": true,
+    "texteLongueur": 24,
+    "dialoguesAvant": 0
+  },
+  "apres": {
+    "url": "https://fidelix.ma/customers/:uuid",
+    "navigation": true,
+    "dialogues": 0,
+    "titre": "Fidelix — La fidélité qui régale",
+    "texteLongueur": 790,
+    "nbLiens": 21,
+    "empreinte": {
+      "empreinte": "1f4d3a950fe9fb95",
+      "longueur": 765
+    },
+    "reponses": [
+      {
+        "url": "https://fidelix.ma/customers/:uuid?_rsc=NsF8i0QiXEwuYIE2",
+        "statut": 200,
+        "type": "fetch"
+      },
+      {
+        "url": "https://fidelix.ma/clients-import?_rsc=-OKKCOKiRo19feyk",
+        "statut": 200,
+        "type": "fetch"
+      }
+    ],
+    "statutRsc": 200,
+    "page404": false
+  },
+  "verdict": "H1 RÉFUTÉE — la route existe : le clic rend une fiche ET le GET direct avec l'UUID réel répond 200 (92595 o, 21 liens), tandis que l'UUID nul et une route inconnue répondent 404. Le 404 de S3 qualifiait « client inconnu », pas « route absente ».",
+  "liens": {
+    "total": 1,
+    "visibles": 0,
+    "inventaire": [
+      {
+        "href": "/customers/:uuid",
+        "visible": false,
+        "boite": {
+          "l": 0,
+          "h": 0
+        }
+      }
+    ]
+  },
+  "details": {
+    "ouvert": false
+  },
+  "liensApresOuverture": {
+    "total": 1,
+    "visibles": 1,
+    "inventaire": [
+      {
+        "href": "/customers/:uuid",
+        "visible": true,
+        "boite": {
+          "l": 497,
+          "h": 44
+        }
+      }
+    ]
+  },
+  "references": {
+    "liste": {
+      "empreinte": "157b923042157206",
+      "longueur": 620
+    },
+    "dashboard": {
+      "empreinte": "71d59c4aff36c253",
+      "longueur": 866
+    }
+  },
+  "navigationUrls": [
+    "https://fidelix.ma/customers/:uuid",
+    "https://fidelix.ma/customers/:uuid",
+    "https://fidelix.ma/customers/:uuid"
+  ],
+  "direct": {
+    "chemin": "/customers/:uuid",
+    "statut": 200,
+    "location": "",
+    "octets": 92595,
+    "titre": "Fidelix — La fidélité qui régale",
+    "liens": 21
+  },
+  "contrastes": {
+    "uuidNul": {
+      "chemin": "/customers/:uuid",
+      "statut": 404,
+      "location": "",
+      "octets": 38069,
+      "titre": "Page introuvable — Fidelix",
+      "liens": 0
+    },
+    "routeInconnue": {
+      "chemin": "/clients-inexistant-rea",
+      "statut": 404,
+      "location": "",
+      "octets": 38186,
+      "titre": "Page introuvable — Fidelix",
+      "liens": 1
+    }
+  },
+  "rechargement": {
+    "statutHttp": 200,
+    "titre": "Fidelix — La fidélité qui régale",
+    "empreinte": {
+      "empreinte": "1f4d3a950fe9fb95",
+      "longueur": 765
+    },
+    "dialogues": 0,
+    "page404": false
+  }
+}

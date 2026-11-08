@@ -1,0 +1,244 @@
+/* ============================================================================
+   La couche « verre » — les classes qui consomment `tokens.css`.
+
+   Même règle que pour les tokens : rien n'est inventé. Les corps de règles
+   ci-dessous sont transcrits de la capture (SHA-256 en tête de `tokens.css`),
+   et `node tools/rea/verifier-design.mjs` compare **le corps complet** des sept
+   classes qui portent leur effet hors variables (`backdrop-filter`, `box-shadow`,
+   `transition`, `background-image`).
+
+   Trois idées portent tout le matériau :
+     1. `--verre` (teinte) × `--verre-opacite` (densité) × `--verre-flou`
+        (diffusion) → `background-color` + `backdrop-filter` ;
+     2. deux **arêtes** opposées (claire en haut, sombre en bas) simulent une
+        épaisseur : c'est ce qui distingue « verre » de « fond translucide » ;
+     3. `saturate()` compense la désaturation que produit le flou sur le fond.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. Le fond de page : deux halos radiaux + un grain.
+   ------------------------------------------------------------------------ */
+[data-skin=premium] {
+  background-color: var(--fond-page);
+}
+
+/* Halo chaud en haut à gauche (couleur = `--lumiere`), ombre froide en bas à
+   droite. En sombre, le second halo passe au violet (124 58 237). */
+[data-skin=premium] .fond-premium {
+  background-image: radial-gradient(62rem 48rem at 2% -14%, rgb(var(--lumiere) / var(--lumiere-opacite)), transparent 68%), radial-gradient(52rem 44rem at 102% 108%, rgb(22 21 20 / .05), transparent 62%);
+}
+
+[data-skin=premium].dark .fond-premium {
+  background-image: radial-gradient(62rem 48rem at 2% -14%, rgb(var(--lumiere) / var(--lumiere-opacite)), transparent 68%), radial-gradient(52rem 44rem at 102% 108%, rgb(124 58 237 / .07), transparent 62%);
+}
+
+/* Les halos sont une décoration de fond : quand l'utilisateur demande du
+   contraste ou refuse la transparence, ils s'effacent (0.25 / 0.3) au lieu de
+   continuer à moduler la luminance derrière le texte. */
+@media (prefers-contrast: more) {
+  [data-skin=premium] .fond-premium {
+    opacity: .25;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  [data-skin=premium] .fond-premium {
+    opacity: .3;
+  }
+}
+
+/* Le grain : une image SVG de bruit (`feTurbulence` + désaturation) passée par
+   `--grain-image`. Son opacité est un token (`--grain-opacite`), donc elle
+   s'annule en contraste élevé et en transparence réduite. */
+[data-skin=premium] .grain-premium {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--grain-opacite);
+  background-image: var(--grain-image);
+  background-size: 180px 180px;
+}
+
+/* ---------------------------------------------------------------------------
+   2. Le matériau : `.verre` (défaut) et `.verre-fort` (dense, très diffusé).
+   ------------------------------------------------------------------------ */
+[data-skin=premium] .verre,
+[data-skin=premium] .verre-fort {
+  background-color: rgb(var(--verre) / var(--verre-opacite));
+  border: 1px solid rgb(var(--verre-bord) / var(--verre-bord-opacite));
+  backdrop-filter: blur(var(--verre-flou)) saturate(var(--verre-saturation));
+  box-shadow: inset 1px 1px 0 0 rgb(var(--arete-claire) / var(--arete-claire-opacite)), inset -1px -1px 0 0 rgb(var(--arete-sombre) / var(--arete-sombre-opacite)), 0 1px 2px rgb(var(--verre-ombre) / var(--verre-ombre-opacite)), 0 18px 40px -16px rgb(var(--verre-ombre) / calc(var(--verre-ombre-opacite) * 1.8));
+}
+
+[data-skin=premium] .verre-fort {
+  background-color: rgb(var(--verre) / var(--verre-opacite-forte));
+  backdrop-filter: blur(var(--verre-flou-fort)) saturate(var(--verre-saturation));
+  box-shadow: inset 1px 1px 0 0 rgb(var(--arete-claire) / var(--arete-claire-opacite)), inset -1px -1px 0 0 rgb(var(--arete-sombre) / var(--arete-sombre-opacite)), 0 2px 6px rgb(var(--verre-ombre) / var(--verre-ombre-opacite)), 0 30px 66px -22px rgb(var(--verre-ombre) / calc(var(--verre-ombre-opacite) * 2.2));
+}
+
+/* Réfraction : au flou s'ajoute un déplacement de pixels piloté par le filtre
+   SVG `#verre-liquide` (composant `DecorVerre`).
+
+   Trois conditions cumulées, **mesurées** dans la cible — et non décoratives :
+     - `@supports (backdrop-filter:url(#verre-liquide))` : tous les moteurs
+       n'acceptent pas une `url()` comme valeur de `backdrop-filter` ;
+     - `(hover:hover) and (pointer:fine)` : au doigt il n'y a pas de survol,
+       donc aucune réfraction à produire ;
+     - `prefers-reduced-motion:no-preference` **et**
+       `prefers-reduced-transparency:no-preference` : deux préférences
+       explicites ; les ignorer revient à imposer un effet coûteux à qui l'a
+       refusé (et un flou animé est un déclencheur de troubles vestibulaires).
+   Le filtre anime `baseFrequency` sur 18 s : c'est exactement ce que
+   `reduced-motion` demande d'éteindre. */
+@supports (backdrop-filter: url(#verre-liquide)) {
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (prefers-reduced-transparency: no-preference) {
+    [data-skin=premium] .verre-refracte {
+      backdrop-filter: blur(var(--verre-flou-fort)) saturate(var(--verre-saturation)) url(#verre-liquide);
+    }
+  }
+}
+
+/* Reflet qui suit le curseur : `--reflet` (0→1), `--reflet-x`, `--reflet-y`
+   sont posées à l'exécution. Sans JS, `--reflet` vaut 0 : rien ne s'affiche.
+   `isolation:isolate` crée un contexte d'empilement, sans quoi le `z-index:-1`
+   du pseudo-élément passerait sous le parent. Souris uniquement, là encore. */
+@media (hover: hover) and (pointer: fine) {
+  [data-skin=premium] .reflet-curseur {
+    isolation: isolate;
+  }
+
+  [data-skin=premium] .reflet-curseur:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: var(--reflet, 0);
+    transition: opacity .32s ease;
+    background: radial-gradient(16rem 16rem at var(--reflet-x, 50%) var(--reflet-y, 0), rgb(255 255 255 / .5), transparent 70%);
+  }
+
+  [data-skin=premium].dark .reflet-curseur:after {
+    background: radial-gradient(16rem 16rem at var(--reflet-x, 50%) var(--reflet-y, 0), rgb(255 255 255 / .1), transparent 70%);
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+   3. La vitre : une variante plus mince, à ombre portée unique (pas d'arêtes
+      internes), avec un `blur` fixe de 16 px et une saturation plus forte.
+      `data-sur` déclare **sur quoi** la vitre est posée : le contraste d'un
+      verre dépend du fond, donc la valeur change avec lui.
+   ------------------------------------------------------------------------ */
+[data-skin=premium] .vitre {
+  --vitre-fond: rgb(255 255 255 / 0.48);
+  --vitre-bord: rgb(255 255 255 / 0.55);
+  --vitre-arete: rgb(255 255 255 / 0.7);
+  --vitre-ombre: rgb(22 21 20 / 0.2);
+  --vitre-saturation: 180%;
+  backdrop-filter: blur(16px) saturate(var(--vitre-saturation));
+  box-shadow: inset 0 1px 0 0 var(--vitre-arete), inset 0 -1px 0 0 rgb(22 21 20 / .04), 0 1px 2px rgb(22 21 20 / .05), 0 12px 32px -12px var(--vitre-ombre);
+  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+
+[data-skin=premium] .vitre,
+[data-skin=premium].dark .vitre {
+  background-color: var(--vitre-fond);
+  border-color: var(--vitre-bord);
+}
+
+[data-skin=premium].dark .vitre {
+  --vitre-fond: rgb(30 27 25 / 0.5);
+  --vitre-bord: rgb(255 255 255 / 0.1);
+  --vitre-arete: rgb(255 255 255 / 0.1);
+  --vitre-ombre: rgb(0 0 0 / 0.6);
+}
+
+/* Posée sur le corail : le verre s'assombrit (22 21 20 / 0.1) et l'ombre prend
+   la teinte brûlée du fond (110 36 0). */
+[data-skin=premium] .vitre[data-sur=orange] {
+  --vitre-fond: rgb(22 21 20 / 0.1);
+  --vitre-saturation: 130%;
+  --vitre-bord: rgb(255 255 255 / 0.26);
+  --vitre-arete: rgb(255 255 255 / 0.2);
+  --vitre-ombre: rgb(110 36 0 / 0.35);
+}
+
+/* Posée sur l'encre : verre blanc très peu dense, ombre noire franche. */
+[data-skin=premium] .vitre[data-sur=encre] {
+  --vitre-fond: rgb(255 255 255 / 0.08);
+  --vitre-bord: rgb(255 255 255 / 0.14);
+  --vitre-arete: rgb(255 255 255 / 0.12);
+  --vitre-ombre: rgb(0 0 0 / 0.5);
+}
+
+/* Contraste élevé ou transparence refusée : la vitre devient opaque. Le fond
+   `orange` prend alors le corail sombre plein, `encre` l'encre `#2a2826` —
+   c'est-à-dire la couleur du support, pas du verre. */
+@media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+  [data-skin=premium] .vitre {
+    --vitre-fond: rgb(255 255 255 / 0.97);
+  }
+
+  [data-skin=premium].dark .vitre {
+    --vitre-fond: rgb(30 27 25 / 0.98);
+  }
+
+  [data-skin=premium] .vitre[data-sur=orange] {
+    --vitre-fond: rgb(var(--coral-dark-rgb));
+  }
+
+  [data-skin=premium] .vitre[data-sur=encre] {
+    --vitre-fond: #2a2826;
+  }
+}
+
+/* Sans `backdrop-filter`, on remonte l'opacité (0.95 / 0.97) au lieu de laisser
+   le fond traverser. Les surfaces `orange`/`encre` restent pleines. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-skin=premium] .vitre {
+    --vitre-fond: rgb(255 255 255 / 0.95);
+  }
+
+  [data-skin=premium].dark .vitre {
+    --vitre-fond: rgb(30 27 25 / 0.97);
+  }
+
+  [data-skin=premium] .vitre[data-sur=orange] {
+    --vitre-fond: rgb(var(--coral-dark-rgb));
+  }
+
+  [data-skin=premium] .vitre[data-sur=encre] {
+    --vitre-fond: #2a2826;
+  }
+}
+
+/* Le menu : plus transparent que la vitre (0.3 / 0.42) — il flotte au-dessus
+   du contenu et doit laisser deviner ce qu'il recouvre. Déclaré **après** les
+   surcharges média pour l'emporter à spécificité égale. */
+[data-skin=premium] .vitre.vitre-menu {
+  --vitre-fond: rgb(255 255 255 / 0.3);
+}
+
+[data-skin=premium].dark .vitre.vitre-menu {
+  --vitre-fond: rgb(30 27 25 / 0.42);
+}
+
+/* ---------------------------------------------------------------------------
+   Élévations — trois ombres mesurées, transcrites telles quelles.
+
+   Elles ne sont pas interchangeables : `.shadow-sticker` (4 px d'ombre nette)
+   sert aux étiquettes inclinées, `.shadow-float` aux cartes posées au-dessus du
+   fond, `.shadow-soft` aux panneaux de formulaires. Prendre l'une pour l'autre
+   ne casse rien — et c'est bien le problème : l'écart ne se voit qu'à côté.
+
+   `.shadow-hard` (6 variantes : `:not(.garder-clair…)`, `:hover`, mode sombre)
+   n'est pas encore transcrit — hors périmètre du tableau de bord, inscrit au
+   backlog plutôt que recopié à moitié.
+   ------------------------------------------------------------------------ */
+.shadow-sticker{box-shadow:0 4px 0 rgba(22,21,20,.1)}
+.shadow-float{box-shadow:0 2px 4px rgba(16,16,24,.04),0 24px 48px -16px rgba(16,16,24,.2)}
+.shadow-soft{box-shadow:0 1px 2px rgba(16,16,24,.04),0 8px 24px -12px rgba(16,16,24,.12)}
+

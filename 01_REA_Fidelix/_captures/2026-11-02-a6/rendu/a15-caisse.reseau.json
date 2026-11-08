@@ -1,0 +1,213 @@
+{
+  "url": "https://fidelix.ma/caisse",
+  "http": 200,
+  "apiObservee": [],
+  "supabaseObserve": [],
+  "journaux": [],
+  "requetes": [
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/caisse",
+      "type": "document",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/media/36966cca54120369-s.p.woff2",
+      "type": "font",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/media/46bdd75a3ff56824-s.p.woff2",
+      "type": "font",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/media/62c97acc3aa63787-s.p.woff2",
+      "type": "font",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/media/bb3ef058b751a6ad-s.p.woff2",
+      "type": "font",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/media/e4af272ccee01ff0-s.p.woff2",
+      "type": "font",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/image?…",
+      "type": "image",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/css/7ab25fec03455e08.css?…",
+      "type": "stylesheet",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/css/c060d5184cf41e4f.css?…",
+      "type": "stylesheet",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/webpack-650064e9e702cfcc.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/7631-4e4fdd7733a53e4a.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/main-app-abf8cea03753baf0.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/2619-04bc32f026a0d946.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/app/error-23078366a69e8840.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/9779-f3dd8d5274e4301e.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/3678-440d3a9d39d4d438.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/6647-e0a8608b7f46f7bb.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/app/layout-8bbd37d48c014194.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/7602-4a986069bc36b389.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/app/caisse/layout-d48a213c12aaab40.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/7cb1fa1f-9c1d16e5e8123936.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/1356-5d9c83220284b644.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/6211-7842671c235cadeb.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/6440-243331ba7628778e.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/4008-20a2f032cea8775a.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/3637-7c531f96797c3b58.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/6866-59170e02f2636443.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/8544-d04ab57837527eb4.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/app/caisse/page-c4a83eaf5a604131.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/app/(admin)/layout-a5191742e5074e3d.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/_next/static/chunks/app/caisse/error-b985e36f751e8914.js?…",
+      "type": "script",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/brand/wordmark-white.png",
+      "type": "image",
+      "statut": 200
+    },
+    {
+      "methode": "GET",
+      "chemin": "https://fidelix.ma/c8392ed1a2553f1f/script.js",
+      "type": "script",
+      "statut": 200
+    }
+  ]
+}

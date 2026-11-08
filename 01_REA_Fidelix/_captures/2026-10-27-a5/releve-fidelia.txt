@@ -1,0 +1,113 @@
+==============================================================================
+A5 — FIDELIA AI : ce que le corpus dit, et ce qu’il ne dit pas
+==============================================================================
+Capture    : 01_REA_Fidelix/_captures/2026-10-27-auth-s3
+Bundles    : 65 · pages : 22 · sondes : 21
+Corpus     : 325 fichiers texte
+Requêtes   : 0 — ce CLI ne contient aucun client HTTP.
+
+1. CALIBRATION
+   ecarts : aucun
+   témoin de décodage : « R\xe9essayez » -> « Réessayez » (4 caractères source = 1 caractère)
+   leurre « Fidelia AI » : présent dans les bundles, jamais classé contrat
+
+2. LE CONTRAT — ce que le client ÉMET
+   porteur : _next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js (52144 caractères)
+   /api/fidelia           fetch · options=AUCUNE · méthode=(défaut GET) · corps=non
+   /api/fidelia?resume=1  fetch · options=AUCUNE · méthode=(défaut GET) · corps=non
+   => deux GET, aucun corps, aucun en-tête : aucune entrée ne quitte le navigateur.
+
+3. PROMPT SYSTÈME — absence mesurée
+   marqueurs de MODÈLE : 0/11 présents dans 65 bundles
+   marqueurs de FLUX : 2/2 (génériques, hors Fidelia)
+     text/event-stream dans _next_static_chunks_7383-6e66436aba33b87c.js
+     getReader() dans _next_static_chunks_7631-29ff0d20f794a902.js
+   => aucun marqueur de modèle dans le code livré. Un prompt côté serveur
+      resterait invisible depuis ici : non mesuré, et non affirmé.
+
+4. FORME DE LA SORTIE — lue sur les octets des sondes
+   b12-api-fidelia.html (4903 o)
+     cle                    string   longueur=36
+     synthese               string   longueur=169
+     donneesInsuffisantes   boolean  valeur=true
+     conseils               array    longueur=0
+     libelles               object   clés=10 [semaine, inutilise, reviennent, plus_souvent…]
+     reponses               object   clés=10 [semaine, inutilise, reviennent, plus_souvent…]
+     rebonds                object   clés=10 [semaine, inutilise, reviennent, plus_souvent…]
+     ouverture              array    longueur=4
+   b13-api-fidelia-resume.html (13 o)
+     urgents                number   valeur=0
+
+5. GRILLE DE QUESTIONS — la « conversation » est locale
+   b12-api-fidelia.html : cohérent=oui · 10 questions, 4 en ouverture
+   liens d'action : /dashboard, /automations, /qrcode, /rewards, /customers
+
+6. GARDE-FOUS — lus dans le porteur, un par un
+   OK   anti-re-appel               Aucun second appel si la synthèse est déjà là
+   OK   synthese-obligatoire        Une réponse sans `synthese` est traitée comme un échec
+   OK   erreur-typee                `error` n'est affiché que s'il est une chaîne
+   OK   message-reseau              Échec réseau couvert par un message dédié
+   OK   gate-donnees-insuffisantes  Le Q&A est masqué si `donneesInsuffisantes`
+   OK   urgents-type-nombre         `urgents` ne compte que si c'est un nombre
+   OK   badge-vu                    Le badge s'éteint après ouverture (`vu`)
+   OK   routes-masquees             Le bouton est masqué sur /scan, /conseiller, /branding
+   OK   dedup-questions             Une question déjà posée disparaît des choix
+   OK   historique-filtre           Un id inconnu en stockage est ignoré
+   OK   dialogue-aria               Panneau exposé comme `dialog` avec libellé
+   OK   ttl-resume                  Le résumé est réutilisé moins de 30 min (1800000 ms = 30 min)
+
+7. ORIGINE DES OCCURRENCES — un libellé n’est pas un contrat
+   Fidelia AI             total=52   libellé d'interface×52
+   /api/fidelia           total=43   cité, non émis×40, contrat réseau×3
+   Ouvrir Fidelia AI      total=34   libellé d'interface×34
+   urgents                total=19   champ de sortie×19
+   /api/fidelia?resume=1  total=10   cité, non émis×7, contrat réseau×3
+   synthese               total=10   champ de sortie×10
+   /conseiller            total=9    route de navigation×6, route exclue (garde-fou)×3
+   donneesInsuffisantes   total=5    champ de sortie×5
+   fidelix_conseiller_    total=5    magasin local×5
+   fidelia_coin           total=3    magasin local×3
+   fidelia_resume         total=3    magasin local×3
+   Posez-moi une question total=3    libellé d'interface×3
+
+   par famille de fichier :
+     bundle                     72
+     page capturée              51
+     manifeste de capture       19
+     réseau observé             18
+     rendu de page              14
+     rapport de nos outils      8
+     artefact de nos outils     8
+     sonde HTTP                 6
+
+   porteurs du contrat : _next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js
+
+8. RÉSEAU OBSERVÉ — ce que le navigateur a réellement émis
+   a01-dashboard          https://fidelix.ma/api/fidelia?… (200)
+   a02-program            https://fidelix.ma/api/fidelia?… (200)
+   a03-rewards            https://fidelix.ma/api/fidelia?… (200)
+   a04-scan               https://fidelix.ma/api/fidelia?… (200)
+   a05-reviews            https://fidelix.ma/api/fidelia?… (200)
+   a06-qrcode             https://fidelix.ma/api/fidelia?… (200)
+   a07-automations        https://fidelix.ma/api/fidelia?… (200)
+   a08-branding           https://fidelix.ma/api/fidelia?… (200)
+   a09-caisses            https://fidelix.ma/api/fidelia?… (200)
+   9 page(s) ont émis un appel à /api/fidelia
+   Limite : l’URL est enregistrée tronquée en « ?… » — le paramètre exact
+   n’est PAS lisible dans la capture. « ?resume=1 » vient du code, pas du réseau.
+
+9. LE BOUTON SUR CHAQUE PAGE — mesure indépendante de la liste v
+   13/15 pages 200 sous layout dashboard portent le bouton
+   pages 200 sous layout SANS bouton : a04-scan, a08-branding
+   liste d’exclusion lue dans le code : /scan, /conseiller, /branding
+   statut non conclusif (hors 200 ou non relevé) : a18-customer-detail (404), a19-equipe.variante-1 (null)
+   panneaux ouverts dans les captures : 0
+
+CE QUE LE CORPUS NE DIT PAS
+   — Le prompt, s’il existe, est côté serveur : aucun bundle ne le contient.
+   — Aucun POST vers /api/fidelia n’a été observé : pas de question envoyée.
+   — /conseiller n’a jamais été capturé : son existence est LUE (titre + liste v),
+     son rendu n’est pas mesuré. Aucune requête n’a été faite pour le lever.
+   — Aucun panneau ouvert : les captures ne montrent que le bouton fermé.
+
+JSON écrit : 01_REA_Fidelix/_captures/2026-10-27-a5/releve-fidelia.json

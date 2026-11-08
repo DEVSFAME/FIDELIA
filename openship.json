@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openship.io/openship.schema.json",
+  "framework": "nextjs",
+  "rootDirectory": "web",
+  "runtime": "docker",
+  "productionMode": "host",
+  "port": 3000,
+  "domains": ["fideliatest.site"],
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://fideliatest.site"
+  }
+}

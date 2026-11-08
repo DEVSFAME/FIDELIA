@@ -1,0 +1,67 @@
+{
+  "passe": "REA-FX-2026-11-02-A7b — les deux entrées de nav absentes du manifeste d'origine",
+  "manifeste": "01_REA_Fidelix/_captures/cibles-a7b-2026-11-02.json",
+  "date": "2026-11-02-a7b",
+  "horodatage": "2026-11-01T23:35:34.655Z",
+  "source": "FIDELIX/tools/rea/capturer-rendu.mjs",
+  "base": "https://fidelix.ma",
+  "mode": "PROFIL",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "viewport": "1440x900",
+  "cibles": 2,
+  "captures": 2,
+  "rejetees": 0,
+  "erreurs": 0,
+  "releves": [
+    {
+      "id": "d01-notifications",
+      "chemin": "/notifications",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/notifications",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200",
+        "GET /api/commerce/actif 200"
+      ],
+      "supabaseObserve": [
+        "GET /auth/v1/user 200",
+        "GET /rest/v1/push_notifications 200",
+        "POST /rest/v1/rpc/taux_desinscription_wallet 200",
+        "POST /rest/v1/rpc/notifications_envoyees_aujourdhui 200"
+      ],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 494265,
+        "sha256": "46c00f24976f3b6f327e1f12edb75c64d83673ece583062d615d046309ed5a9e"
+      },
+      "html": {
+        "octets": 79946,
+        "sha256": "a74b61869d51c637b03ddd20712b5c7622ef3d65eb6bec5bec4e47d26cbce8a2"
+      }
+    },
+    {
+      "id": "d02-clients",
+      "chemin": "/customers",
+      "http": 200,
+      "urlFinale": "https://fidelix.ma/customers",
+      "redirection": false,
+      "erreur": null,
+      "apiObservee": [
+        "GET /api/fidelia 200"
+      ],
+      "supabaseObserve": [],
+      "journaux": 0,
+      "titre": "Fidelix — La fidélité qui régale",
+      "png": {
+        "octets": 399387,
+        "sha256": "3598a753f9a1da0a920069f9058415ba5e669c51ae9de5fb9e1c6c0089cc0a8c"
+      },
+      "html": {
+        "octets": 84441,
+        "sha256": "bd25b251edbeac5170ee553184a732c1afd34042466094026e10cf456d8a96df"
+      }
+    }
+  ]
+}

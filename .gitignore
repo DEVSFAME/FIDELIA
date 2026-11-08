@@ -1,0 +1,45 @@
+# ============================================================================
+#  FIDELIX — ce qui ne doit jamais être versionné.
+#
+#  Deux familles seulement, et l'ordre compte :
+#    1. **secrets** : une clé `service_role` dans un dépôt contourne RLS ;
+#    2. **artefacts** : ~690 Mo qui n'ont rien à faire dans un push.
+#
+#  `.env.example` reste versionné : il porte les **noms**, jamais les valeurs.
+# ============================================================================
+
+# --- Secrets -----------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+web/.env.local
+
+# Profil Chrome du REA : cookies de session et jetons mesurés (23 Mo).
+.profil-rea/
+
+# --- Artefacts de build ------------------------------------------------------
+web/node_modules/
+web/.next/
+web/.next-build/
+web/out/
+web/*.tsbuildinfo
+
+# --- Divers ------------------------------------------------------------------
+.DS_Store
+npm-debug.log*
+
+# --- Identifiants d'infrastructure -------------------------------------------
+# Clé privée d'accès au VPS : sa présence dans un dépôt = accès root offert.
+VPS/SSH/
+*.key
+*.pem
+# Contient la clé `service_role` (contourne toutes les RLS) et les identifiants
+# Supabase : jamais versionné, même en dépôt privé.
+env.supabase.md
+# Journal de session : recopie des commandes de déploiement et des jetons lus.
+conversation.md
+
+# --- Base de connaissances dupliquée ---------------------------------------
+responsiv-knowledge copie/
+# Clones de documentation tierce (contiennent des .git imbriqués : gitlinks cassés)
+VPS/responsiv-knowledge/

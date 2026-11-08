@@ -1,0 +1,53 @@
+# ============================================================================
+#  Fidelix — le site, en conteneur, pour vérifier http://localhost:3000
+#
+#  Usage (depuis ce dossier) :
+#      docker compose up -d --build     # construit puis démarre
+#      docker compose logs -f web       # ce que dit le serveur
+#      docker compose ps                # « healthy » = la page répond
+#      docker compose down              # arrête et retire le conteneur
+#
+#  Les deux variables publiques sont lues dans `./.env` (gitignoré, copie de
+#  `web/.env.local`). Si le fichier manque, compose **refuse de démarrer** avec
+#  le message ci-dessous plutôt que de construire une image sans configuration :
+#  une image qui démarre et rend 500 est plus coûteuse qu'un refus net.
+# ============================================================================
+
+name: fidelix
+
+services:
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:?absent — copier web/.env.local en .env (voir l'en-tête de ce fichier)}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:?absent — copier web/.env.local en .env (voir l'en-tête de ce fichier)}
+    environment:
+      NODE_ENV: production
+      # Rendues au serveur aussi : les composants serveur lisent `process.env`
+      # à la requête, le build ne couvre que les bundles navigateur.
+      NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      # Origine publique **figée**. Lue à la requête (accès dynamique), donc
+      # suffisante ici : le QR encode `<elle>/join/<slug>`. Sans elle, l'origine
+      # tombe sur `x-forwarded-host` — derrière l'edge d'OpenShip c'est un hôte
+      # interne, et l'affiche du comptoir pointerait dessus.
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-}
+      # Jamais préfixée `NEXT_PUBLIC_`. Vide tant que rien ne la lit : le code
+      # applicatif ne l'utilise pas aujourd'hui (mesuré le 2026-11-01).
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY:-}
+      # Web push (P0-2b). **Publique** par construction : la page carte la passe
+      # au navigateur, qui s'en sert pour s'abonner. Vide = canal non branché :
+      # aucun bloc d'opt-in n'est affiché, et `push_abonnements` reste vide. Ce
+      # n'est pas la notification « à proximité » — celle-là vit dans le pass
+      # Wallet et n'émet aucun envoi.
+      NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${NEXT_PUBLIC_VAPID_PUBLIC_KEY:-}
+    ports:
+      # 3000 est déjà pris sur la machine : on publie sur **7089**.
+      # `FIDELIX_PORT=7090` si 7089 est occupé à son tour — le conteneur, lui,
+      # écoute toujours 3000 à l'intérieur (c'est son `PORT`), seul le port de
+      # l'hôte change.
+      - "${FIDELIX_PORT:-7089}:3000"
+    restart: unless-stopped
+    init: true

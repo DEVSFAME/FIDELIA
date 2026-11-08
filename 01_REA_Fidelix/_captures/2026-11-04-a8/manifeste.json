@@ -1,0 +1,513 @@
+{
+  "passe": "REA-FX-2026-11-04-A8 — la notification à proximité, de bout en bout",
+  "manifeste": "01_REA_Fidelix/_captures/cibles-a8-2026-11-04.json",
+  "date": "2026-11-04-a8",
+  "horodatage": "2026-11-04T12:15:08.759Z",
+  "source": "FIDELIX/tools/rea/capturer-fidelix.mjs",
+  "base": "https://fidelix.ma",
+  "mode": "AUTHENTIFIÉ",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "session": "profil .profil-rea (3 cookie(s) fidelix.ma, auth présente)",
+  "cibles": 2,
+  "ok": 2,
+  "redirections": 0,
+  "echecs": 0,
+  "stables": 2,
+  "dynamiques": 0,
+  "instables": 0,
+  "refusesAttendus": 0,
+  "refusesInattendus": 0,
+  "releves": [
+    {
+      "id": "e01-settings",
+      "famille": "compte",
+      "chemin": "/settings",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/pages/e01-settings.html",
+      "octets": 80114,
+      "sha256": "048154a3fab7c5747fb75babb4bda51112b62fb14c84b3c00eada9c2102bd90a",
+      "sha256Stable": "048154a3fab7c5747fb75babb4bda51112b62fb14c84b3c00eada9c2102bd90a",
+      "sha256Contenu": "742b83839b5bd9f9ddbf88b48c4f661d2737b9e833d736402431d815f276c34b",
+      "contenu": {
+        "titre": "Fidelix — La fidélité qui régale",
+        "octetsTexte": 774,
+        "liens": 20
+      },
+      "normalisations": 0
+    },
+    {
+      "id": "f01-sw-js",
+      "famille": "sonde",
+      "chemin": "/sw.js",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/sondes/f01-sw-js.html",
+      "octets": 3801,
+      "sha256": "999750de0bda1587ee0f48b4f3cee37ce213e6d5713f760f97fc692f5e1685f1",
+      "sha256Stable": "999750de0bda1587ee0f48b4f3cee37ce213e6d5713f760f97fc692f5e1685f1",
+      "sha256Contenu": "179555090892e86bf0541a511b85ffca5052db7ae07088ec82e045c39f91ddb4",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 3350,
+        "liens": 0
+      },
+      "normalisations": 0,
+      "apercu": "/* Fidelix — service worker notifications push */\n\nself.addEventListener(\"push\", (event) => {\n  if (!event.data) return;\n\n  let payload;\n  try {\n    payload = e"
+    }
+  ],
+  "assets": [
+    {
+      "chemin": "/_next/static/chunks/1356-fdc83ce69c6d6987.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_1356-fdc83ce69c6d6987.js",
+      "octets": 13711,
+      "sha256": "114728fac18ec134fdc4c349b3913656f7d8e8fc19f4acea495b4d7cb2f166f9",
+      "sha256Stable": "114728fac18ec134fdc4c349b3913656f7d8e8fc19f4acea495b4d7cb2f166f9",
+      "sha256Contenu": "b1b786ceb8e70ea4eea84ed802965389fff21e1cf8a198c7a9a546cb79db1ece",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 13156,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/1566-683b94724f87e9b4.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_1566-683b94724f87e9b4.js",
+      "octets": 18381,
+      "sha256": "d1af9e08ecdaa15e764a5da07574d3423950a0b7afd1350491fe14d7f3d25125",
+      "sha256Stable": "d1af9e08ecdaa15e764a5da07574d3423950a0b7afd1350491fe14d7f3d25125",
+      "sha256Contenu": "d7866a3442cf42602f08fe0a47e60ae6f62e3279d6030efc9cc468b25b4c8fd7",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 15940,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/2025-e98fd9121f3dfac8.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_2025-e98fd9121f3dfac8.js",
+      "octets": 16232,
+      "sha256": "8cc19fcd842b756fe0fb7391277802ead5f02d32b55a5a7d4968f79c1154d0fc",
+      "sha256Stable": "8cc19fcd842b756fe0fb7391277802ead5f02d32b55a5a7d4968f79c1154d0fc",
+      "sha256Contenu": "26234db08c985eca468451dc20a374f35649d5e03b3b6c297f05165a9826667f",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 13800,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/2619-04bc32f026a0d946.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_2619-04bc32f026a0d946.js",
+      "octets": 8564,
+      "sha256": "a9b6c2213ea787a015c0169d198b4a90d7a44a0cc17abb0d132e8362d3016ced",
+      "sha256Stable": "a9b6c2213ea787a015c0169d198b4a90d7a44a0cc17abb0d132e8362d3016ced",
+      "sha256Contenu": "a3939f5b2dedcd83e1cb43cb248bdd9e60162e58b8251b6873ba7c46b73be3d8",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 8075,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/3678-440d3a9d39d4d438.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_3678-440d3a9d39d4d438.js",
+      "octets": 10249,
+      "sha256": "9ce6d874f2559faab5adc7fc4c2deb895809fd9c49a7b6610756f9abb26fc22f",
+      "sha256Stable": "9ce6d874f2559faab5adc7fc4c2deb895809fd9c49a7b6610756f9abb26fc22f",
+      "sha256Contenu": "e3b08cd1d8b92645ad5734ff9242ed063d25f56ecf2d8967439d64224d50231f",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 9759,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/44530001-699706df5f232cb6.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_44530001-699706df5f232cb6.js",
+      "octets": 62515,
+      "sha256": "b5e256b7c7f810a69dfa4d55c906d3c1658d12e03f83846a44e076fdf083fec6",
+      "sha256Stable": "b5e256b7c7f810a69dfa4d55c906d3c1658d12e03f83846a44e076fdf083fec6",
+      "sha256Contenu": "e07721b35c63153e8e1ea88fc9c385ec617d928c3d77def9caec827e637be34c",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 53425,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_4bd1b696-100b9d70ed4e49c1.js",
+      "octets": 173025,
+      "sha256": "5421e13a91a9389517b66179f3b4b5eaa0d95245438066d4d7b19ac30aeb809b",
+      "sha256Stable": "5421e13a91a9389517b66179f3b4b5eaa0d95245438066d4d7b19ac30aeb809b",
+      "sha256Contenu": "2b7cf93516f038adaa01db185778ddd4316c488f7ebcde5fb7703b0ce155dfab",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 29434,
+        "liens": 2
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/5125-50030ac1e7a06359.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_5125-50030ac1e7a06359.js",
+      "octets": 80465,
+      "sha256": "3c28e28f0d5b86b0bfe105c966f568f65a0a0a65baf999c5ff20732ea72b4043",
+      "sha256Stable": "3c28e28f0d5b86b0bfe105c966f568f65a0a0a65baf999c5ff20732ea72b4043",
+      "sha256Contenu": "8b8c0d2354a2ded3645296a1de5ba2037f48be1ea9a9a8f8730de288fd601899",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 71717,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/6211-7842671c235cadeb.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_6211-7842671c235cadeb.js",
+      "octets": 118819,
+      "sha256": "0b007712a99ce896283da825485793d94a964d9c5509385ddc9262e4e11e9af0",
+      "sha256Stable": "0b007712a99ce896283da825485793d94a964d9c5509385ddc9262e4e11e9af0",
+      "sha256Contenu": "b68ce3977a3125f90a4e00472df87b57f235f36d0268c55049700967a664ddac",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 92862,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/6647-e0a8608b7f46f7bb.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_6647-e0a8608b7f46f7bb.js",
+      "octets": 31590,
+      "sha256": "0a9efe7eaa971a4dbc29ae7465780b042da1df719c09889aa8d4f9ddb550b4f0",
+      "sha256Stable": "0a9efe7eaa971a4dbc29ae7465780b042da1df719c09889aa8d4f9ddb550b4f0",
+      "sha256Contenu": "4d910f284a35663631c9fb7a89e60df4596ef67b6c8d49327e5e6504de136ba4",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 28108,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/6676-ec58961f033fcac9.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_6676-ec58961f033fcac9.js",
+      "octets": 5768,
+      "sha256": "b9a2284232725780bc27866f77e00cc9320e2d161a49d019dfd31bd1b1109254",
+      "sha256Stable": "b9a2284232725780bc27866f77e00cc9320e2d161a49d019dfd31bd1b1109254",
+      "sha256Contenu": "5ee87271fd641ac118a363246f33e5182185553f6337680eec2e59df4cf9254f",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 5614,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/7383-6e66436aba33b87c.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_7383-6e66436aba33b87c.js",
+      "octets": 185397,
+      "sha256": "81c6553edca2fda8b6658017949d6b8727341c0532073e55145de40a227a6e98",
+      "sha256Stable": "81c6553edca2fda8b6658017949d6b8727341c0532073e55145de40a227a6e98",
+      "sha256Contenu": "7cf6ede7ed8d278eab8642577a1bec554653a30e642d83407103e142e6ce530d",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 153580,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/7518-9a55ca274c7f96d1.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_7518-9a55ca274c7f96d1.js",
+      "octets": 15012,
+      "sha256": "21850b69409237a4e3d27d79c2306ca937bdb5293d817e85f8f6e9b86e754c2d",
+      "sha256Stable": "21850b69409237a4e3d27d79c2306ca937bdb5293d817e85f8f6e9b86e754c2d",
+      "sha256Contenu": "8cd45a5f5f2cc7d3bc4475332a1af7520274c0446843cf01d3a05e37779156e7",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 13444,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/7631-3d45865be4ef58e9.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_7631-3d45865be4ef58e9.js",
+      "octets": 180784,
+      "sha256": "719fbabc0279298becd5881c4914cd30b35e032b30a43ec8ce86f9bd4b351e14",
+      "sha256Stable": "719fbabc0279298becd5881c4914cd30b35e032b30a43ec8ce86f9bd4b351e14",
+      "sha256Contenu": "84b8b436dce050549cbe03d4834b53e8941320248327ec5f41896a4f4c6febe4",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 147124,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/800-6f25c91bf5ec2545.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_800-6f25c91bf5ec2545.js",
+      "octets": 5681,
+      "sha256": "c48f0e2b03d47ea05d68d8ab45a5c14dcee631e307ac9886c5cc51bc162323f0",
+      "sha256Stable": "c48f0e2b03d47ea05d68d8ab45a5c14dcee631e307ac9886c5cc51bc162323f0",
+      "sha256Contenu": "a7b47c20e051c0e03c4951227e5c0399ac12f8e537bd4d6eacde988aa07bb4f9",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 5236,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/8455-e39c2b8b3b3182f0.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_8455-e39c2b8b3b3182f0.js",
+      "octets": 6147,
+      "sha256": "22b2469dfc9e8e3302535c707bb99b166891e53bfdf4f68bb8ec384dd16ab4d8",
+      "sha256Stable": "22b2469dfc9e8e3302535c707bb99b166891e53bfdf4f68bb8ec384dd16ab4d8",
+      "sha256Contenu": "9b091b2fbe3b04b84fe8320d240fc70ca6448995d7937a0340a4e394d81acee7",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 3863,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/8648-18f8579c72a00939.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_8648-18f8579c72a00939.js",
+      "octets": 8095,
+      "sha256": "2125584e213b75845ed44eff9cef5e92ee7770b1069a054f4ec1f79fb2e0438f",
+      "sha256Stable": "2125584e213b75845ed44eff9cef5e92ee7770b1069a054f4ec1f79fb2e0438f",
+      "sha256Contenu": "384f6b49962bf16f6ffc6f20f8d2f8f8fbedb69556696d23f47680c8caff08bb",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 7711,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/9779-f3dd8d5274e4301e.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_9779-f3dd8d5274e4301e.js",
+      "octets": 21161,
+      "sha256": "0d6327901b1e5e56d5ac5b71caaf949a343a21435b58a214059a984bc7b82af4",
+      "sha256Stable": "0d6327901b1e5e56d5ac5b71caaf949a343a21435b58a214059a984bc7b82af4",
+      "sha256Contenu": "e70276d4e28b686ca1bb054e98467793baf466ccb91f4d2824dbaa121adadc60",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 20202,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/9990-950efab9e0d04bcf.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_9990-950efab9e0d04bcf.js",
+      "octets": 23601,
+      "sha256": "10c9f2b889e42bbabbf88d86edee3f8e87429e8f745c299a249246caa7b5b815",
+      "sha256Stable": "10c9f2b889e42bbabbf88d86edee3f8e87429e8f745c299a249246caa7b5b815",
+      "sha256Contenu": "14b971d9ec0efe70b15e7d7ad155c2635aa9d21488c0cee63eb9ee0fd330c803",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 19578,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/app/(auth)/layout-b0c38dc7d9a2786f.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_app__auth__layout-b0c38dc7d9a2786f.js",
+      "octets": 140,
+      "sha256": "c58c68b3dcafe21bb60650239e16dc0e7fdd8346b94e0d025b0ce2df881131f1",
+      "sha256Stable": "c58c68b3dcafe21bb60650239e16dc0e7fdd8346b94e0d025b0ce2df881131f1",
+      "sha256Contenu": "38e118cd3c9ec99de289c47ffc3700363b2f5d9877d729886da0ecf87d86f3f0",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 140,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/app/(dashboard)/layout-c7e219b106ba4f9e.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_app__dashboard__layout-c7e219b106ba4f9e.js",
+      "octets": 62236,
+      "sha256": "1c43472624029a51e7ed4abc4bde88cbd04bb9819e74c199f33c6336f4efd2d2",
+      "sha256Stable": "1c43472624029a51e7ed4abc4bde88cbd04bb9819e74c199f33c6336f4efd2d2",
+      "sha256Contenu": "a360c739cf1149a436b78bfbbfa2a59b3ce99e762396f5a936459c51db2d187c",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 60061,
+        "liens": 1
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/app/(dashboard)/settings/layout-dc5d1b416b3e6c9d.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_app__dashboard__settings_layout-dc5d1b416b3e6c9d.js",
+      "octets": 6032,
+      "sha256": "3cdb593d840ea346d6c14b7dae92a66d717b78146fcf3e640973a3140c148fd6",
+      "sha256Stable": "3cdb593d840ea346d6c14b7dae92a66d717b78146fcf3e640973a3140c148fd6",
+      "sha256Contenu": "ccbfc96528fa3106f31c4a6f578a6bae6b3d84e48fc332f359e4954d2d3f956d",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 5697,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/app/(dashboard)/settings/page-dd121c1258082851.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_app__dashboard__settings_page-dd121c1258082851.js",
+      "octets": 22105,
+      "sha256": "57c7160c74f008acd2974fa4b6c7c94d942b212643e84923cb673708df781cba",
+      "sha256Stable": "57c7160c74f008acd2974fa4b6c7c94d942b212643e84923cb673708df781cba",
+      "sha256Contenu": "43f7ddae506415306707b5247a7a02a4ebfbc8b52d479b1a493dc4abc3963472",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 21000,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/app/error-23078366a69e8840.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_app_error-23078366a69e8840.js",
+      "octets": 1460,
+      "sha256": "beed7ca6c53cc219790df3f58c6f354246b363814569ceb8e53572e020fc19fa",
+      "sha256Stable": "beed7ca6c53cc219790df3f58c6f354246b363814569ceb8e53572e020fc19fa",
+      "sha256Contenu": "e2f8bc19dcdcdaaa0f1df8bb64b091a4304136e3d76b2211cd9a9a6650495e88",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 1460,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/app/layout-8bbd37d48c014194.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_app_layout-8bbd37d48c014194.js",
+      "octets": 6968,
+      "sha256": "8d86b4b8964b33ffc61af5d5bfe9508f771f80c500ec878dca204069204817e1",
+      "sha256Stable": "8d86b4b8964b33ffc61af5d5bfe9508f771f80c500ec878dca204069204817e1",
+      "sha256Contenu": "4bbe0ae8002011bff1a91679ea7d7799dd5a83d12ccaaa8579dbdde3646b4e7a",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 6900,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/main-app-abf8cea03753baf0.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_main-app-abf8cea03753baf0.js",
+      "octets": 797,
+      "sha256": "b0fa4bd92fc00133b91963c3385691b086a646a9a9435a06ad1a50649966b47c",
+      "sha256Stable": "b0fa4bd92fc00133b91963c3385691b086a646a9a9435a06ad1a50649966b47c",
+      "sha256Contenu": "8f9789cfe7268d608c89000d13a513fef10ef10556bb5babd52426b4d2d7816e",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 797,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_polyfills-42372ed130431b0a.js",
+      "octets": 112594,
+      "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "sha256Stable": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "sha256Contenu": "a3212e2b1b5e611b9eb0e03bc831acaad26fa074fa59c4e9f7a2eb8639db727c",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 53382,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/chunks/webpack-0db848876171440d.js",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_chunks_webpack-0db848876171440d.js",
+      "octets": 4073,
+      "sha256": "df22875d68f3a66695dd2938aae218ce96b496f96f63896a7eaee93002b87014",
+      "sha256Stable": "df22875d68f3a66695dd2938aae218ce96b496f96f63896a7eaee93002b87014",
+      "sha256Contenu": "d5411195ea62e3246427848a680ad378aa405686498dfbd8afbd19a66a41b695",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 3637,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/css/7ab25fec03455e08.css",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_css_7ab25fec03455e08.css",
+      "octets": 16777,
+      "sha256": "5288a883f1e6be9c47272d4e2b7f7c055ab22111802d152b3c6ba2b48437ef94",
+      "sha256Stable": "5288a883f1e6be9c47272d4e2b7f7c055ab22111802d152b3c6ba2b48437ef94",
+      "sha256Contenu": "c536cdba8cce6e188f6a404cb68173b482f1a89143a9196b286a4a8598dc5d9c",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 16777,
+        "liens": 0
+      },
+      "normalisations": 0
+    },
+    {
+      "chemin": "/_next/static/css/dd3b5ad02d978574.css",
+      "http": 200,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-04-a8/raw/assets/_next_static_css_dd3b5ad02d978574.css",
+      "octets": 135561,
+      "sha256": "fbb7cd62fd82802dbc273f8f088f41c5ec1c23262a18ec6f732c36ea2690d53e",
+      "sha256Stable": "fbb7cd62fd82802dbc273f8f088f41c5ec1c23262a18ec6f732c36ea2690d53e",
+      "sha256Contenu": "11f0dc96ae20950bfa4a9358b9b4dfc705de637f2afe42c38a7229ca5b03cd86",
+      "contenu": {
+        "titre": "",
+        "octetsTexte": 135561,
+        "liens": 0
+      },
+      "normalisations": 0
+    }
+  ],
+  "erreurs": [],
+  "refuses": []
+}

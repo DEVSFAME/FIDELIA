@@ -1,0 +1,106 @@
+/* Fidelix — service worker notifications push */
+
+self.addEventListener("push", (event) => {
+  if (!event.data) return;
+
+  let payload;
+  try {
+    payload = event.data.json();
+  } catch {
+    payload = { title: "Fidelix", body: event.data.text() };
+  }
+
+  const options = {
+    body: payload.body || "",
+    icon: payload.icon || "/icon-192.png",
+    badge: "/icon-192.png",
+    data: { url: payload.url || "/" },
+    vibrate: [100, 50, 100],
+  };
+
+  event.waitUntil(self.registration.showNotification(payload.title || "Fidelix", options));
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = event.notification.data?.url || "/";
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+      for (const client of list) {
+        if (client.url === url && "focus" in client) return client.focus();
+      }
+      return clients.openWindow(url);
+    })
+  );
+});
+
+/* ── Caisse hors ligne ──────────────────────────────────────────────────────
+   Sans cette mise en cache, ouvrir /scan (la caisse du gérant) ou /caisse (la
+   caisse d'un employé, page de démarrage de son application) sans réseau
+   afficherait la page d'erreur du navigateur, et la caisse serait
+   inutilisable — précisément la situation que la file d'attente est censée
+   couvrir. /caisse manquait : une caisse employé relancée sans réseau
+   n'ouvrait plus, et sa file d'attente devenait inatteignable. */
+
+const CACHE_CAISSE = "fidelix-caisse-v1";
+
+// Sans ces deux étapes, le service worker fraîchement enregistré ne prendrait
+// la main qu'à la visite suivante : le commerçant qui coupe sa connexion juste
+// après aurait une page d'erreur.
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches
+      .open(CACHE_CAISSE)
+      // Chaque page séparément : un `addAll` échoue entièrement dès qu'une
+      // seule adresse ne répond pas.
+      .then((cache) => Promise.allSettled(["/scan", "/caisse"].map((page) => cache.add(page))))
+      .catch(() => {})
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("fetch", (event) => {
+  const requete = event.request;
+  if (requete.method !== "GET") return;
+
+  const url = new URL(requete.url);
+  if (url.origin !== self.location.origin) return;
+
+  // La caisse, et la carte du client.
+  //
+  // La carte a été ajoutée pour les clients qui n'ont ni Apple Wallet ni Google
+  // Wallet : leur seule solution est le raccourci sur l'écran d'accueil, et un
+  // raccourci qui affiche la page d'erreur du navigateur dès qu'il n'y a pas de
+  // réseau ne remplace pas un wallet. Le QR code reste affiché, donc scannable
+  // au comptoir même sans connexion — c'est le geste qui compte.
+  //
+  // La stratégie reste « réseau d'abord » (voir plus bas) : le solde affiché est
+  // le vrai tant qu'il y a du réseau, et le dernier connu sinon.
+  const concerne =
+    url.pathname === "/scan" ||
+    url.pathname === "/caisse" ||
+    url.pathname.startsWith("/card/") ||
+    url.pathname.startsWith("/_next/static/") ||
+    url.pathname.startsWith("/brand/");
+
+  if (!concerne) return;
+
+  event.respondWith(
+    (async () => {
+      const cache = await caches.open(CACHE_CAISSE);
+      try {
+        const reponse = await fetch(requete);
+        if (reponse && reponse.ok) cache.put(requete, reponse.clone());
+        return reponse;
+      } catch {
+        const enCache = await cache.match(requete);
+        if (enCache) return enCache;
+        throw new Error("Ressource indisponible hors ligne");
+      }
+    })()
+  );
+});

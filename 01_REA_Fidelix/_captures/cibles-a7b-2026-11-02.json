@@ -1,0 +1,11 @@
+{
+  "passe": "REA-FX-2026-11-02-A7b — les deux entrées de nav absentes du manifeste d'origine",
+  "date": "2026-11-02-a7b",
+  "base": "https://fidelix.ma",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "note": "Le manifeste du 2026-10-26 listait 15 pages mais AUCUNE des deux entrées « Messages » (/notifications) et « Clients » (/customers), pourtant présentes dans le rail privé des 13 DOM de A6. Un module non capturé n'est pas un module absent : c'est un angle mort du manifeste. A7b ferme cet angle. `/reviews`, capturé en A6, ne rend qu'un titre : le contenu de la page est à relire dans son DOM, pas à re-capturer.",
+  "pages": [
+    { "id": "d01-notifications", "chemin": "/notifications", "famille": "module", "statut": "prouve", "pourquoi": "Entrée « Messages » du rail privé (13 occurrences dans 9 DOM de A6)." },
+    { "id": "d02-clients", "chemin": "/customers", "famille": "module", "statut": "prouve", "pourquoi": "Entrée « Clients » du rail privé (13 occurrences). Module central : liste des membres, drill-down /customers/:id mesuré en A7." }
+  ]
+}

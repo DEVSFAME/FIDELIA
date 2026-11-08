@@ -1,0 +1,70 @@
+{
+ "outil": "FIDELIX/tools/rea/relever-wallet.mjs",
+ "horodatage": "2026-10-27T03:0:00Z",
+ "objet": "A3 — existence et forme côté serveur des routes wallet, SANS générer de pass",
+ "regle": "Aucun POST. Les deux routes de GÉNÉRATION n'ont pas été appelées : une génération de pass n'est pas une lecture. Seules OPTIONS (qui n'exécute pas le handler GET) et /statut (lecture d'un booléen) ont été sollicitées.",
+ "identifiants": "L'UUID de carte réel a été lu dans la sonde b06 de S3 et n'est PAS recopié ici : il est remplacé par <uuid_carte>. Aucun corps de page carte n'est archivé (lesson §15).",
+ "page_carte": {
+  "methode": "GET anonyme, sans cookie",
+  "cibles": [
+   { "chemin": "/card/<uuid_carte>", "statut": 200, "octets": 56043, "titre": "Carte fidélité — <commerce>", "verdict": "route EXISTE et est PUBLIQUE" },
+   { "chemin": "/card/00000000-0000-4000-8000-000000000000", "statut": 404, "octets": 24135, "titre": "Page introuvable — Fidelix", "verdict": "identifiant inconnu" },
+   { "chemin": "/card/test", "statut": 404, "octets": 23932, "titre": "Page introuvable — Fidelix", "verdict": "identifiant inconnu (même 404 que S3 : il ne prouvait rien)" }
+  ],
+  "contraste": "Même famille de 404 pour l'UUID nul et pour `test` : c'est le TÉMOIN qui manquait à S3 (lesson §16). La route n'est prouvée que par le 200.",
+  "marqueurs_page": {
+   "wallet": 17,
+   "Apple": 16,
+   "Google": 6,
+   "boutons": ["Ajouter à Apple Wallet", "Ajouter à Google Wallet"],
+   "note": "16 « Apple » = métadonnées (apple-mobile-web-app, apple-touch-icon) et non des boutons : un comptage sans classement aurait dit « 16 boutons Apple »."
+  },
+  "chunk_de_la_page": "_next/static/chunks/app/card/%5BcardId%5D/page-198959bafc7eadc0.js — 34120 o, sha256 12b1f7db3d671ef965c7028c3fedc850981513ee840bd92b89a307702f21c611, archivé dans raw/assets/ (public, sans donnée client)"
+ },
+ "options": {
+  "pourquoi": "OPTIONS n'exécute pas le GET : c'est le seul moyen de prouver l'existence d'une route de génération sans en demander une.",
+  "calibration": "Sous /api/ (hors /api/wallet), OPTIONS est intercepté par le middleware : 401 pour une route EXISTANTE comme pour une route INEXISTANTE. Sous /api/wallet, une route inexistante répond 404 : la sous-arborescence est hors middleware, et c'est ce qui rend le 204 significatif.",
+  "mesures": [
+   { "chemin": "/api/commerce/actif", "statut": 401, "allow": "", "lecture": "témoin positif, mais masqué par le middleware" },
+   { "chemin": "/api/zzz-temoin-rea-inexistant", "statut": 401, "allow": "", "lecture": "témoin négatif : IDENTIQUE au positif → OPTIONS ne discrimine pas sous /api/" },
+   { "chemin": "/api/broadcast", "statut": 401, "allow": "", "lecture": "route 404 connue (S3), également 401 en OPTIONS" },
+   { "chemin": "/api/transaction", "statut": 401, "allow": "", "lecture": "route d'écriture connue, 401" },
+   { "chemin": "/api/wallet/zzz-inexistant", "statut": 404, "allow": "", "lecture": "témoin négatif PROPRE à la sous-namespace" },
+   { "chemin": "/api/wallet/apple", "statut": 404, "allow": "", "lecture": "le segment [cardId] est obligatoire" },
+   { "chemin": "/api/wallet/apple/<uuid_carte>", "statut": 204, "allow": "GET, HEAD, OPTIONS", "lecture": "route EXISTE, méthode GET seule, et HORS middleware (sinon 401)" },
+   { "chemin": "/api/wallet/apple/00000000-0000-4000-8000-000000000000", "statut": 204, "allow": "GET, HEAD, OPTIONS", "lecture": "204 identique → OPTIONS prouve la ROUTE, jamais la ressource" },
+   { "chemin": "/api/wallet/google/<uuid_carte>", "statut": 204, "allow": "GET, HEAD, OPTIONS", "lecture": "route EXISTE, méthode GET seule" }
+  ],
+  "verdict": "Deux routes de génération existent, publiques, en GET, hors middleware d'authentification."
+ },
+ "statut": {
+  "mesures": [
+   { "chemin": "/api/wallet/apple/<uuid_carte>/statut", "statut": 200, "type": "application/json", "corps": { "ajoutee": true }, "lecture": "le pass de cette carte EST enregistré côté serveur" },
+   { "chemin": "/api/wallet/apple/00000000-0000-4000-8000-000000000000/statut", "statut": 200, "type": "application/json", "corps": { "ajoutee": false }, "lecture": "ATTENTION : 200 sur un UUID inexistant → `ajoutee:false` ne dit pas « carte inconnue », il dit « pas de pass »" },
+   { "chemin": "/api/wallet/google/<uuid_carte>/statut", "statut": 404, "type": "text/html", "lecture": "asymétrie confirmée côté serveur : aucun statut Google, comme le code le laissait voir" }
+  ],
+  "lectures_negatives": [
+   { "chemin": "/api/wallet/zzz-inexistant", "statut": 404, "octets": 38285, "lecture": "route inexistante dans la sous-namespace : c'est le témoin qui rend le 204 significatif" },
+   { "chemin": "/api/wallet/apple", "statut": 404, "octets": 38276, "lecture": "segment [cardId] obligatoire" }
+  ]
+ },
+ "requetes": {
+  "total": 18,
+  "detail": "3 GET de page (carte réelle, UUID nul, /card/test) + 10 OPTIONS + 5 GET de sondage (3 × /statut, 2 négatifs)",
+  "aucune_ecriture": "Aucun POST, aucun PUT, aucun PATCH, aucun DELETE. Les deux routes de génération n'ont pas été appelées."
+ },
+ "non_mesure": [
+  {
+   "chemin": "/api/wallet/apple/<uuid_carte>",
+   "raison": "génération d'un pass : effet de bord possible (émission, enregistrement, compteur `taux_desinscription_wallet`). Le contrat est lu dans le code, pas exercé — c'est la règle d'A2, et elle vaut ici."
+  },
+  {
+   "chemin": "/api/wallet/google/<uuid_carte>",
+   "raison": "idem (émission d'un lien d'ajout Google)."
+  },
+  {
+   "objet": "le format du fichier de pass (content-type, structure du .pkpass)",
+   "raison": "inaccessible sans générer. Reste inconnu, et l'écrire autrement serait une invention."
+  }
+ ]
+}

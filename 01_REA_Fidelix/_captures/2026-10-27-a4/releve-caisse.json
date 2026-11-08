@@ -1,0 +1,866 @@
+{
+ "date": "2026-10-27T02:50:19.007Z",
+ "assets": "01_REA_Fidelix/_captures/2026-10-26/raw/assets",
+ "pages": "01_REA_Fidelix/_captures/2026-10-26/raw/pages",
+ "bundles": [
+  "_next_static_chunks_1356-d70661dbb27f8921.js",
+  "_next_static_chunks_2128-b9b66b772b5c53ed.js",
+  "_next_static_chunks_2619-04bc32f026a0d946.js",
+  "_next_static_chunks_3678-440d3a9d39d4d438.js",
+  "_next_static_chunks_4008-20a2f032cea8775a.js",
+  "_next_static_chunks_4167-b104bcb9293fa340.js",
+  "_next_static_chunks_44530001-699706df5f232cb6.js",
+  "_next_static_chunks_4873-f86daf35ab2cfcb6.js",
+  "_next_static_chunks_4bd1b696-100b9d70ed4e49c1.js",
+  "_next_static_chunks_5040-aeb547ab6e2684c9.js",
+  "_next_static_chunks_5125-50030ac1e7a06359.js",
+  "_next_static_chunks_5875-e395be5dc8cdada4.js",
+  "_next_static_chunks_6211-7842671c235cadeb.js",
+  "_next_static_chunks_6440-243331ba7628778e.js",
+  "_next_static_chunks_6676-5b319050e87794bd.js",
+  "_next_static_chunks_6866-2c6ed19830232270.js",
+  "_next_static_chunks_7383-6e66436aba33b87c.js",
+  "_next_static_chunks_7631-29ff0d20f794a902.js",
+  "_next_static_chunks_7cb1fa1f-9c1d16e5e8123936.js",
+  "_next_static_chunks_800-6f25c91bf5ec2545.js",
+  "_next_static_chunks_8743-379ddb6d2683feb0.js",
+  "_next_static_chunks_9477-3b9f7e72181dff6d.js",
+  "_next_static_chunks_9779-f3dd8d5274e4301e.js",
+  "_next_static_chunks_app__admin__layout-a5191742e5074e3d.js",
+  "_next_static_chunks_app__auth__forgot-password_page-c17cec5863baf4b5.js",
+  "_next_static_chunks_app__auth__layout-06d42ad8b90aae00.js",
+  "_next_static_chunks_app__auth__login_page-fdb96a58c9171993.js",
+  "_next_static_chunks_app__auth__register_page-624b8d1e8d80be44.js",
+  "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js",
+  "_next_static_chunks_app_ar_page-e58c6cc42de01714.js",
+  "_next_static_chunks_app_caisse_error-b985e36f751e8914.js",
+  "_next_static_chunks_app_caisse_layout-fc5aca2fd66ae01b.js",
+  "_next_static_chunks_app_caisse_page-e18fb03a63b24353.js",
+  "_next_static_chunks_app_conditions_page-258e00637359cf37.js",
+  "_next_static_chunks_app_confidentialite_page-258e00637359cf37.js",
+  "_next_static_chunks_app_demarrer_page-33d3f2c3a9dce215.js",
+  "_next_static_chunks_app_en_page-70f335be27fb1693.js",
+  "_next_static_chunks_app_error-23078366a69e8840.js",
+  "_next_static_chunks_app_guide_page-258e00637359cf37.js",
+  "_next_static_chunks_app_join_%5Bslug%5D_page-5ffb58c0ed9fd59d.js",
+  "_next_static_chunks_app_layout-d5fb31becfa9e593.js",
+  "_next_static_chunks_app_mentions-legales_page-258e00637359cf37.js",
+  "_next_static_chunks_app_page-f1fb15e26c6b9d7e.js",
+  "_next_static_chunks_app_recompenses_%5Bslug%5D_page-06d42ad8b90aae00.js",
+  "_next_static_chunks_app_rendez-vous_page-411166a80d509344.js",
+  "_next_static_chunks_main-app-abf8cea03753baf0.js",
+  "_next_static_chunks_polyfills-42372ed130431b0a.js",
+  "_next_static_chunks_webpack-adc53dc381a5cfbf.js"
+ ],
+ "releve": {
+  "parOrigine": {
+   "hôte navigateur": 43,
+   "magasin local": 13,
+   "contrat réseau": 9,
+   "prose": 8
+  },
+  "parFoyer": {
+   "supabase auth-js": 7,
+   "chunk partagé": 40,
+   "entrée de route": 14,
+   "autre": 5
+  },
+  "parJeton": {
+   "localStorage": {
+    "total": 31,
+    "origines": {
+     "hôte navigateur": 31
+    }
+   },
+   "serviceWorker": {
+    "total": 4,
+    "origines": {
+     "hôte navigateur": 4
+    }
+   },
+   "file_attente": {
+    "total": 1,
+    "origines": {
+     "magasin local": 1
+    }
+   },
+   "indexedDB": {
+    "total": 1,
+    "origines": {
+     "hôte navigateur": 1
+    }
+   },
+   "fidelix-caisse": {
+    "total": 1,
+    "origines": {
+     "magasin local": 1
+    }
+   },
+   "crypto.randomUUID": {
+    "total": 2,
+    "origines": {
+     "hôte navigateur": 2
+    }
+   },
+   "cree_le": {
+    "total": 3,
+    "origines": {
+     "magasin local": 3
+    }
+   },
+   "tentatives": {
+    "total": 5,
+    "origines": {
+     "magasin local": 4,
+     "prose": 1
+    }
+   },
+   "maj_le": {
+    "total": 1,
+    "origines": {
+     "magasin local": 1
+    }
+   },
+   "navigator.onLine": {
+    "total": 4,
+    "origines": {
+     "hôte navigateur": 4
+    }
+   },
+   "/api/transaction": {
+    "total": 2,
+    "origines": {
+     "contrat réseau": 2
+    }
+   },
+   "client_operation_id": {
+    "total": 2,
+    "origines": {
+     "contrat réseau": 2
+    }
+   },
+   "fidelix_caisse_programme": {
+    "total": 1,
+    "origines": {
+     "magasin local": 1
+    }
+   },
+   "/api/scan/card?id=": {
+    "total": 1,
+    "origines": {
+     "contrat réseau": 1
+    }
+   },
+   "fidelix_caisse_devise": {
+    "total": 2,
+    "origines": {
+     "magasin local": 2
+    }
+   },
+   "/api/caisse/cadeau-filleul": {
+    "total": 1,
+    "origines": {
+     "contrat réseau": 1
+    }
+   },
+   "/api/caisse/parrainage-valide": {
+    "total": 1,
+    "origines": {
+     "contrat réseau": 1
+    }
+   },
+   "/api/transaction/annuler": {
+    "total": 1,
+    "origines": {
+     "contrat réseau": 1
+    }
+   },
+   "/api/scan/cards": {
+    "total": 1,
+    "origines": {
+     "contrat réseau": 1
+    }
+   },
+   "/sw.js": {
+    "total": 1,
+    "origines": {
+     "hôte navigateur": 1
+    }
+   },
+   "en attente d'envoi": {
+    "total": 1,
+    "origines": {
+     "prose": 1
+    }
+   },
+   "Hors ligne — les": {
+    "total": 1,
+    "origines": {
+     "prose": 1
+    }
+   },
+   "Solde au dernier passage": {
+    "total": 1,
+    "origines": {
+     "prose": 1
+    }
+   },
+   "ne peuvent pas être remises hors ligne": {
+    "total": 1,
+    "origines": {
+     "prose": 1
+    }
+   },
+   "ne peut pas être déduit hors ligne": {
+    "total": 1,
+    "origines": {
+     "prose": 1
+    }
+   },
+   "hors ligne refus": {
+    "total": 1,
+    "origines": {
+     "prose": 1
+    }
+   },
+   "sont enregistrés sur cet appareil": {
+    "total": 1,
+    "origines": {
+     "prose": 1
+    }
+   }
+  },
+  "parFichier": [
+   {
+    "fichier": "_next_static_chunks_44530001-699706df5f232cb6.js",
+    "foyer": "supabase auth-js",
+    "total": 1,
+    "items": [
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": []
+   },
+   {
+    "fichier": "_next_static_chunks_4bd1b696-100b9d70ed4e49c1.js",
+    "foyer": "chunk partagé",
+    "total": 2,
+    "items": [
+     {
+      "jeton": "serviceWorker",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "serviceWorker",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": []
+   },
+   {
+    "fichier": "_next_static_chunks_6440-243331ba7628778e.js",
+    "foyer": "chunk partagé",
+    "total": 2,
+    "items": [
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": []
+   },
+   {
+    "fichier": "_next_static_chunks_6866-2c6ed19830232270.js",
+    "foyer": "chunk partagé",
+    "total": 43,
+    "items": [
+     {
+      "jeton": "file_attente",
+      "origine": "magasin local",
+      "role": "magasin-magasin"
+     },
+     {
+      "jeton": "indexedDB",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "fidelix-caisse",
+      "origine": "magasin local",
+      "role": "magasin-base"
+     },
+     {
+      "jeton": "crypto.randomUUID",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "cree_le",
+      "origine": "magasin local",
+      "role": "champ-file"
+     },
+     {
+      "jeton": "tentatives",
+      "origine": "magasin local",
+      "role": "champ-file"
+     },
+     {
+      "jeton": "cree_le",
+      "origine": "magasin local",
+      "role": "champ-file"
+     },
+     {
+      "jeton": "cree_le",
+      "origine": "magasin local",
+      "role": "champ-file"
+     },
+     {
+      "jeton": "tentatives",
+      "origine": "magasin local",
+      "role": "champ-file"
+     },
+     {
+      "jeton": "tentatives",
+      "origine": "magasin local",
+      "role": "champ-file"
+     },
+     {
+      "jeton": "maj_le",
+      "origine": "magasin local",
+      "role": "champ-cache"
+     },
+     {
+      "jeton": "navigator.onLine",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "/api/transaction",
+      "origine": "contrat réseau",
+      "role": "route"
+     },
+     {
+      "jeton": "client_operation_id",
+      "origine": "contrat réseau",
+      "role": "champ-requete"
+     },
+     {
+      "jeton": "tentatives",
+      "origine": "magasin local",
+      "role": "champ-file"
+     },
+     {
+      "jeton": "fidelix_caisse_programme",
+      "origine": "magasin local",
+      "role": "magasin-cle"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "/api/scan/card?id=",
+      "origine": "contrat réseau",
+      "role": "route"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "fidelix_caisse_devise",
+      "origine": "magasin local",
+      "role": "magasin-cle"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "fidelix_caisse_devise",
+      "origine": "magasin local",
+      "role": "magasin-cle"
+     },
+     {
+      "jeton": "navigator.onLine",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "crypto.randomUUID",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "/api/transaction",
+      "origine": "contrat réseau",
+      "role": "route"
+     },
+     {
+      "jeton": "client_operation_id",
+      "origine": "contrat réseau",
+      "role": "champ-requete"
+     },
+     {
+      "jeton": "/api/caisse/cadeau-filleul",
+      "origine": "contrat réseau",
+      "role": "route"
+     },
+     {
+      "jeton": "/api/caisse/parrainage-valide",
+      "origine": "contrat réseau",
+      "role": "route"
+     },
+     {
+      "jeton": "/api/transaction/annuler",
+      "origine": "contrat réseau",
+      "role": "route"
+     },
+     {
+      "jeton": "/api/scan/cards",
+      "origine": "contrat réseau",
+      "role": "route"
+     },
+     {
+      "jeton": "serviceWorker",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "serviceWorker",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "/sw.js",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "navigator.onLine",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "navigator.onLine",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": [
+     {
+      "jeton": "en attente d'envoi",
+      "nombre": 1
+     },
+     {
+      "jeton": "Hors ligne — les",
+      "nombre": 1
+     },
+     {
+      "jeton": "Solde au dernier passage",
+      "nombre": 1
+     },
+     {
+      "jeton": "ne peuvent pas être remises hors ligne",
+      "nombre": 1
+     },
+     {
+      "jeton": "ne peut pas être déduit hors ligne",
+      "nombre": 1
+     },
+     {
+      "jeton": "hors ligne refus",
+      "nombre": 1
+     },
+     {
+      "jeton": "sont enregistrés sur cet appareil",
+      "nombre": 1
+     }
+    ]
+   },
+   {
+    "fichier": "_next_static_chunks_7383-6e66436aba33b87c.js",
+    "foyer": "supabase auth-js",
+    "total": 6,
+    "items": [
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": []
+   },
+   {
+    "fichier": "_next_static_chunks_app__auth__login_page-fdb96a58c9171993.js",
+    "foyer": "entrée de route",
+    "total": 1,
+    "items": [
+     {
+      "jeton": "tentatives",
+      "origine": "prose",
+      "role": "prose"
+     }
+    ],
+    "prose": []
+   },
+   {
+    "fichier": "_next_static_chunks_app__auth__register_page-624b8d1e8d80be44.js",
+    "foyer": "entrée de route",
+    "total": 5,
+    "items": [
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": []
+   },
+   {
+    "fichier": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js",
+    "foyer": "autre",
+    "total": 5,
+    "items": [
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": []
+   },
+   {
+    "fichier": "_next_static_chunks_app_demarrer_page-33d3f2c3a9dce215.js",
+    "foyer": "entrée de route",
+    "total": 5,
+    "items": [
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": []
+   },
+   {
+    "fichier": "_next_static_chunks_app_join_%5Bslug%5D_page-5ffb58c0ed9fd59d.js",
+    "foyer": "entrée de route",
+    "total": 3,
+    "items": [
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     },
+     {
+      "jeton": "localStorage",
+      "origine": "hôte navigateur",
+      "role": "hote"
+     }
+    ],
+    "prose": []
+   }
+  ],
+  "magasins": [
+   {
+    "nom": "fidelix-caisse",
+    "version": 2,
+    "magasins": [
+     {
+      "nom": "file_attente",
+      "keyPath": "id",
+      "effaceAupgrade": false
+     },
+     {
+      "nom": "cartes",
+      "keyPath": "id",
+      "effaceAupgrade": true
+     }
+    ],
+    "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+   }
+  ],
+  "cles": [
+   {
+    "nom": "fidelix_caisse_programme",
+    "ecritures": 1,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+   },
+   {
+    "nom": "fidelix_caisse_devise",
+    "ecritures": 1,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_6866-2c6ed19830232270.js"
+   },
+   {
+    "nom": "supabase.gotrue-js.locks.debug",
+    "ecritures": 0,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_7383-6e66436aba33b87c.js"
+   },
+   {
+    "nom": "utf8",
+    "ecritures": 2,
+    "lectures": 0,
+    "fichier": "_next_static_chunks_7383-6e66436aba33b87c.js"
+   },
+   {
+    "nom": "fidelix_consentement_meta",
+    "ecritures": 2,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_app__auth__register_page-624b8d1e8d80be44.js"
+   },
+   {
+    "nom": "fidelix_prospect",
+    "ecritures": 1,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_app__auth__register_page-624b8d1e8d80be44.js"
+   },
+   {
+    "nom": "en_ligne",
+    "ecritures": 1,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js"
+   },
+   {
+    "nom": "fidelix_conseiller_",
+    "ecritures": 2,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js"
+   },
+   {
+    "nom": "premium",
+    "ecritures": 2,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_app_demarrer_page-33d3f2c3a9dce215.js"
+   },
+   {
+    "nom": "fidelix_prospect",
+    "ecritures": 1,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_app_demarrer_page-33d3f2c3a9dce215.js"
+   },
+   {
+    "nom": "fidelix-carte-",
+    "ecritures": 2,
+    "lectures": 1,
+    "fichier": "_next_static_chunks_app_join_%5Bslug%5D_page-5ffb58c0ed9fd59d.js"
+   }
+  ],
+  "politiques": [
+   {
+    "fichier": "_next_static_chunks_6866-2c6ed19830232270.js",
+    "rejet": [
+     400,
+     403,
+     404,
+     422
+    ],
+    "seuilBloque": 3,
+    "delais": [
+     {
+      "ms": 3000,
+      "rappel": "()=>{J.current&&eE(!1)}"
+     },
+     {
+      "ms": 65000,
+      "rappel": "()=>void eW()"
+     }
+    ]
+   }
+  ],
+  "chemins": [
+   "/sw.js"
+  ],
+  "routes": [
+   {
+    "route": "/api/transaction",
+    "genres": [
+     "fetch"
+    ],
+    "fichiers": [
+     "_next_static_chunks_6866-2c6ed19830232270.js"
+    ],
+    "enfilee": true
+   },
+   {
+    "route": "/api/caisse/cadeau-filleul",
+    "genres": [
+     "fetch"
+    ],
+    "fichiers": [
+     "_next_static_chunks_6866-2c6ed19830232270.js"
+    ],
+    "enfilee": false
+   },
+   {
+    "route": "/api/caisse/parrainage-valide",
+    "genres": [
+     "fetch"
+    ],
+    "fichiers": [
+     "_next_static_chunks_6866-2c6ed19830232270.js"
+    ],
+    "enfilee": false
+   },
+   {
+    "route": "/api/scan/card?id=",
+    "genres": [
+     "fetch"
+    ],
+    "fichiers": [
+     "_next_static_chunks_6866-2c6ed19830232270.js"
+    ],
+    "enfilee": false
+   },
+   {
+    "route": "/api/scan/cards",
+    "genres": [
+     "fetch"
+    ],
+    "fichiers": [
+     "_next_static_chunks_6866-2c6ed19830232270.js"
+    ],
+    "enfilee": false
+   },
+   {
+    "route": "/api/transaction/annuler",
+    "genres": [
+     "fetch"
+    ],
+    "fichiers": [
+     "_next_static_chunks_6866-2c6ed19830232270.js"
+    ],
+    "enfilee": false
+   }
+  ]
+ },
+ "calibration": {
+  "ecarts": [],
+  "temoins": {
+   "positifBase": "fidelix-caisse",
+   "positifMagasin": "file_attente",
+   "positifCleLs": "fidelix_caisse_programme",
+   "positifIdempotence": "client_operation_id",
+   "positifProse": "en attente d'envoi",
+   "positifSolde": "Solde au dernier passage",
+   "positifRoute": "/api/transaction",
+   "leurreFoyer": "@supabase/auth-js",
+   "negatif": "workbox",
+   "negatif2": "idb-keyval",
+   "negatif3": "Background Sync",
+   "negatifMagasin": "file_envoi"
+  }
+ }
+}

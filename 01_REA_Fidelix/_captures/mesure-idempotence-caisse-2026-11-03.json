@@ -1,0 +1,33 @@
+{
+  "mesure": "idempotence-caisse",
+  "le": "2026-11-03T22:54:00.057Z",
+  "fonction": "enregistrer_operation_caisse",
+  "sonde": "fermee",
+  "jeton": "service_role",
+  "operation_id": "595c2105-f623-44f1-abbe-9b91d8047f3c",
+  "carte": "C-2C4718",
+  "montant": 1,
+  "points": 1,
+  "premier": {
+    "ok": true,
+    "erreur": null,
+    "statut": 200,
+    "idempotent": false,
+    "transaction_id": "88136560-e652-4723-a05d-2bff8f91d83f",
+    "card_id": "a665796e-ad7f-44d7-a9ce-3688f9009e6f",
+    "points_added": 1,
+    "new_balance": 1
+  },
+  "second": {
+    "ok": true,
+    "erreur": null,
+    "statut": 200,
+    "idempotent": true,
+    "transaction_id": "88136560-e652-4723-a05d-2bff8f91d83f",
+    "card_id": "a665796e-ad7f-44d7-a9ce-3688f9009e6f",
+    "points_added": 1,
+    "new_balance": 1
+  },
+  "verdict": "absorbe",
+  "raisons": []
+}

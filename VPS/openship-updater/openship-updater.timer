@@ -1,0 +1,12 @@
+[Unit]
+Description=Run the OpenShip update detector periodically
+Requires=openship-updater.service
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=6h
+RandomizedDelaySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

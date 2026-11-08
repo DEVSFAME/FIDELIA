@@ -1,0 +1,57 @@
+/* ============================================================================
+   Peau « bleu nuit » — décision de produit, pas mesure.
+
+   La cible est claire, sa variante `.dark` est chaude (`--fond-page:#141110`).
+   Le tableau de bord, lui, doit être bleu nuit. Ce n'est donc **pas** une
+   transposition : c'est une déviation, assumée et circonscrite.
+
+   Comment elle reste honnête :
+
+     - elle ne redéfinit **qu'une** variable, `--fond-page`. Tout le reste — le
+       verre, ses opacités, ses flous, ses arêtes, le grain, les halos — vient
+       de la couche mesurée `[data-skin=premium].dark` et n'est pas retouché ;
+     - le sélecteur est distinct de celui du ledger
+       (`[data-skin=premium].dark.nuit` vs `[data-skin=premium].dark`), donc il
+       ne peut pas écraser silencieusement une valeur mesurée ;
+     - il figure dans `HORS_LEDGER` (verifier-design.mjs) : la vérification
+       l'affiche comme invention déclarée, au lieu de la tolérer en silence.
+
+   Teinte : un marine désaturé (#0b1220). Assez sombre pour que les halos corail
+   et le verre blanc à 9 % se lisent, assez bleu pour être une intention et non
+   un gris.
+   ========================================================================== */
+
+[data-skin=premium].dark.nuit {
+  --fond-page: #0b1220;
+
+  /* L'encre doit être **recalculée ici**, et pas seulement héritée.
+
+     `globals.css` écrit `body { color: rgb(var(--ink-rgb)) }` : la couleur est
+     donc calculée **une fois**, sur `<body>`, avec l'encre du thème clair
+     (`22 21 20`). Un `.dark` posé sur un descendant change bien la variable
+     `--ink-rgb` — mais plus personne ne la relit : les enfants héritent de la
+     couleur *calculée*, pas de la variable. Résultat mesuré à l'écran : du
+     texte presque noir sur le bleu nuit.
+
+     Dans la cible, `.dark` est sur `<html>`, donc `body` la voit. Ici le
+     tableau de bord cohabite avec les pages claires : `.dark` ne peut pas être
+     sur `<html>`, il doit donc repointer la couleur lui-même.
+
+     Aucune valeur n'est inventée : `--ink-rgb` en peau sombre vaut
+     `243 239 236` (mesuré, `tokens.css`) et la déclaration est la même que
+     celle de `body`. Seul le **placement** est décidé — c'est pourquoi ce n'est
+     pas une entrée de plus dans `HORS_LEDGER` (le vérificateur ne suit que les
+     propriétés `--*` : une valeur nouvelle, pas un héritage à rétablir). */
+  color: rgb(var(--ink-rgb));
+}
+
+/* Sur un fond aussi sombre, un verre blanc à 9 % d'arête disparaît sur les
+   écrans peu lumineux. On remonte l'arête — même geste que la cible en mode
+   `.dark` sur `--verre-bord-opacite`, à la valeur mesurée pour la variante
+   `prefers-reduced-transparency` (0.16), qui est le seul cran plus clair que la
+   capture propose. On réutilise une valeur mesurée plutôt que d'en inventer
+   une. */
+[data-skin=premium].dark.nuit .verre,
+[data-skin=premium].dark.nuit .verre-fort {
+  --verre-bord-opacite: 0.16;
+}

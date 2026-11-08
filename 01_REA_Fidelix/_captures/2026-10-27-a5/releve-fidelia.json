@@ -1,0 +1,670 @@
+{
+  "date": "2026-10-27T23:33:48.305Z",
+  "capture": "01_REA_Fidelix/_captures/2026-10-27-auth-s3",
+  "requetes": 0,
+  "comptes": {
+    "bundles": 65,
+    "pages": 22,
+    "sondes": 21,
+    "corpus": 325
+  },
+  "calibration": {
+    "ecarts": []
+  },
+  "contrat": {
+    "porteur": "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js",
+    "caracteres": 52144,
+    "appels": [
+      {
+        "url": "/api/fidelia",
+        "appele": true,
+        "genre": "fetch",
+        "argument": "\"/api/fidelia\"",
+        "options": null,
+        "methodeDeclaree": null,
+        "corpsDeclare": false,
+        "entetesDeclarees": false
+      },
+      {
+        "url": "/api/fidelia?resume=1",
+        "appele": true,
+        "genre": "fetch",
+        "argument": "\"/api/fidelia?resume=1\"",
+        "options": null,
+        "methodeDeclaree": null,
+        "corpsDeclare": false,
+        "entetesDeclarees": false
+      }
+    ]
+  },
+  "marqueursLlm": {
+    "modele": [],
+    "flux": [
+      {
+        "marqueur": "text/event-stream",
+        "modele": false,
+        "fichiers": [
+          "_next_static_chunks_7383-6e66436aba33b87c.js"
+        ]
+      },
+      {
+        "marqueur": "getReader()",
+        "modele": false,
+        "fichiers": [
+          "_next_static_chunks_7631-29ff0d20f794a902.js"
+        ]
+      }
+    ]
+  },
+  "reponses": [
+    {
+      "fichier": "b12-api-fidelia.html",
+      "octets": 4903,
+      "forme": {
+        "type": "object",
+        "champs": [
+          {
+            "nom": "cle",
+            "type": "string",
+            "longueur": 36
+          },
+          {
+            "nom": "synthese",
+            "type": "string",
+            "longueur": 169
+          },
+          {
+            "nom": "donneesInsuffisantes",
+            "type": "boolean",
+            "valeur": true
+          },
+          {
+            "nom": "conseils",
+            "type": "array",
+            "longueur": 0
+          },
+          {
+            "nom": "libelles",
+            "type": "object",
+            "cles": [
+              "semaine",
+              "inutilise",
+              "reviennent",
+              "plus_souvent",
+              "disparus",
+              "recompense",
+              "inscrire",
+              "meilleurs",
+              "moment",
+              "priorite"
+            ]
+          },
+          {
+            "nom": "reponses",
+            "type": "object",
+            "cles": [
+              "semaine",
+              "inutilise",
+              "reviennent",
+              "plus_souvent",
+              "disparus",
+              "recompense",
+              "inscrire",
+              "meilleurs",
+              "moment",
+              "priorite"
+            ]
+          },
+          {
+            "nom": "rebonds",
+            "type": "object",
+            "cles": [
+              "semaine",
+              "inutilise",
+              "reviennent",
+              "plus_souvent",
+              "disparus",
+              "recompense",
+              "inscrire",
+              "meilleurs",
+              "moment",
+              "priorite"
+            ]
+          },
+          {
+            "nom": "ouverture",
+            "type": "array",
+            "longueur": 4
+          }
+        ],
+        "octets": 4903,
+        "json": true
+      },
+      "grille": {
+        "coherent": true,
+        "ecarts": [],
+        "stats": {
+          "questions": 10,
+          "reponses": 10,
+          "rebonds": 10,
+          "ouverture": 4,
+          "liens": [
+            "/dashboard",
+            "/automations",
+            "/qrcode",
+            "/rewards",
+            "/customers"
+          ]
+        }
+      }
+    },
+    {
+      "fichier": "b13-api-fidelia-resume.html",
+      "octets": 13,
+      "forme": {
+        "type": "object",
+        "champs": [
+          {
+            "nom": "urgents",
+            "type": "number",
+            "valeur": 0
+          }
+        ],
+        "octets": 13,
+        "json": true
+      },
+      "grille": null
+    }
+  ],
+  "gardeFous": [
+    {
+      "id": "anti-re-appel",
+      "libelle": "Aucun second appel si la synthèse est déjà là",
+      "present": true
+    },
+    {
+      "id": "synthese-obligatoire",
+      "libelle": "Une réponse sans `synthese` est traitée comme un échec",
+      "present": true
+    },
+    {
+      "id": "erreur-typee",
+      "libelle": "`error` n'est affiché que s'il est une chaîne",
+      "present": true
+    },
+    {
+      "id": "message-reseau",
+      "libelle": "Échec réseau couvert par un message dédié",
+      "present": true
+    },
+    {
+      "id": "gate-donnees-insuffisantes",
+      "libelle": "Le Q&A est masqué si `donneesInsuffisantes`",
+      "present": true
+    },
+    {
+      "id": "urgents-type-nombre",
+      "libelle": "`urgents` ne compte que si c'est un nombre",
+      "present": true
+    },
+    {
+      "id": "badge-vu",
+      "libelle": "Le badge s'éteint après ouverture (`vu`)",
+      "present": true
+    },
+    {
+      "id": "routes-masquees",
+      "libelle": "Le bouton est masqué sur /scan, /conseiller, /branding",
+      "present": true
+    },
+    {
+      "id": "dedup-questions",
+      "libelle": "Une question déjà posée disparaît des choix",
+      "present": true
+    },
+    {
+      "id": "historique-filtre",
+      "libelle": "Un id inconnu en stockage est ignoré",
+      "present": true
+    },
+    {
+      "id": "dialogue-aria",
+      "libelle": "Panneau exposé comme `dialog` avec libellé",
+      "present": true
+    },
+    {
+      "id": "ttl-resume",
+      "libelle": "Le résumé est réutilisé moins de 30 min",
+      "present": true,
+      "ttlMs": 1800000
+    }
+  ],
+  "origines": {
+    "parJeton": {
+      "/api/fidelia": {
+        "total": 43,
+        "origines": {
+          "cité, non émis": 40,
+          "contrat réseau": 3
+        },
+        "familles": {
+          "rapport de nos outils": 3,
+          "bundle": 3,
+          "manifeste de capture": 13,
+          "réseau observé": 18,
+          "artefact de nos outils": 6
+        }
+      },
+      "/api/fidelia?resume=1": {
+        "total": 10,
+        "origines": {
+          "cité, non émis": 7,
+          "contrat réseau": 3
+        },
+        "familles": {
+          "rapport de nos outils": 3,
+          "bundle": 3,
+          "manifeste de capture": 2,
+          "artefact de nos outils": 2
+        }
+      },
+      "/conseiller": {
+        "total": 9,
+        "origines": {
+          "route de navigation": 6,
+          "route exclue (garde-fou)": 3
+        },
+        "familles": {
+          "bundle": 9
+        }
+      },
+      "Fidelia AI": {
+        "total": 52,
+        "origines": {
+          "libellé d'interface": 52
+        },
+        "familles": {
+          "bundle": 15,
+          "page capturée": 30,
+          "rendu de page": 7
+        }
+      },
+      "fidelia_coin": {
+        "total": 3,
+        "origines": {
+          "magasin local": 3
+        },
+        "familles": {
+          "bundle": 3
+        }
+      },
+      "fidelia_resume": {
+        "total": 3,
+        "origines": {
+          "magasin local": 3
+        },
+        "familles": {
+          "bundle": 3
+        }
+      },
+      "synthese": {
+        "total": 10,
+        "origines": {
+          "champ de sortie": 10
+        },
+        "familles": {
+          "bundle": 6,
+          "manifeste de capture": 2,
+          "sonde HTTP": 2
+        }
+      },
+      "urgents": {
+        "total": 19,
+        "origines": {
+          "champ de sortie": 19
+        },
+        "familles": {
+          "bundle": 15,
+          "manifeste de capture": 2,
+          "sonde HTTP": 2
+        }
+      },
+      "donneesInsuffisantes": {
+        "total": 5,
+        "origines": {
+          "champ de sortie": 5
+        },
+        "familles": {
+          "bundle": 3,
+          "sonde HTTP": 2
+        }
+      },
+      "Ouvrir Fidelia AI": {
+        "total": 34,
+        "origines": {
+          "libellé d'interface": 34
+        },
+        "familles": {
+          "bundle": 6,
+          "page capturée": 21,
+          "rendu de page": 7
+        }
+      },
+      "fidelix_conseiller_": {
+        "total": 5,
+        "origines": {
+          "magasin local": 5
+        },
+        "familles": {
+          "bundle": 3,
+          "rapport de nos outils": 2
+        }
+      },
+      "Posez-moi une question": {
+        "total": 3,
+        "origines": {
+          "libellé d'interface": 3
+        },
+        "familles": {
+          "bundle": 3
+        }
+      }
+    },
+    "parOrigine": {
+      "cité, non émis": 47,
+      "route de navigation": 6,
+      "libellé d'interface": 89,
+      "magasin local": 11,
+      "route exclue (garde-fou)": 3,
+      "contrat réseau": 6,
+      "champ de sortie": 34
+    },
+    "parFamille": {
+      "rapport de nos outils": 8,
+      "bundle": 72,
+      "page capturée": 51,
+      "manifeste de capture": 19,
+      "sonde HTTP": 6,
+      "rendu de page": 14,
+      "réseau observé": 18,
+      "artefact de nos outils": 8
+    },
+    "porteursContrat": [
+      "_next_static_chunks_app__dashboard__layout-aa8914c1bd963665.js"
+    ]
+  },
+  "reseauObserve": [
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a01-dashboard",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a02-program",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a03-rewards",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a04-scan",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a05-reviews",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a06-qrcode",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a07-automations",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a08-branding",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a09-caisses",
+      "requetes": [
+        {
+          "chemin": "https://fidelix.ma/api/fidelia?…",
+          "statut": 200
+        }
+      ]
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a10-loyalty",
+      "requetes": []
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a13-account",
+      "requetes": []
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a14-abonnement",
+      "requetes": []
+    },
+    {
+      "capture": "2026-10-26-auth",
+      "page": "a15-caisse",
+      "requetes": []
+    }
+  ],
+  "boutons": [
+    {
+      "page": "a01-dashboard",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a02-program",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a03-rewards",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a04-scan",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 0,
+      "panneau": 0
+    },
+    {
+      "page": "a05-reviews",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a06-qrcode",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a07-automations",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a08-branding",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 0,
+      "panneau": 0
+    },
+    {
+      "page": "a09-caisses",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a10-loyalty",
+      "http": 404,
+      "layoutDashboard": false,
+      "bouton": 0,
+      "panneau": 0
+    },
+    {
+      "page": "a13-account",
+      "http": 404,
+      "layoutDashboard": false,
+      "bouton": 0,
+      "panneau": 0
+    },
+    {
+      "page": "a14-abonnement",
+      "http": 404,
+      "layoutDashboard": false,
+      "bouton": 0,
+      "panneau": 0
+    },
+    {
+      "page": "a15-caisse",
+      "http": 200,
+      "layoutDashboard": false,
+      "bouton": 0,
+      "panneau": 0
+    },
+    {
+      "page": "a16-billing",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a17-customers",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a18-customer-detail",
+      "http": 404,
+      "layoutDashboard": true,
+      "bouton": 0,
+      "panneau": 0
+    },
+    {
+      "page": "a19-equipe",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a19-equipe.variante-1",
+      "http": null,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a20-notifications",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a21-settings",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a22-campaigns",
+      "http": 200,
+      "layoutDashboard": true,
+      "bouton": 1,
+      "panneau": 0
+    },
+    {
+      "page": "a23-recompense-publique",
+      "http": 200,
+      "layoutDashboard": false,
+      "bouton": 0,
+      "panneau": 0
+    }
+  ],
+  "nonMesure": [
+    "prompt système côté serveur",
+    "rendu de /conseiller",
+    "panneau ouvert (liste des questions rendue)",
+    "paramètre exact de l’appel réseau (URL tronquée en « ?… »)"
+  ]
+}

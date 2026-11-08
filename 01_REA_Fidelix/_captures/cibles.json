@@ -1,0 +1,107 @@
+{
+  "passe": "REA-FX-2026-10-26 — surface publique (anonyme)",
+  "date": "2026-10-26",
+  "base": "https://fidelix.ma",
+  "note": "Périmètre DÉRIVÉ de la mesure, pas d'une mémoire : robots.txt (7 zones protégées : /admin, /caisse, /dashboard, /onboarding, /api/, /card/, /r/) + sitemap.xml (34 URLs, dont 27 pages /recompenses/<slug>). 3 pages recompenses retenues comme échantillon de verticales (restauration, barbier, clinique) ; les 24 autres slugs sont listés dans Fidelix_Recompenses.md. Sondes = GET uniquement, aucune requête mutante.",
+  "pages": [
+    { "id": "p01-home", "chemin": "/", "famille": "marketing" },
+    { "id": "p02-home-en", "chemin": "/en", "famille": "marketing" },
+    { "id": "p03-home-ar", "chemin": "/ar", "famille": "marketing" },
+    { "id": "p04-guide", "chemin": "/guide", "famille": "marketing" },
+    { "id": "p05-conditions", "chemin": "/conditions", "famille": "legal" },
+    { "id": "p06-confidentialite", "chemin": "/confidentialite", "famille": "legal" },
+    { "id": "p07-mentions-legales", "chemin": "/mentions-legales", "famille": "legal" },
+    { "id": "p08-login", "chemin": "/login", "famille": "auth" },
+    { "id": "p09-caisse", "chemin": "/caisse", "famille": "caisse" },
+    {
+      "id": "p10-recompense-resto",
+      "chemin": "/recompenses/resto-j96n",
+      "famille": "recompenses"
+    },
+    {
+      "id": "p11-recompense-barbier",
+      "chemin": "/recompenses/gentleman-barbershop-by-youri-nv71",
+      "famille": "recompenses"
+    },
+    {
+      "id": "p12-recompense-clinique",
+      "chemin": "/recompenses/eurosmile-clinic-egro",
+      "famille": "recompenses"
+    },
+    {
+      "id": "p13-register",
+      "chemin": "/register",
+      "famille": "auth",
+      "pourquoi": "AJOUTÉ APRÈS MESURE : href `/register` présent 19 fois dans le HTML capturé, absent du sitemap."
+    },
+    {
+      "id": "p14-demarrer",
+      "chemin": "/demarrer",
+      "famille": "acquisition",
+      "pourquoi": "AJOUTÉ APRÈS MESURE : href `/demarrer` (CTA « Commencer ») — 200 anonyme."
+    },
+    {
+      "id": "p15-rendez-vous",
+      "chemin": "/rendez-vous",
+      "famille": "acquisition",
+      "pourquoi": "AJOUTÉ APRÈS MESURE : href `/rendez-vous` — 200 anonyme, adossé à `/api/rendez-vous`."
+    },
+    {
+      "id": "p16-forgot-password",
+      "chemin": "/forgot-password",
+      "famille": "auth",
+      "pourquoi": "AJOUTÉ APRÈS MESURE : href `/forgot-password` sur `/login`, adossé à `/api/auth/reinitialiser`."
+    },
+    {
+      "id": "p17-join",
+      "chemin": "/join/resto-j96n",
+      "famille": "client-final",
+      "pourquoi": "AJOUTÉ APRÈS MESURE : href `/join/<slug>` sur les pages recompenses — parcours d'adhésion client."
+    },
+    {
+      "id": "p18-sitemap",
+      "chemin": "/sitemap.xml",
+      "famille": "socle",
+      "pourquoi": "LE DOCUMENT QUI FONDE LE PÉRIMÈTRE : 34 URLs dont 27 /recompenses/<slug>."
+    },
+    {
+      "id": "p19-robots",
+      "chemin": "/robots.txt",
+      "famille": "socle",
+      "pourquoi": "LE SECOND DOCUMENT QUI FONDE LE PÉRIMÈTRE : 7 zones déclarées hors index (/admin, /caisse, /dashboard, /onboarding, /api/, /card/, /r/)."
+    },
+    {
+      "id": "p20-manifest",
+      "chemin": "/manifest.webmanifest",
+      "famille": "pwa",
+      "pourquoi": "Manifeste PWA du produit (start_url `/`, theme #f94c3a)."
+    },
+    {
+      "id": "p21-caisse-manifest",
+      "chemin": "/caisse/manifest.webmanifest",
+      "famille": "pwa",
+      "pourquoi": "Manifeste PWA SÉPARÉ du POS (scope `/caisse`, start_url `/caisse`) — prouve que la caisse est une application autonome."
+    }
+  ],
+  "sondes": [
+    { "id": "s01-dashboard", "chemin": "/dashboard" },
+    { "id": "s02-admin", "chemin": "/admin" },
+    { "id": "s03-onboarding", "chemin": "/onboarding" },
+    { "id": "s04-api-health", "chemin": "/api/health" },
+    { "id": "s05-api-auth-session", "chemin": "/api/auth/session" },
+    { "id": "s06-api-me", "chemin": "/api/me" },
+    { "id": "s07-r-test", "chemin": "/r/test" },
+    { "id": "s08-card-test", "chemin": "/card/test" },
+    { "id": "s09-api-transaction", "chemin": "/api/transaction" },
+    { "id": "s10-api-scan-card", "chemin": "/api/scan/card?id=test" },
+    { "id": "s11-program", "chemin": "/program", "pourquoi": "Module gardé cité par /guide (§01)." },
+    { "id": "s12-rewards", "chemin": "/rewards", "pourquoi": "Module gardé cité par /guide (§02)." },
+    { "id": "s13-scan", "chemin": "/scan", "pourquoi": "Module gardé cité par /guide (§05)." },
+    { "id": "s14-reviews", "chemin": "/reviews", "pourquoi": "Module gardé cité par /guide (§08)." },
+    { "id": "s15-qrcode", "chemin": "/qrcode", "pourquoi": "Module gardé cité par /guide (§04)." },
+    { "id": "s16-automations", "chemin": "/automations", "pourquoi": "Module gardé cité par /guide (§07)." },
+    { "id": "s17-branding", "chemin": "/branding", "pourquoi": "Module gardé cité par /guide (§03)." },
+    { "id": "s18-caisses", "chemin": "/caisses", "pourquoi": "Module gardé cité par /guide (§06)." },
+    { "id": "s19-loyalty", "chemin": "/loyalty", "pourquoi": "Route gardée découverte par sondage, non citée par /guide." }
+  ]
+}

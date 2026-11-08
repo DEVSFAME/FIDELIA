@@ -1,0 +1,1983 @@
+/* ============================================================================
+   Peau « Unicity » — reprise du design system du projet UNICITY
+   (`UNICITY/unicity/src/styles/tokens.css`, `layout/layout.css`,
+   `components/ui/ui.css`, `features/features.css`).
+
+   POURQUOI UNE FEUILLE SÉPARÉE, ET PAS UNE MODIFICATION DE `tokens.css`
+   ---------------------------------------------------------------------
+   `tokens.css`, `verre.css`, `nuit.css` et `polices.css` sont **mesurés** : ils
+   sont confrontés à la capture de la cible par `verifier-design.mjs`, et
+   `design-system.test.mjs` casse si une valeur bouge d'un pixel. Y ajouter la
+   palette d'Unicity ferait échouer la CI — à juste titre : ces feuilles ne sont
+   plus alors la transcription de la cible.
+
+   D'où cette couche, et deux règles :
+
+     1. **Aucune variable ne réutilise un nom existant.** Tout est préfixé
+        `--uc-`, parce que `tokens.css` définit déjà `--ink`, `--accent`,
+        `--font-sans`. Redéfinir `--ink` ici changerait la couleur de composants
+        voisins sans qu'on l'ait demandé.
+     2. **Aucune valeur n'est inventée.** Les teintes, ombres, rayons et tailles
+        sont ceux d'Unicity, recopiés à l'octet. Une divergence doit être une
+        décision, pas un arrondi.
+
+   ÉCART DÉCLARÉ — la police. Unicity demande `'Inter Tight'` ; ce dépôt
+   n'embarque que `Inter` (10 familles mesurées dans `polices.css`). On garde
+   donc `Inter` en tête de pile : le rendu est très proche, et prétendre à
+   `Inter Tight` sans le binaire donnerait un repli système silencieux.
+
+   ÉCART DÉCLARÉ — le mobile. Unicity **masque** son dock sous 760 px : l'écran
+   mobile y perd toute navigation. Ici, le dock devient une barre basse fixe
+   (5 entrées + « Plus »), avec `env(safe-area-inset-bottom)` pour les appareils
+   à encoche. C'est une correction d'accessibilité, pas une fantaisie.
+
+   La feuille est écrite **mobile d'abord** : les règles de base décrivent le
+   téléphone, les `@media (min-width: …)` ajoutent le confort desktop.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. Jetons — valeurs d'Unicity, `tokens.css` l.5-123
+   ------------------------------------------------------------------------ */
+.uc {
+  /* Surfaces */
+  --uc-bg-deep: #efefef;
+  --uc-bg-1: #ffffff;
+  --uc-bg-2: #f7f7f7;
+  --uc-paper: #ffffff;
+  --uc-paper-soft: rgba(255, 255, 255, 0.96);
+
+  /* Encre */
+  --uc-ink: #1f2330;
+  --uc-ink-soft: #4a5168;
+  --uc-ink-faint: #8a8fa0;
+  --uc-ink-ghost: #b5b9c8;
+  --uc-on-ink: #ffffff;
+  --uc-on-ink-soft: rgba(255, 255, 255, 0.18);
+  --uc-on-ink-strong: rgba(255, 255, 255, 0.85);
+  --uc-ink-deep: #1a1d2e;
+
+  /* Lignes */
+  --uc-line: rgba(31, 35, 48, 0.14);
+  --uc-line-soft: rgba(31, 35, 48, 0.06);
+  --uc-line-strong: rgba(31, 35, 48, 0.2);
+  --uc-line-stronger: rgba(31, 35, 48, 0.28);
+
+  /* Accent & sémantique */
+  --uc-accent: #0284c7;
+  --uc-accent-soft: rgba(2, 132, 199, 0.12);
+  --uc-accent-soft-strong: rgba(2, 132, 199, 0.18);
+  --uc-accent-deep: #0369a1;
+  --uc-purple: #7b5ea7;
+  --uc-purple-soft: rgba(123, 94, 167, 0.12);
+  --uc-positive: #4a8b6f;
+  --uc-positive-soft: rgba(74, 139, 111, 0.12);
+  --uc-warning: #b07a3e;
+  --uc-warning-soft: rgba(176, 122, 62, 0.14);
+  --uc-critical: #b85450;
+  --uc-critical-soft: rgba(184, 84, 80, 0.13);
+  --uc-info: #6b8fa8;
+  --uc-info-soft: rgba(107, 143, 168, 0.14);
+
+  /* Ombres */
+  --uc-shadow-soft: 0 1px 2px rgba(31, 35, 48, 0.04), 0 4px 12px rgba(31, 35, 48, 0.04);
+  --uc-shadow-raised: 0 2px 4px rgba(31, 35, 48, 0.05), 0 12px 32px rgba(31, 35, 48, 0.08);
+  --uc-shadow-deep: 0 4px 8px rgba(31, 35, 48, 0.06), 0 24px 48px rgba(31, 35, 48, 0.1);
+
+  /* Interaction */
+  --uc-hover-soft: rgba(31, 35, 48, 0.06);
+  --uc-hover-strong: rgba(31, 35, 48, 0.1);
+  --uc-hover-softest: rgba(31, 35, 48, 0.02);
+
+  /* Rayons */
+  --uc-radius-sm: 8px;
+  --uc-radius-md: 12px;
+  --uc-radius-lg: 16px;
+  --uc-radius-xl: 20px;
+  --uc-radius-pill: 100px;
+
+  /* Typographie — `Inter` embarqué tient le rôle d'`Inter Tight` (écart déclaré) */
+  --uc-font: 'Inter', var(--font-sans), system-ui, sans-serif;
+  --uc-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+  --uc-font-script: 'Caveat', 'Segoe Script', cursive;
+
+  /* Gabarit */
+  --uc-content-max: 1280px;
+}
+
+/* ---------------------------------------------------------------------------
+   2. Racine de la peau
+   ------------------------------------------------------------------------ */
+.uc {
+  position: relative;
+  min-height: 100dvh;
+  font-family: var(--uc-font);
+  color: var(--uc-ink);
+  letter-spacing: -0.011em;
+  font-feature-settings: 'cv11', 'ss01', 'ss03';
+  -webkit-font-smoothing: antialiased;
+  background: linear-gradient(180deg, var(--uc-bg-1) 0%, var(--uc-bg-2) 100%);
+}
+
+.uc *,
+.uc *::before,
+.uc *::after {
+  box-sizing: border-box;
+}
+
+.uc h1,
+.uc h2,
+.uc h3,
+.uc h4 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.uc p {
+  margin: 0;
+}
+
+.uc a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Chiffres alignés : sans `tabular-nums`, une valeur qui change de largeur fait
+   sauter la ligne à côté d'elle. */
+.uc .num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.022em;
+}
+
+.uc .mono {
+  font-family: var(--uc-font-mono);
+  letter-spacing: -0.01em;
+}
+
+.uc :focus-visible {
+  outline: 2px solid var(--uc-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Lien d'évitement : hors écran tant qu'il n'a pas le focus. `transform` plutôt
+   que `left: -9999px` — un élément déplacé hors champ reste lu dans l'ordre du
+   document, et revient en place sans transition parasite. */
+.uc-saut {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 10px 14px;
+  border-radius: var(--uc-radius-pill);
+  background: var(--uc-ink);
+  color: var(--uc-bg-1);
+  font-size: 13px;
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform 0.16s ease;
+}
+
+.uc-saut:focus-visible {
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------------------
+   3. Coque : une colonne sur mobile, rail + contenu à partir de 900 px
+   ------------------------------------------------------------------------ */
+.uc-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100dvh;
+}
+
+.uc-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.uc-content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--uc-content-max);
+  margin: 0 auto;
+  /* 96 px en bas : la barre de navigation mobile ne doit masquer aucun contenu.
+     `env(safe-area-inset-bottom)` s'y ajoute — sur un iPhone à encoche, la barre
+     système se pose **sous** la nôtre, et 96 px fixes laissaient le dernier
+     bouton à moitié caché. */
+  padding: 16px 16px calc(96px + env(safe-area-inset-bottom));
+}
+
+/* ---------------------------------------------------------------------------
+   4. Dock latéral — masqué sur mobile (remplacé par la barre basse)
+   ------------------------------------------------------------------------ */
+.uc-dock {
+  display: none;
+}
+
+.uc-dock-brand {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: var(--uc-ink);
+  color: var(--uc-bg-1);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.uc-dock-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--uc-line-soft);
+  width: 100%;
+}
+
+.uc-dock-avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--uc-accent-soft);
+  color: var(--uc-accent);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Un lien du dock : pastille 46 px, rayon 15 px, l'icône seule au repos. */
+.uc-dock-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: none;
+  border-radius: 15px;
+  background: transparent;
+  color: var(--uc-ink-soft);
+  flex-shrink: 0;
+  transform-origin: center left;
+  transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.4), background 0.18s, color 0.18s;
+}
+
+.uc-dock-item svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.uc-dock-item:hover {
+  background: var(--uc-hover-soft);
+  color: var(--uc-ink);
+}
+
+/* État actif : c'est **le fond**, pas seulement la couleur — la couleur seule
+   serait invisible pour un daltonien, et `aria-current` ne se voit pas. */
+.uc-dock-item[aria-current='page'] {
+  background: var(--uc-accent);
+  color: var(--uc-on-ink);
+}
+
+.uc-dock-item[aria-current='page']:hover {
+  background: var(--uc-accent-deep);
+}
+
+/* Le libellé n'apparaît que lorsque le rail est déployé (≥ 1240 px). */
+.uc-dock-label {
+  display: none;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+/* ---------------------------------------------------------------------------
+   5. Barre haute
+   ------------------------------------------------------------------------ */
+.uc-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--uc-paper-soft);
+  border-bottom: 1px solid var(--uc-line-soft);
+  backdrop-filter: blur(12px);
+}
+
+.uc-topbar-titre {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.uc-topbar-sur {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--uc-ink-faint);
+}
+
+.uc-topbar-nom {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.uc-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+/* L'adresse complète ne tient pas sur un téléphone : l'initiale du dock la
+   porte déjà (pied du rail). Elle réapparaît à partir de 900 px, et son
+   `max-width` évite qu'une adresse longue pousse les boutons hors de l'écran. */
+.uc-topbar-email {
+  display: none;
+  max-width: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--uc-ink-faint);
+}
+
+/* Libellé des boutons de la barre : masqué sous 640 px, l'`aria-label` suffit
+   alors — et l'icône reste seule, comme dans la cible. */
+.uc-topbar-libelle {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   6. Boutons — `ui.css` l.6-53
+   ------------------------------------------------------------------------ */
+.uc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: var(--uc-radius-pill);
+  background: transparent;
+  font-family: var(--uc-font);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--uc-ink);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.18s, box-shadow 0.18s;
+}
+
+.uc-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.uc-btn-sm {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+  gap: 6px;
+}
+
+.uc-btn-sm svg {
+  width: 12px;
+  height: 12px;
+}
+
+.uc-btn-primary {
+  background: var(--uc-ink);
+  color: var(--uc-bg-1);
+}
+
+.uc-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.uc-btn-accent {
+  background: var(--uc-accent);
+  color: var(--uc-on-ink);
+}
+
+.uc-btn-accent:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--uc-shadow-soft);
+}
+
+.uc-btn-ghost {
+  background: transparent;
+  color: var(--uc-ink-soft);
+}
+
+.uc-btn-ghost:hover {
+  background: var(--uc-hover-soft);
+  color: var(--uc-ink);
+}
+
+.uc-btn-outline {
+  border-color: var(--uc-line-strong);
+  background: var(--uc-paper);
+  color: var(--uc-ink);
+}
+
+.uc-btn-outline:hover {
+  border-color: var(--uc-ink-faint);
+}
+
+/* ---------------------------------------------------------------------------
+   7. Barre de navigation basse (mobile) — l'écart déclaré avec Unicity
+   ------------------------------------------------------------------------ */
+.uc-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+  background: var(--uc-paper-soft);
+  border-top: 1px solid var(--uc-line-soft);
+  backdrop-filter: blur(14px);
+}
+
+.uc-bottom-lien {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  /* 44 px de haut : la cible tactile minimale, icône comprise. */
+  min-height: 44px;
+  padding: 4px 2px;
+  border: none;
+  border-radius: var(--uc-radius-md);
+  background: transparent;
+  color: var(--uc-ink-faint);
+  font-family: var(--uc-font);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.uc-bottom-lien svg {
+  width: 21px;
+  height: 21px;
+}
+
+.uc-bottom-lien[aria-current='page'] {
+  color: var(--uc-accent);
+  background: var(--uc-accent-soft);
+  font-weight: 600;
+}
+
+.uc-bottom-lien > span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Panneau « Plus » — `<details>` natif : aucune ligne de JavaScript, donc il
+   fonctionne même si l'hydratation échoue. */
+.uc-plus {
+  position: relative;
+  display: contents;
+}
+
+.uc-plus > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.uc-plus > summary::-webkit-details-marker {
+  display: none;
+}
+
+.uc-plus-panneau {
+  position: fixed;
+  left: 8px;
+  right: 8px;
+  bottom: calc(64px + env(safe-area-inset-bottom));
+  z-index: 31;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid var(--uc-line-soft);
+  border-radius: var(--uc-radius-lg);
+  background: var(--uc-paper);
+  box-shadow: var(--uc-shadow-raised);
+}
+
+.uc-plus-panneau a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: var(--uc-radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--uc-ink-soft);
+}
+
+.uc-plus-panneau a svg {
+  width: 18px;
+  height: 18px;
+  color: var(--uc-ink-faint);
+  flex-shrink: 0;
+}
+
+.uc-plus-panneau a[aria-current='page'] {
+  background: var(--uc-accent-soft);
+  color: var(--uc-accent);
+  font-weight: 600;
+}
+
+.uc-plus-panneau a[aria-current='page'] svg {
+  color: var(--uc-accent);
+}
+
+/* ---------------------------------------------------------------------------
+   8. Cartes — `ui.css` l.112-128 et `features.css` l.446-462
+   ------------------------------------------------------------------------ */
+.uc-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--uc-line-soft);
+  border-radius: var(--uc-radius-lg);
+  background: var(--uc-paper);
+  box-shadow: var(--uc-shadow-soft);
+}
+
+.uc-card-pad {
+  padding: 14px;
+}
+
+/* La même respiration, en 16 px : c'est ce qu'utilisent les écrans de liste
+   (Clients, Programme, Scanner) pour leurs cartes de contenu. */
+.uc-carte-pad {
+  padding: 16px;
+}
+
+.uc-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--uc-line-soft);
+}
+
+.uc-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.uc-card-sub {
+  font-size: 11.5px;
+  color: var(--uc-ink-faint);
+}
+
+.uc-card-corps {
+  padding: 12px 16px;
+}
+
+.uc-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 16px 14px;
+}
+
+.uc-card-link {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: var(--uc-ink-faint);
+}
+
+.uc-card-link:hover {
+  background: var(--uc-hover-soft);
+  color: var(--uc-ink);
+}
+
+/* ---------------------------------------------------------------------------
+   9. Héro — `features.css` l.73-160
+   ------------------------------------------------------------------------ */
+.uc-hero {
+  position: relative;
+  overflow: hidden;
+  margin-top: 14px;
+  border: 1px solid var(--uc-line-soft);
+  border-radius: var(--uc-radius-xl);
+  background: linear-gradient(
+    118deg,
+    var(--uc-accent-soft) 0%,
+    var(--uc-paper) 42%,
+    var(--uc-purple-soft) 100%
+  );
+  box-shadow: var(--uc-shadow-soft);
+}
+
+.uc-hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.uc-hero-bg::before,
+.uc-hero-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+
+.uc-hero-bg::before {
+  width: 260px;
+  height: 260px;
+  top: -160px;
+  right: -60px;
+  background: radial-gradient(circle, var(--uc-accent-soft-strong), transparent 70%);
+}
+
+.uc-hero-bg::after {
+  width: 300px;
+  height: 300px;
+  bottom: -200px;
+  left: -80px;
+  background: radial-gradient(circle, var(--uc-purple-soft), transparent 70%);
+}
+
+.uc-hero-corps {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 16px;
+}
+
+.uc-hero-sur {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--uc-ink-faint);
+}
+
+.uc-hero-big {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.uc-hero-val {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.uc-hero-unite {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--uc-ink-soft);
+}
+
+.uc-hero-note {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--uc-ink-soft);
+}
+
+.uc-hero-pied {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+/* Les quatre coins : grille à filets, comme `hero-corners` d'Unicity. */
+.uc-hero-coins {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--uc-line-soft);
+}
+
+.uc-hero-coin {
+  padding: 12px 14px;
+  border-right: 1px solid var(--uc-line-soft);
+  border-bottom: 1px solid var(--uc-line-soft);
+}
+
+.uc-hero-coin:nth-child(2n) {
+  border-right: none;
+}
+
+.uc-hero-coin:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+.uc-hero-coin-lbl {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--uc-ink-faint);
+}
+
+.uc-hero-coin-val {
+  margin-top: 3px;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+   10. Grille d'indicateurs — `features.css` l.218-248, 335-360
+   ------------------------------------------------------------------------ */
+.uc-kpis {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.uc-kpi {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 104px;
+  padding: 14px;
+  border: 1px solid var(--uc-line-soft);
+  border-radius: var(--uc-radius-lg);
+  background: var(--uc-paper);
+  box-shadow: var(--uc-shadow-soft);
+}
+
+.uc-kpi-tete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.uc-kpi-pastille {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: var(--uc-accent-soft);
+  color: var(--uc-accent);
+}
+
+.uc-kpi-pastille svg {
+  width: 16px;
+  height: 16px;
+}
+
+.uc-kpi-lbl {
+  flex: 1;
+  min-width: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--uc-ink-soft);
+  line-height: 1.3;
+}
+
+.uc-kpi-val {
+  position: relative;
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.uc-kpi-sous {
+  position: relative;
+  margin-top: 3px;
+  font-size: 11.5px;
+  color: var(--uc-ink-faint);
+}
+
+/* Le filigrane : même rôle que `.w-emblem` d'Unicity — une teinte à 8 % qui
+   donne un repère de couleur sans concurrencer le chiffre. */
+.uc-kpi-emblem {
+  position: absolute;
+  right: -12px;
+  bottom: -16px;
+  color: var(--uc-accent);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.uc-kpi-emblem svg {
+  width: 92px;
+  height: 92px;
+}
+
+/* ---------------------------------------------------------------------------
+   11. Tableaux
+   ------------------------------------------------------------------------ */
+.uc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.uc-table caption {
+  padding: 0 0 10px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--uc-ink);
+}
+
+.uc-table th {
+  padding: 8px 12px 8px 0;
+  text-align: left;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--uc-ink-faint);
+  border-bottom: 1px solid var(--uc-line);
+  white-space: nowrap;
+}
+
+.uc-table td {
+  padding: 11px 12px 11px 0;
+  border-bottom: 1px solid var(--uc-line-soft);
+  vertical-align: middle;
+  color: var(--uc-ink-soft);
+}
+
+.uc-table tr:last-child td {
+  border-bottom: none;
+}
+
+.uc-table .uc-droite {
+  text-align: right;
+}
+
+.uc-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--uc-accent-soft);
+  color: var(--uc-accent);
+  font-family: var(--uc-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.uc-code {
+  font-family: var(--uc-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--uc-ink);
+}
+
+.uc-muted {
+  color: var(--uc-ink-faint);
+}
+
+/* ---------------------------------------------------------------------------
+   11 bis. Formulaire et encadrés des écrans de saisie
+   ------------------------------------------------------------------------ */
+
+/* Un champ de saisie : 44 px de haut (cible tactile), bord de 1 px et focus
+   visible. Le focus n'est pas décoratif — sur fond blanc, un champ sans anneau
+   ne se distingue plus de son cadre dès qu'on tabule. */
+.uc-champ {
+  min-height: 44px;
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid var(--uc-line);
+  border-radius: var(--uc-radius-md);
+  background: var(--uc-paper);
+  font-family: var(--uc-font);
+  font-size: 15px;
+  color: var(--uc-ink);
+  outline: none;
+}
+
+.uc-champ:focus {
+  border-color: var(--uc-accent);
+  box-shadow: 0 0 0 3px var(--uc-accent-soft);
+}
+
+/* Encadré neutre : les messages d'état des formulaires. */
+.uc-encadre {
+  border: 1px solid var(--uc-line);
+  border-radius: var(--uc-radius-md);
+}
+
+.uc-filet-haut {
+  border-top: 1px solid var(--uc-line-soft);
+}
+
+/* Cellule de tableau : le filet vient de `.uc-table td` ; ce nom existe pour
+   que les pages n'écrivent pas une couleur à la main. */
+.uc-cellule {
+  padding: 11px 12px 11px 0;
+  vertical-align: baseline;
+  border-bottom: 1px solid var(--uc-line-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   11 ter. Caméra du scanner (partagée /scan et /caisse)
+   ------------------------------------------------------------------------ */
+.uc-camera {
+  padding: 14px;
+  border: 1px solid var(--uc-line-soft);
+  border-radius: var(--uc-radius-lg);
+  background: var(--uc-bg-2);
+}
+
+.uc-camera-titre {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.uc-camera-aide {
+  margin-top: 3px;
+  max-width: 46ch;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--uc-ink-faint);
+}
+
+/* La vidéo garde un rapport fixe : sans `aspect-ratio`, le premier rendu d'un
+   flux mobile fait sauter toute la page quand les métadonnées arrivent. */
+.uc-camera-video {
+  margin-top: 14px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--uc-radius-md);
+  background: #000;
+  object-fit: cover;
+}
+
+.uc-camera-etat {
+  margin-top: 10px;
+  padding: 9px 12px;
+  font-size: 12.5px;
+  color: var(--uc-ink-soft);
+}
+
+.uc-camera-note {
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--uc-ink-faint);
+}
+
+/* ---------------------------------------------------------------------------
+   11 quater. Choix d'une récompense (caisse)
+
+   Un `<select>` cachait le prix au moment du choix : on ne lisait qu'une ligne
+   à la fois, et un coût de 120 points ne se comparaît pas à un solde de 40.
+   Des cartes-radio montrent **tous** les paliers d'un coup, avec leur coût et,
+   pour ceux qui sont hors de portée, ce qu'il reste à gagner.
+   ------------------------------------------------------------------------ */
+.uc-choix-grille {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.uc-choix-legende {
+  padding: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--uc-ink-faint);
+}
+
+.uc-choix {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--uc-line);
+  border-radius: var(--uc-radius-md);
+  background: var(--uc-paper);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.uc-choix:hover {
+  border-color: var(--uc-line-strong);
+}
+
+/* `:has()` n'est qu'un agrément : le bouton radio reste fonctionnel et visible
+   si le sélecteur n'est pas supporté, et le formulaire part quand même. */
+.uc-choix:has(input:checked) {
+  border-color: var(--uc-accent);
+  box-shadow: 0 0 0 3px var(--uc-accent-soft);
+}
+
+.uc-choix[data-disponible='false'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: var(--uc-bg-2);
+}
+
+/* Les deux contrôles à cocher de la feuille portent le **même** gabarit : même
+   taille (18 px, sous les 24 px d'un glyphe système qui décale la ligne), même
+   couleur d'accent, même position. Un `input[type=checkbox]` laissé nu à côté
+   d'un `input[type=radio]` réglé se voyait sur `/program` : deux cases de
+   tailles différentes dans la même colonne de formulaire. */
+.uc-choix input[type='radio'],
+.uc-choix input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--uc-accent);
+}
+
+.uc-choix-corps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.uc-choix-titre {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--uc-ink);
+}
+
+.uc-choix-desc {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--uc-ink-faint);
+}
+
+.uc-choix-cout {
+  flex-shrink: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--uc-accent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.uc-choix[data-disponible='false'] .uc-choix-cout {
+  color: var(--uc-ink-faint);
+}
+
+/* Le bouton d'action d'un formulaire de comptoir : 52 px, jamais rogné. */
+.uc-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 20px;
+  border: none;
+  border-radius: var(--uc-radius-md);
+  background: var(--uc-ink);
+  color: var(--uc-on-ink);
+  font-family: var(--uc-font);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.18s, background 0.18s;
+}
+
+.uc-action:hover {
+  box-shadow: var(--uc-shadow-raised);
+}
+
+.uc-action:active {
+  transform: scale(0.985);
+}
+
+/* Une aide sous un champ : discrète, mais lisible — 12 px et non 10, parce
+   qu'elle porte une règle (le barème) et pas une décoration. */
+.uc-aide {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--uc-ink-faint);
+}
+
+/* Même chose, en encadré : la variante d'aide qui porte deux lignes (un exemple
+   chiffré et la devise). Sans la marge haute de `.uc-bloc-rang`, qui doublerait
+   le `gap` du formulaire dans lequel elle est posée. */
+.uc-bloc-aide {
+  padding: 11px 13px;
+  border-radius: var(--uc-radius-md);
+  background: var(--uc-bg-2);
+  font-size: 13px;
+  color: var(--uc-ink-soft);
+}
+
+/* Un tableau large défile dans sa carte, jamais la page : c'est la carte qui
+   porte le `overflow`, sinon c'est tout l'écran qui se déplace latéralement. */
+.uc-defile {
+  overflow-x: auto;
+}
+
+/* Bandeau de périodes / de portées du classement d'équipe — des **liens**, pas
+   un état client : chaque choix a une URL, donc il est partageable,
+   rechargeable et il fonctionne sans JavaScript (même règle que `/scan?code=`).
+   44 px de haut : c'est une cible tactile, pas une décoration — le pouce la
+   touche au comptoir, souvent avec des gants. */
+.uc-periodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.uc-periode {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--uc-line);
+  border-radius: var(--uc-radius-pill);
+  background: var(--uc-paper);
+  color: var(--uc-ink-soft);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.uc-periode:hover {
+  background: var(--uc-hover-soft);
+  color: var(--uc-ink);
+}
+
+/* La période **appliquée** est celle que la fonction a rendue, pas celle qui a
+   été demandée : l'écran surligne l'état lu, jamais l'intention. */
+.uc-periode[aria-current='page'] {
+  border-color: transparent;
+  background: var(--uc-accent);
+  color: var(--uc-on-ink);
+}
+
+/* La colonne `#` : un rang nu, sauf le premier — mesuré, la cible y dessine un
+   `lucide-trophy` en `text-amber-500` (`#f59e0b`, la valeur de sa propre
+   feuille). Ce n'est donc pas une couleur nouvelle : c'est celle de la capture,
+   et elle ne sert qu'à cette icône. */
+.uc-rang {
+  display: inline-flex;
+  align-items: center;
+  min-width: 22px;
+}
+
+.uc-rang svg {
+  width: 16px;
+  height: 16px;
+  color: #f59e0b;
+}
+
+.uc-cellule-client {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.uc-totaux {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.uc-total-rang {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.uc-total-rang:first-child {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--uc-line-soft);
+}
+
+.uc-total-rang dt {
+  font-size: 12.5px;
+  color: var(--uc-ink-faint);
+}
+
+.uc-total-rang dd {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* ---------------------------------------------------------------------------
+   12. Pastilles & bloc « on ne peut pas encore »
+   ------------------------------------------------------------------------ */
+.uc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: var(--uc-radius-pill);
+  background: var(--uc-hover-soft);
+  color: var(--uc-ink-soft);
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.uc-pill-accent {
+  background: var(--uc-accent-soft);
+  color: var(--uc-accent);
+}
+
+.uc-pill-warning {
+  background: var(--uc-warning-soft);
+  color: var(--uc-warning);
+}
+
+.uc-bloc {
+  margin-top: 14px;
+}
+
+.uc-bloc-texte {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--uc-ink-soft);
+}
+
+.uc-bloc-titre {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+/* Le liseré dit « ceci n'est pas une donnée » sans employer de mot. Il est en
+   `box-shadow` interne et non en `border-left` : la carte garde ainsi le même
+   encombrement, sinon elle se décale de 3 px par rapport aux autres. */
+.uc-bloc-alerte {
+  box-shadow: inset 3px 0 0 var(--uc-warning), var(--uc-shadow-soft);
+}
+
+.uc-bloc-commande {
+  display: block;
+  margin-top: 12px;
+  padding: 9px 12px;
+  border: 1px solid var(--uc-line-soft);
+  border-radius: var(--uc-radius-md);
+  background: var(--uc-bg-2);
+  font-family: var(--uc-font-mono);
+  font-size: 11.5px;
+  color: var(--uc-ink-soft);
+  word-break: break-word;
+}
+
+.uc-bloc-rang {
+  margin-top: 16px;
+  padding: 11px 13px;
+  border-radius: var(--uc-radius-md);
+  background: var(--uc-bg-2);
+  font-size: 13px;
+  color: var(--uc-ink-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   13. Gabarits d'écran
+   ------------------------------------------------------------------------ */
+.uc-page-tete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.uc-page-sur {
+  font-family: var(--uc-font-script);
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--uc-accent);
+}
+
+.uc-page-titre {
+  margin-top: 2px;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.uc-page-sous {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--uc-ink-faint);
+}
+
+/* Mobile : une seule colonne. Le desktop ajoute la colonne de droite en
+   `min-width` — la version mobile n'est pas un repli, c'est le cas de base. */
+.uc-grille {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  align-items: start;
+  margin-top: 14px;
+}
+
+.uc-colonne {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.uc-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.uc-liste-rang {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.uc-liste-point {
+  width: 7px;
+  height: 7px;
+  margin-top: 5px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--uc-accent);
+}
+
+.uc-liste-corps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.uc-liste-titre {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--uc-ink);
+}
+
+.uc-liste-sous {
+  font-size: 11.5px;
+  color: var(--uc-ink-faint);
+}
+
+/* ---------------------------------------------------------------------------
+   15. Frontière de chargement, retour tactile, affiche imprimable
+   ------------------------------------------------------------------------ */
+
+/* Contenu réservé aux lecteurs d'écran. Sert au squelette (`role="status"`) et
+   à tout libellé qui doit être lu sans être vu. */
+.uc-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Le squelette reprend la **géométrie** de l'en-tête et d'une carte : la page
+   qui arrive ne fait pas sauter la mise en page. C'est la raison d'être des
+   hauteurs fixes ci-dessous, pas l'esthétique. */
+.uc-squelette {
+  display: grid;
+  gap: 14px;
+  animation: uc-souffle 1.6s ease-in-out infinite;
+}
+
+@keyframes uc-souffle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.uc-squelette-ligne,
+.uc-squelette-bloc {
+  display: block;
+  border-radius: 8px;
+  background: var(--uc-hover-soft);
+}
+
+.uc-squelette-ligne {
+  height: 11px;
+  margin-bottom: 9px;
+}
+
+.uc-squelette-sur {
+  width: 84px;
+  height: 9px;
+}
+
+.uc-squelette-titre {
+  width: min(58%, 260px);
+  height: 26px;
+  border-radius: 10px;
+}
+
+.uc-squelette-pleine {
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+   Aperçu de carte (`/branding`) — la seule surface où une couleur **de donnée**
+   est peinte. `--apercu-teinte` est posée en style inline par le composant :
+   une valeur venue de la base ne peut pas devenir une classe Tailwind, et
+   l'arrondir en une des huit teintes afficherait une couleur que le commerçant
+   n'a pas choisie.
+   ------------------------------------------------------------------------ */
+.apercu-carte {
+  max-width: 360px;
+  overflow: hidden;
+  border: 1px solid var(--uc-line);
+  border-radius: var(--uc-radius-lg);
+  background: var(--uc-bg-1);
+  box-shadow: var(--uc-shadow-raised);
+}
+
+.apercu-haut {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 126px;
+  padding: 14px 16px;
+  color: #ffffff;
+  background-color: var(--apercu-teinte, #1a1a1a);
+  background-position: center;
+  background-size: cover;
+}
+
+/* Voile sombre sous le texte : sans lui, un nom blanc sur `#f94c3a` tombe sous
+   le seuil AA, et sur une photo claire il disparaît complètement. */
+.apercu-voile {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.42));
+}
+
+.apercu-marque {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.apercu-logo,
+.apercu-icone {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  object-fit: cover;
+}
+
+.apercu-icone {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.apercu-nom {
+  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.apercu-sans-image {
+  position: relative;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.apercu-lignes {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px 16px;
+}
+
+.apercu-ligne {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--uc-line-soft);
+}
+
+.apercu-ligne:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.apercu-cle {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--uc-ink-faint);
+}
+
+.apercu-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--uc-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Les huit teintes mesurées. `aria-pressed` porte l'état : le composant est un
+   jeu de boutons — le champ réel, lui, est le nuancier natif juste à côté. */
+.teinte-grille {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.teinte {
+  width: 34px;
+  height: 34px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+}
+
+.teinte[aria-pressed='true'] {
+  border-color: var(--uc-ink);
+  box-shadow: 0 0 0 3px var(--uc-accent-soft);
+}
+
+.teinte-libre {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px;
+  border: 1px solid var(--uc-line);
+  border-radius: 10px;
+  background: var(--uc-bg-1);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--uc-ink-soft);
+}
+
+.teinte-libre input[type='color'] {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Les dix types : deux colonnes sur téléphone, trois au-delà de 760 px. La
+   grille réutilise `.uc-choix-grille` (mise en page et styles de `/program`). */
+.type-grille {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 760px) {
+  .type-grille {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+.uc-squelette-courte {
+  width: 42%;
+}
+
+.uc-squelette-carte {
+  padding: 18px;
+  border: 1px solid var(--uc-line-soft);
+  border-radius: var(--uc-radius-lg);
+  background: var(--uc-paper);
+}
+
+.uc-squelette-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.uc-squelette-bloc {
+  height: 74px;
+  border-radius: var(--uc-radius-md);
+}
+
+/* Retour tactile immédiat.
+   Un appui doit se voir **avant** la navigation : sans cela, les 0,7 s de
+   réponse serveur donnent l'impression que le doigt a manqué sa cible, et on
+   appuie deux fois. `touch-action` retire aussi le délai de 300 ms que le
+   navigateur garde en réserve pour le double-tap. */
+.uc a,
+.uc button,
+.uc summary,
+.uc label.uc-choix {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.uc a:active,
+.uc button:active,
+.uc summary:active,
+.uc .uc-choix:active {
+  transform: scale(0.985);
+}
+
+.uc .uc-choix:active {
+  transform: none;
+  background: var(--uc-hover-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uc a:active,
+  .uc button:active,
+  .uc summary:active {
+    transform: none;
+  }
+}
+
+/* Le solde, mis en avant : c'est le chiffre qu'on cherche des yeux en caisse. */
+.uc-solde {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.uc-solde-val {
+  font-family: var(--uc-font-display);
+  font-size: clamp(40px, 11vw, 56px);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.uc-solde-unite {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--uc-ink-faint);
+}
+
+/* La jauge de progression — en `uc-*`, pas en utilitaires de la peau
+   précédente. `JaugePoints` utilisait `bg-coral` (orange de la palette
+   « verre ») sur une piste `bg-white/10` : sur une carte claire, la piste était
+   **invisible** et le remplissage jurait avec l'accent bleu d'Unicity. */
+.uc-jauge {
+  height: 8px;
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: var(--uc-radius-pill);
+  background: var(--uc-hover-soft);
+}
+
+.uc-jauge-remplie {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--uc-accent);
+  transition: width 0.4s ease;
+}
+
+/* L'affiche du QR : un cadre **blanc**, parce qu'un QR se lit au contraste.
+   Le fond de la peau est crème ; coller un carré blanc dedans reproduit ce qui
+   sera imprimé, et ce que le téléphone du client verra. */
+.uc-affiche {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 22px 18px;
+  border: 1px dashed var(--uc-line-strong);
+  border-radius: var(--uc-radius-lg);
+  background: #ffffff;
+  color: #111111;
+  text-align: center;
+}
+
+.uc-affiche-marque {
+  font-family: var(--uc-font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.uc-affiche-note {
+  max-width: 30ch;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #4b5563;
+}
+
+.uc-affiche-lien {
+  max-width: 100%;
+  padding: 4px 10px;
+  border-radius: var(--uc-radius-pill);
+  background: #f3f4f6;
+  color: #111111;
+  font-family: var(--uc-font-mono);
+  font-size: 11.5px;
+  overflow-wrap: anywhere;
+}
+
+/* Sur papier, l'affiche est le seul objet utile : on retire le cadre pointillé
+   et on laisse le QR occuper la feuille. */
+@media print {
+  .uc-affiche {
+    border: none;
+    padding: 0;
+  }
+
+  .uc-affiche-note {
+    color: #000;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   16. Points de rupture — mobile d'abord
+   ------------------------------------------------------------------------ */
+
+/* 480 px : les indicateurs passent à deux colonnes. */
+@media (min-width: 480px) {
+  .uc-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .uc-hero-val {
+    font-size: 46px;
+  }
+}
+
+/* 640 px : on élargit le contenu, la barre basse reste (motif attendu sur
+   téléphone et sur tablette en portrait). */
+@media (min-width: 640px) {
+  .uc-content {
+    padding: 20px 24px calc(104px + env(safe-area-inset-bottom));
+  }
+
+  .uc-topbar {
+    padding: 12px 24px;
+  }
+
+  .uc-topbar-email {
+    display: inline;
+  }
+
+  .uc-topbar-libelle {
+    display: inline;
+  }
+
+  .uc-page-titre {
+    font-size: 30px;
+  }
+
+  .uc-hero-corps {
+    padding: 22px 26px 18px;
+  }
+
+  .uc-hero-val {
+    font-size: 54px;
+  }
+
+  .uc-hero-coins {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .uc-hero-coin {
+    border-bottom: none;
+  }
+
+  .uc-hero-coin:nth-child(2n) {
+    border-right: 1px solid var(--uc-line-soft);
+  }
+
+  .uc-hero-coin:last-child {
+    border-right: none;
+  }
+}
+
+/* 900 px : le dock latéral remplace la barre basse. */
+@media (min-width: 900px) {
+  .uc-shell {
+    grid-template-columns: 76px minmax(0, 1fr);
+  }
+
+  .uc-dock {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 100dvh;
+    padding: 14px 0 16px;
+    background: var(--uc-bg-1);
+    border-right: 1px solid var(--uc-line-soft);
+  }
+
+  .uc-dock-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0 15px;
+    margin-top: 4px;
+  }
+
+  .uc-bottom {
+    display: none;
+  }
+
+  .uc-content {
+    padding: 26px 28px 48px;
+  }
+}
+
+/* 1240 px : le rail s'ouvre et affiche les libellés (`is-dock-expanded`). */
+@media (min-width: 1240px) {
+  .uc-shell {
+    grid-template-columns: 232px minmax(0, 1fr);
+  }
+
+  .uc-dock-nav {
+    align-items: stretch;
+    padding: 0 14px;
+  }
+
+  .uc-dock-item {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 6px;
+  }
+
+  .uc-dock-label {
+    display: block;
+  }
+
+  .uc-grille {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 22px;
+  }
+
+  .uc-kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 1440 px : la colonne de droite respire un peu plus. */
+@media (min-width: 1440px) {
+  .uc-grille {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+
+/* Accessibilité : aucune animation ne doit être imposée. */
+@media (prefers-reduced-motion: reduce) {
+  .uc *,
+  .uc *::before,
+  .uc *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Impression : la navigation et les ombres ne servent à rien sur papier. */
+@media print {
+  .uc-dock,
+  .uc-bottom,
+  .uc-topbar {
+    display: none;
+  }
+
+  .uc-card,
+  .uc-kpi,
+  .uc-hero {
+    box-shadow: none;
+  }
+
+  .uc-content {
+    padding: 0;
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "passe": "REA-FX-2026-11-02-A7b — les deux entrées de nav absentes du manifeste d'origine",
+  "manifeste": "01_REA_Fidelix/_captures/cibles-a7b-2026-11-02.json",
+  "date": "2026-11-02-a7b",
+  "horodatage": "2026-11-01T23:35:07.990Z",
+  "source": "FIDELIX/tools/rea/capturer-fidelix.mjs",
+  "base": "https://fidelix.ma",
+  "mode": "AUTHENTIFIÉ",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "session": "profil par défaut /Users/yacinehida/Desktop/Reverse engineering/FIDELIX/.profil-rea (2 cookie(s), auth présente)",
+  "cibles": 2,
+  "ok": 2,
+  "redirections": 0,
+  "echecs": 0,
+  "stables": 2,
+  "dynamiques": 0,
+  "instables": 0,
+  "refusesAttendus": 0,
+  "refusesInattendus": 0,
+  "releves": [
+    {
+      "id": "d01-notifications",
+      "famille": "module",
+      "chemin": "/notifications",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-02-a7b/raw/pages/d01-notifications.html",
+      "octets": 82014,
+      "sha256": "07155323f5580cb8843aaf7bf28da1d585a31feb881c892122780c20fbbf2cf4",
+      "sha256Stable": "07155323f5580cb8843aaf7bf28da1d585a31feb881c892122780c20fbbf2cf4",
+      "sha256Contenu": "6f2a1e5af0b4b8eb5180f90134869407f948c3f589b0e9ee6410a00ed87f6ab7",
+      "contenu": {
+        "titre": "Fidelix — La fidélité qui régale",
+        "octetsTexte": 1000,
+        "liens": 20
+      },
+      "normalisations": 0
+    },
+    {
+      "id": "d02-clients",
+      "famille": "module",
+      "chemin": "/customers",
+      "http": 200,
+      "location": null,
+      "fichier": "01_REA_Fidelix/_captures/2026-11-02-a7b/raw/pages/d02-clients.html",
+      "octets": 83617,
+      "sha256": "9667f09d9f6a3fbbf98fb8648e493433c6c1d806abe8744d6bb7e4992c6cc889",
+      "sha256Stable": "9667f09d9f6a3fbbf98fb8648e493433c6c1d806abe8744d6bb7e4992c6cc889",
+      "sha256Contenu": "f0ad7c1baf2e0961630ad687e9f65d81ce97764442b6a467bcb52382b1140c84",
+      "contenu": {
+        "titre": "Fidelix — La fidélité qui régale",
+        "octetsTexte": 748,
+        "liens": 20
+      },
+      "normalisations": 0
+    }
+  ],
+  "assets": [],
+  "erreurs": [],
+  "refuses": []
+}

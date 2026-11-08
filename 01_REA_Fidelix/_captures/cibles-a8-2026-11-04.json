@@ -1,0 +1,23 @@
+{
+  "passe": "REA-FX-2026-11-04-A8 — la notification à proximité, de bout en bout",
+  "date": "2026-11-04-a8",
+  "base": "https://fidelix.ma",
+  "modeAttendu": "AUTHENTIFIÉ",
+  "note": "A7 a capturé /settings en pages SEULES : sa carte « Notification à proximité » est lue (HTML + texte rendu), mais le chunk client qui calcule la couverture (≈ 859 m), analyse le lien Google Maps et mappe le formulaire vers POST /api/settings/save n'a JAMAIS été archivé. A8 ferme cet angle : la même page, cette fois AVEC ses assets découverts dans le HTML. Aucune écriture, aucun POST, aucun pass généré : seuls des GET. `/sw.js` est ajouté en sonde parce que c'est lui qui rend la notification côté client — moitié « réception » du canal, jamais mesurée.",
+  "pages": [
+    {
+      "id": "e01-settings",
+      "chemin": "/settings",
+      "famille": "compte",
+      "statut": "prouve",
+      "pourquoi": "Carte « Notification à proximité » : lien_localisation, geofence_radius_m (50→2000), geofence_texte (≤120). Les assets sont le vrai objet de la passe."
+    }
+  ],
+  "sondes": [
+    {
+      "id": "f01-sw-js",
+      "pourquoi": "Service worker public enregistré par la page carte : contrat de rendu d'une notification push (titre, corps, lien, icône).",
+      "chemin": "/sw.js"
+    }
+  ]
+}

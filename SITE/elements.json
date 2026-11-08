@@ -1,0 +1,915 @@
+[
+  {
+    "index": 1,
+    "tag": "a",
+    "attributes": {
+      "href": "/",
+      "aria-label": "Fidelix — accueil"
+    },
+    "text": "",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 2,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 3,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 4,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 5,
+    "tag": "span",
+    "attributes": {
+      "role": "img",
+      "aria-label": "Fidelix"
+    },
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 6,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 7,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 8,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 9,
+    "tag": "span",
+    "attributes": {
+      "role": "img",
+      "aria-label": "Fidelix"
+    },
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 10,
+    "tag": "a",
+    "attributes": {
+      "href": "#fonctionnalites"
+    },
+    "text": "Fonctionnalités",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 11,
+    "tag": "a",
+    "attributes": {
+      "href": "#etapes"
+    },
+    "text": "Comment ça marche",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 12,
+    "tag": "a",
+    "attributes": {
+      "href": "#tarifs"
+    },
+    "text": "Tarifs",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 13,
+    "tag": "a",
+    "attributes": {
+      "href": "/"
+    },
+    "text": "FR",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 14,
+    "tag": "a",
+    "attributes": {
+      "href": "/ar"
+    },
+    "text": "AR",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 15,
+    "tag": "a",
+    "attributes": {
+      "href": "/en"
+    },
+    "text": "EN",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 16,
+    "tag": "a",
+    "attributes": {
+      "href": "/login"
+    },
+    "text": "Connexion",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 17,
+    "tag": "a",
+    "attributes": {
+      "href": "/register"
+    },
+    "text": "Commencer",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 18,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 19,
+    "tag": "line",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 20,
+    "tag": "line",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 21,
+    "tag": "line",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 22,
+    "tag": "a",
+    "attributes": {
+      "href": "/register"
+    },
+    "text": "Commencer gratuitement",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 23,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 24,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 25,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 26,
+    "tag": "a",
+    "attributes": {
+      "href": "/rendez-vous"
+    },
+    "text": "Demander une démo",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 27,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 28,
+    "tag": "p",
+    "attributes": {},
+    "text": "POINTS",
+    "reason": "icon"
+  },
+  {
+    "index": 29,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 30,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 31,
+    "tag": "p",
+    "attributes": {},
+    "text": "POINTS",
+    "reason": "icon"
+  },
+  {
+    "index": 32,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 33,
+    "tag": "a",
+    "attributes": {
+      "href": "#etapes"
+    },
+    "text": "Voir comment ça marche",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 34,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 35,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 36,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 37,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 38,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 39,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 40,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 41,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 42,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 43,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 44,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 45,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 46,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 47,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 48,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 49,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 50,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 51,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 52,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 53,
+    "tag": "span",
+    "attributes": {},
+    "text": "50",
+    "reason": "icon"
+  },
+  {
+    "index": 54,
+    "tag": "input",
+    "attributes": {
+      "id": "roi-clients",
+      "type": "range",
+      "value": "50"
+    },
+    "text": "50",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 55,
+    "tag": "span",
+    "attributes": {},
+    "text": "70 DH",
+    "reason": "icon"
+  },
+  {
+    "index": 56,
+    "tag": "input",
+    "attributes": {
+      "id": "roi-panier",
+      "type": "range",
+      "value": "70"
+    },
+    "text": "70",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 57,
+    "tag": "span",
+    "attributes": {},
+    "text": "26",
+    "reason": "icon"
+  },
+  {
+    "index": 58,
+    "tag": "input",
+    "attributes": {
+      "id": "roi-jours",
+      "type": "range",
+      "value": "26"
+    },
+    "text": "26",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 59,
+    "tag": "span",
+    "attributes": {},
+    "text": "10 %",
+    "reason": "icon"
+  },
+  {
+    "index": 60,
+    "tag": "input",
+    "attributes": {
+      "id": "roi-gain",
+      "type": "range",
+      "value": "10"
+    },
+    "text": "10",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 61,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 62,
+    "tag": "span",
+    "attributes": {},
+    "text": "/ mois",
+    "reason": "icon"
+  },
+  {
+    "index": 63,
+    "tag": "span",
+    "attributes": {},
+    "text": "×23",
+    "reason": "icon"
+  },
+  {
+    "index": 64,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 65,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 66,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 67,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 68,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 69,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 70,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 71,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 72,
+    "tag": "a",
+    "attributes": {
+      "href": "/demarrer"
+    },
+    "text": "Créer mon espace gratuit",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 73,
+    "tag": "button",
+    "attributes": {
+      "type": "button",
+      "aria-label": "Un point de vente de moins"
+    },
+    "text": "",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 74,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 75,
+    "tag": "button",
+    "attributes": {
+      "type": "button",
+      "aria-label": "Un point de vente de plus"
+    },
+    "text": "",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 76,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 77,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 78,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 79,
+    "tag": "button",
+    "attributes": {
+      "role": "radio"
+    },
+    "text": "Mensuel",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 80,
+    "tag": "button",
+    "attributes": {
+      "role": "radio"
+    },
+    "text": "Semestriel",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 81,
+    "tag": "button",
+    "attributes": {
+      "role": "radio"
+    },
+    "text": "Annuel",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 82,
+    "tag": "span",
+    "attributes": {},
+    "text": "/ mois",
+    "reason": "icon"
+  },
+  {
+    "index": 83,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 84,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 85,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 86,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 87,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 88,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 89,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 90,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 91,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 92,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 93,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 94,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 95,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 96,
+    "tag": "a",
+    "attributes": {
+      "href": "/register"
+    },
+    "text": "Commencer maintenant",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 97,
+    "tag": "a",
+    "attributes": {
+      "href": "/rendez-vous"
+    },
+    "text": "Demander une démo",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 98,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 99,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 100,
+    "tag": "a",
+    "attributes": {
+      "href": "https://wa.me/212642695137?text=Bonjour%2C%20je%20souhaite%20un%20tarif%20sur%20mesure%20pour%20Fidelix%20(API%20ou%20commande%20de%20cartes%20en%20volume).%20Mon%20commerce%20%3A%20"
+    },
+    "text": "Demander mon tarif",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 101,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 102,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 103,
+    "tag": "span",
+    "attributes": {},
+    "text": "150",
+    "reason": "icon"
+  },
+  {
+    "index": 104,
+    "tag": "span",
+    "attributes": {},
+    "text": "MAD",
+    "reason": "icon"
+  },
+  {
+    "index": 105,
+    "tag": "a",
+    "attributes": {
+      "href": "/register"
+    },
+    "text": "Créer mon espace gratuit",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 106,
+    "tag": "svg",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 107,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 108,
+    "tag": "path",
+    "attributes": {},
+    "text": "",
+    "reason": "cursor-pointer"
+  },
+  {
+    "index": 109,
+    "tag": "span",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 110,
+    "tag": "img",
+    "attributes": {},
+    "text": "",
+    "reason": "icon"
+  },
+  {
+    "index": 111,
+    "tag": "a",
+    "attributes": {
+      "href": "#fonctionnalites"
+    },
+    "text": "Fonctionnalités",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 112,
+    "tag": "a",
+    "attributes": {
+      "href": "#tarifs"
+    },
+    "text": "Tarifs",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 113,
+    "tag": "a",
+    "attributes": {
+      "href": "/login"
+    },
+    "text": "Connexion",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 114,
+    "tag": "a",
+    "attributes": {
+      "href": "/confidentialite"
+    },
+    "text": "Confidentialité",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 115,
+    "tag": "a",
+    "attributes": {
+      "href": "/conditions"
+    },
+    "text": "Conditions générales de vente",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 116,
+    "tag": "a",
+    "attributes": {
+      "href": "/mentions-legales"
+    },
+    "text": "Mentions légales",
+    "reason": "interactive-tag"
+  },
+  {
+    "index": 117,
+    "tag": "div",
+    "attributes": {
+      "role": "region",
+      "aria-label": "Notifications (F8)",
+      "tabindex": "-1"
+    },
+    "text": "",
+    "reason": "attribute"
+  },
+  {
+    "index": 118,
+    "tag": "ol",
+    "attributes": {
+      "tabindex": "-1"
+    },
+    "text": "",
+    "reason": "attribute"
+  }
+]
