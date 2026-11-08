@@ -4,7 +4,52 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
-- **2026-11-08 (soir, 2) — la chaîne publique est prouvée de bout en bout, et le
+- **2026-11-08 (soir, 3) — `/card/<uuid>` est VIVANTE en production, et le retard
+  de migrations est soldé.** `0018_carte_publique.sql` puis
+  `0019_push_abonnements.sql` appliquées à `sevqegfhmdezsqwvwsam` via l'API
+  Supabase (MCP `apply_migration`, contenu **verbatim** des fichiers, `begin`/
+  `commit` du fichier conservés — une seule transaction chacune, `success: true`
+  deux fois). État mesuré **après** : `pg_proc` publique 23 → **25**,
+  `carte_publique` = 1, `enregistrer_abonnement_push` = 1,
+  `has_function_privilege('anon', …)` = **true** sur les deux,
+  `to_regclass('public.push_abonnements')` non nul, `relrowsecurity` = **true**
+  avec **0** politique (donc `has_table_privilege('anon', …, 'select')` =
+  **false** : la table n'est atteignable que par la RPC `security definer`).
+  **Preuve en production** (`curl` sans `--resolve`, DNS enfin propre) :
+  `/card/f8cd3881-e125-4b2e-974d-10cff9aba04f` → **200**, `ssl_verify_result=0`,
+  15 041 o, `<title>Carte de fidélité — TEST · Fidelia</title>`, `robots
+  noindex, nofollow`. Contenu rendu, comparé un à un à la base :
+  **`0` points**, « Encore **15** points avant « DESSERT » », « Code client
+  **C-FC8273** », « Membre depuis **novembre 2026** », QR 180 px. La charge
+  exacte que consomme l'écran (`carte_publique`) est reproduite au SQL :
+  `points 0`, `prenom ""`, `programme {TEST, seuil 50}`, paliers
+  `15 DESSERT / 30 MENU BEST OF / 50 MENU MAXI BEST OF`. Plus **aucune**
+  occurrence de « fonction absente ».
+  **Pourquoi ce 200 prouve le `grant` de `0018`** : `clientServeur()` construit
+  le client serveur avec `NEXT_PUBLIC_SUPABASE_ANON_KEY`, et `config.mjs`
+  **refuse** un JWT de rôle `service_role` dans une variable publique → la RPC
+  a voyagé en **`anon`** par PostgREST, sans cookie. Le `grant execute … to anon`
+  est donc exercé de bout en bout, pas seulement constaté en base. Corollaire
+  mesuré : **aucun `notify pgrst, 'reload schema'` n'a été nécessaire** — la
+  fonction créée est apparue immédiatement côté REST.
+  **Contrôles négatifs** (tous `404`, `ssl=0`) :
+  `/card/00000000-0000-4000-8000-000000000000`, `/card/C-FC8273`,
+  `/card/test`, `/card/f8cd3881`. Les refus nommés sont prouvés **au SQL** :
+  UUID inconnu → `P0001: CARD_NOT_FOUND` (`carte_publique` l. 20) ; endpoint
+  `http://` → `P0001: ABONNEMENT_INVALIDE` (`enregistrer_abonnement_push`
+  l. 26) — refus **avant** toute écriture, et les compteurs le confirment :
+  `push_abonnements` **0**, `loyalty_cards` **5**, `clients` **5** (inchangés).
+  **Rien d'autre n'a été écrit** : ces deux migrations sont les seules
+  instructions exécutées, et les deux sont additives (`create or replace
+  function` + droits ; `create table if not exists`) — aucune ligne touchée.
+  **Aucun code n'a changé**, donc **aucune image rebâtie** : le correctif est
+  côté base, il survit à tout redéploiement ; le déploiement actif reste
+  `dep_f07khjzI6W79294n` (commit `7656f08`). Suite **839 tests / 838 ✔ / 0
+  échec / 1 ignoré**, inchangée. Les gardes `migration-0018.test.mjs` (9 tests)
+  et `migration-0019.test.mjs` (12 tests) couvraient déjà les invariants
+  **statiques** des deux fichiers ; ce qu'ils ne peuvent pas couvrir — que la
+  production soit réellement migrée — c'est la mesure ci-dessus qui le donne.
+- **2026-11-08 (soir, 2) — la chaîne publique est prouvée de bout en bout, et le**
   `404 /favicon.ico` est mort.** Le **slug** n'a pas eu besoin d'humain : il a
   été lu par l'API Supabase (projet `sevqegfhmdezsqwvwsam`),
   `select slug, name, active from public.loyalty_programs` → **une seule ligne,
@@ -2533,6 +2578,33 @@
 
 ## 🚧 Tâche Active (Work in Progress)
 
+- [ ] **Mise en ligne — reste `www`, l'URL Configuration Supabase, et l'audit des
+      écrans authentifiés.** *(Mis à jour le 2026-11-08, soir 3.)* La page carte
+      est réglée et prouvée : `0018` + `0019` appliquées, `/card/<uuid>` **200**
+      avec solde. Restent trois choses, détaillées dans le prompt de relais :
+      l'`A www` → `213.186.33.5` à effacer (humain, zone OVH), *Site URL* +
+      `https://fideliatest.site/**` dans Supabase → URL Configuration, et le
+      parcours **authentifié** de `/dashboard`, `/caisse`, `/rewards`,
+      `/apparence` pour relever tout écran encore en attente de migration.
+- [ ] **R3 — l'étape 1 est désormais FAITE, l'étape 3 reste interdite.**
+      *(Correction du 2026-11-08 : la consigne ci-dessous, « coller le DDL
+      `0009`→`0016` », est périmée.)* La base porte **25** fonctions publiques,
+      `operations_caisse` et `messages_envoyes` existent : le collage a eu lieu
+      lors d'une passe antérieure. Ce qui restait — prouver le rejeu — exige une
+      **opération de caisse réelle** sur une carte réelle, donc une écriture de
+      données en production : **hors mandat** tant que ce n'est pas demandé
+      explicitement. Le rejeu n'a donc **jamais été mesuré en production**, et
+      `lib/file-caisse.mjs` ne couvre plus ce cas par un 503 (ce 503 ne
+      s'appliquait qu'à la fonction absente) : le doute porte désormais sur la
+      **sémantique**, pas sur la présence des objets.
+- [ ] **R3 — historique de la tâche, conservé pour la marche à suivre.**
+      *(Ouvert le 2026-11-03.)* L'outil est écrit et vert
+      (`verifier-idempotence-caisse.mjs`, 13 tests) ; la sonde rendait
+      `PGRST202`, **re-mesuré le soir** (exit `2`). Le blocage n'était pas du
+      code mais du DDL — il est levé depuis. Reste l'étape 3 :
+      `node tools/rea/verifier-idempotence-caisse.mjs --carte C-2C4718 --confirmer`
+      → attendu `REJEU ABSORBÉ`, exit `0`.
+
 - [ ] **R3 — le rejeu de la caisse : mesurer, pas supposer.** *(Ouvert le
       2026-11-03.)* L'outil est écrit et vert (`verifier-idempotence-caisse.mjs`,
       13 tests) ; la sonde rend `PGRST202`, **re-mesuré le soir** (exit `2`).
@@ -3428,14 +3500,15 @@
       `clients` 4 → **5** (anonyme, 0 point), carte
       `f8cd3881-e125-4b2e-974d-10cff9aba04f`. `/card/C-FC8273` → **404** est
       **voulu** (la clé de `/card` est l'UUID, pas le code).
-- [ ] **Deux migrations manquent en production** — `0018_carte_publique.sql` et
-      `0019_push_abonnements.sql`. Effet mesuré : `/card/<uuid>` rend « Cette
-      action appelle une fonction absente de la base […] `migrations/0018_
-      carte_publique.sql` ». Le reste du schéma est à jour (colonnes de
-      `0010`/`0011`/`0015`/`0017` présentes, `messages_envoyes` et
-      `operations_caisse` créées) : le retard est **ciblé**. `0018` est additif
-      (`create or replace function` + droits, sous transaction) ; l'appliquer est
-      une écriture de schéma en production → **décision humaine**.
+- [x] **Les deux migrations manquantes sont appliquées — `/card/<uuid>` rend la
+      carte** *(2026-11-08, soir)*. `0018_carte_publique.sql` puis
+      `0019_push_abonnements.sql` sur `sevqegfhmdezsqwvwsam` (les deux additives,
+      une transaction chacune). Prouvé : `/card/f8cd3881-e125-4b2e-974d-10cff9
+      aba04f` → **200** (`ssl_verify_result=0`) affichant « 0 points », « Encore
+      15 points avant « DESSERT » », « Code client C-FC8273 » ; plus aucune
+      mention de migration manquante ; 404 sur UUID inconnu, sur le code
+      `C-FC8273` et sur une troncature. Détail : § Statut Actuel (2026-11-08
+      soir, 3). Le retard était bien **ciblé** : seules ces deux-là manquaient.
 - [ ] **`www` reste hors certificat** : `www.fideliatest.site` porte **deux** `A`
       (`213.186.33.5` parking **et** `141.253.120.188`), et `curl` tombe sur le
       parking (`code=000`, `tls=1`). Effacer l'`A` du parking est une action
@@ -3451,7 +3524,7 @@
 
 ---
 
-## 🔄 Prompt de relais (écrit le 2026-11-08 21 h 00 — état mesuré, pas déclaré)
+## 🔄 Prompt de relais (écrit le 2026-11-08, soir 3 — état mesuré, pas déclaré)
 
 ### 🔄 PROMPT POUR LA PROCHAINE TÂCHE
 *(Utilisateur, copie-colle ce bloc lors de notre prochaine interaction pour que je reprenne immédiatement le contexte)*
@@ -3462,67 +3535,78 @@
   est enfin propre **y compris sur le résolveur local** (`fideliatest.site` →
   `141.253.120.188`) — `curl` sans `--resolve` mesure donc le vrai site.
 - OpenShip : projet `proj_rB7iSlX1cvWqhDVl`, source git `DEVSFAME/FIDELIA`
-  branche `main`, déploiement actif **`dep_AG2ivnSPxggbl_I7`** (commit
-  **`df8a1a6`**, `trigger: webhook`, image
-  `openship/fidelia:bld_T2kv2-6Dfd0Bfijs`, conteneur `8e98c931ff0a…` sur
-  `127.0.0.1:20000->3000`). **Un `git push` sur `main` déclenche le
+  branche `main`, déploiement actif **`dep_f07khjzI6W79294n`** (commit
+  **`7656f08`**, `trigger: webhook`). **Un `git push` sur `main` déclenche le
   déploiement** : inutile d'appeler l'API.
 - Application : Next **16.4.3**, code dans `web/`, image bâtie depuis la
   **racine** du dépôt (`/Dockerfile`). L'icône d'onglet est servie par la
   convention `web/src/app/` (`icon.svg` **+** `favicon.ico`).
 - Base Supabase : projet **`sevqegfhmdezsqwvwsam`** (« FIDELIXY »), programme
   **`test1`** / « TEST » / `active = true`, **5** cartes et **5** clients
-  (dont la carte de test `C-FC8273`). **Retard de deux migrations** :
-  `0018_carte_publique.sql` et `0019_push_abonnements.sql`.
+  (dont la carte de test `C-FC8273`). **Les 18 fichiers de migration sont à
+  jour** (`0001`, puis `0003`→`0019` — il n'y a pas de `0002`) : `0018` et
+  `0019` appliquées le 2026-11-08 (25 fonctions publiques, `push_abonnements`
+  créée, RLS sans politique).
 - DNS OVH : `A @` → `141.253.120.188` ✅ ; `www` porte **deux** `A`
   (`213.186.33.5` parking **et** `141.253.120.188`) ⇒ hors certificat.
 - Fichiers concernés : `PROGRESS.md` (§ Statut Actuel l. 7+ et « 🚀 Mise en
-  ligne » l. ~3415+), `web/src/app/icon.svg`, `web/src/app/favicon.ico`,
-  `tools/rea/tests/icone-onglet.test.mjs`.
+  ligne » l. ~3476+), `migrations/0018_carte_publique.sql`,
+  `migrations/0019_push_abonnements.sql`, `web/src/app/card/[cardId]/page.jsx`,
+  `web/src/lib/carte-publique.mjs`, `web/src/lib/donnees.mjs`
+  (`rpc('carte_publique')`, `enregistrer_abonnement_push`).
 
 **Ce qui vient d'être fait :**
-- **Le `404 /favicon.ico` est mort, et la preuve de bout en bout est faite.**
-  Next 16 ne sert `/favicon.ico` que si `app/favicon.ico` existe : `icon.svg` a
-  donc été doublé d'un `.ico` (16/32/48 **en PNG RGBA** — Turbopack refuse un PNG
-  RGB dans un ICO et casse `next build`). Le slug a été lu **en base**
-  (`test1`), `/join/test1` et `/recompenses/test1` rendent **200** en production,
-  et une **carte** a été créée depuis un contexte **mobile vierge** :
-  `C-FC8273` (« Votre carte est créée. »), `loyalty_cards` 4 → 5. Le commit
-  `df8a1a6` s'est déployé **tout seul** par webhook. Suite **839 tests / 0 échec**.
-- **Défaut nouveau, trouvé en chemin :** la base de production n'a **ni** la
-  fonction `carte_publique` (`0018`) **ni** la table `push_abonnements` (`0019`).
-  `/card/<uuid>` affiche donc « Cette action appelle une fonction absente de la
-  base ». Non corrigé : c'est une écriture de schéma en production.
+- **`0018` puis `0019` appliquées à la production, et `/card/<uuid>` est
+  vivante.** Les deux fichiers ont été passés **verbatim** (MCP Supabase
+  `apply_migration`, `begin`/`commit` conservés), `success: true` deux fois ;
+  état mesuré : 23 → **25** fonctions publiques, `push_abonnements` créée avec
+  RLS **sans** politique, `anon` peut exécuter les deux RPC et **ne peut pas**
+  lire la table. En production, `/card/f8cd3881-e125-4b2e-974d-10cff9aba04f` →
+  **200** (`ssl=0`) affichant « 0 points / Encore 15 points avant « DESSERT » /
+  Code client C-FC8273 / Membre depuis novembre 2026 », sans le moindre écran de
+  migration manquante. 404 sur UUID inconnu, sur `C-FC8273` et sur une
+  troncature. Refus nommés prouvés au SQL (`CARD_NOT_FOUND`,
+  `ABONNEMENT_INVALIDE`) et **aucune ligne écrite** (0 abonnement, 5 cartes,
+  5 clients). **Aucun code modifié** → aucune image rebâtie, déploiement actif
+  inchangé. Suite **839 tests / 838 ✔ / 0 échec / 1 ignoré**.
+- **Ce 200 prouve le `grant` de `0018`, pas seulement le `create function`** :
+  le client serveur parle en `NEXT_PUBLIC_SUPABASE_ANON_KEY` (`config.mjs`
+  refuse un JWT `service_role`), donc la requête est bien partie en `anon`.
+  Et **aucun `notify pgrst`** n'a été nécessaire : la fonction a été vue par
+  PostgREST immédiatement.
 
 **La prochaine mission :**
-1. **(Décision humaine, puis Agent)** appliquer `0018_carte_publique.sql` et
-   `0019_push_abonnements.sql` à la base `sevqegfhmdezsqwvwsam` — les deux sont
-   additifs (`create or replace function` + droits ; `create table if not
-   exists`). Confirmer ensuite `/card/f8cd3881-e125-4b2e-974d-10cff9aba04f` =
-   **200** avec le solde, et non plus l'écran de migration manquante.
-2. **(Humain DNS, 30 s)** effacer le **`A www` → `213.186.33.5`** (zone OVH),
+1. **(Humain DNS, 30 s)** effacer le **`A www` → `213.186.33.5`** (zone OVH),
    garder celui vers `141.253.120.188` ; puis **(Agent)** déclarer
    `www.fideliatest.site` sur le projet (avec redirection vers l'apex) et mesurer
    au `openssl s_client` (attendu `ssl_verify_result=0`).
-3. **(Agent)** terminer **Supabase → URL Configuration** (*Site URL* +
-   `https://fideliatest.site/**`) — toujours en attente depuis la veille.
-4. **(Agent)** confirmer que le retard de migrations est bien **ciblé** : parcours
-   authentifié des écrans `/dashboard`, `/caisse`, `/rewards`, `/apparence` et
-   relever tout autre écran qui réclamerait un fichier de migration.
+2. **(Agent)** terminer **Supabase → URL Configuration** (*Site URL* +
+   `https://fideliatest.site/**`) — en attente depuis la veille ; c'est ce qui
+   fait pointer les liens de confirmation d'e-mail vers le bon domaine.
+3. **(Agent)** parcours **authentifié** des écrans `/dashboard`, `/caisse`,
+   `/rewards`, `/apparence` : vérifier qu'aucun autre écran ne réclame un fichier
+   de migration (le retard de `0018`/`0019` était ciblé, il reste à le confirmer
+   écran par écran), et relever les écarts visibles.
+4. **(Agent)** `/card/<uuid>` : éprouver le chemin d'abonnement web push **sans
+   écrire** de ligne réelle (corps invalide → `ABONNEMENT_INVALIDE` renvoyé par
+   la route, pas un 500) et confirmer que le bouton Google Wallet reste masqué
+   tant que `NEXT_PUBLIC_VAPID_PUBLIC_KEY` est vide (`clePublique: ""` mesuré
+   dans le HTML).
 - **Règles à appliquer** : `chef-de-projet` (lire/écrire `PROGRESS.md` avant et
   après), `clinerules-code` (test après implémentation), `Gestion du Contexte`
   (pagination, pas de fichier entier).
 
 **Instructions de démarrage :**
 > "Agis en tant que développeur principal. Lis `PROGRESS.md` (§ Statut Actuel et
-> « 🚀 Mise en ligne ») pour te resynchroniser. Ta mission : **rendre la page
-> carte fonctionnelle en production** — appliquer `migrations/0018_carte_
-> publique.sql` puis `0019_push_abonnements.sql` à la base
-> `sevqegfhmdezsqwvwsam`, puis prouver `/card/f8cd3881-e125-4b2e-974d-10cff9
-> aba04f` = 200 (solde affiché), et mettre `PROGRESS.md` à jour. Contraintes :
-> aucune autre écriture en production (ni données, ni schéma), toute mesure par
-> `curl` sur `https://fideliatest.site` (le DNS local est enfin correct), et un
-> `git push` sur `main` suffit à déployer — le webhook OpenShip s'en charge."
+> « 🚀 Mise en ligne ») pour te resynchroniser. `0018` et `0019` sont appliquées
+> et `/card/f8cd3881-e125-4b2e-974d-10cff9aba04f` rend **200** avec son solde.
+> Ta mission : **`www.fideliatest.site` sous certificat** (l'`A` vers
+> `213.186.33.5` est à effacer côté OVH — c'est humain), puis **Supabase → URL
+> Configuration** (*Site URL* + `https://fideliatest.site/**`), puis le parcours
+> **authentifié** de `/dashboard`, `/caisse`, `/rewards`, `/apparence` pour
+> relever tout autre écran en attente de migration. Contraintes : aucune écriture
+> de données en production, toute mesure par `curl` sur
+> `https://fideliatest.site`, et un `git push` sur `main` suffit à déployer."
 
 **Outillage à reconstruire s'il a disparu :**
 - Session CLI OpenShip : `POST /api/system/cli-session` avec l'en-tête
@@ -3542,6 +3626,15 @@
 - **Lire la base sans console** : l'API Supabase (MCP) sur
   `sevqegfhmdezsqwvwsam` rend `select …` — c'est ainsi que le slug `test1` a été
   trouvé, `anon` n'ayant pas `SELECT` sur `loyalty_programs`.
+- **Écrire le schéma sans console** : `apply_migration` du MCP Supabase, avec le
+  contenu **verbatim** du fichier (`begin`/`commit` inclus : une transaction par
+  migration). Puis vérifier par `select` — `pg_proc`, `to_regclass`,
+  `has_function_privilege`, `relrowsecurity` — **et** par la route publique, qui
+  est la seule preuve que `anon` passe vraiment. Pas besoin de
+  `notify pgrst, 'reload schema'` : mesuré inutile.
+- **Ne pas se fier au seul 200** : `/card/<uuid>` doit être recoupé avec la ligne
+  SQL (points, token, paliers) ; un écran « migration manquante » rend lui aussi
+  200, et c'est le piège de cette page.
 - **Générer un `favicon.ico`** : les trois entrées doivent être des PNG **RGBA**
   (PIL : `convert('RGBA')` avant `save`), sinon Turbopack refuse l'ICO au build.
 
