@@ -1,0 +1,29 @@
+# Contexte de build = RACINE du dépôt (OpenShip streame tout le dépôt).
+# Ce fichier garde l'envoi au strict nécessaire : l'application vit dans `web/`.
+# Sans lui, le contexte mesuré était de 42,6 Mo pour ~300 Ko utiles.
+.git
+.github
+**/node_modules
+**/.next
+**/.next-build
+**/out
+**/.turbo
+**/.DS_Store
+**/*.tsbuildinfo
+**/.env
+**/.env.local
+**/.env.*.local
+01_REA_Fidelix
+VPS
+docs
+migrations
+tasks
+tools
+.agents
+.clinerules
+responsiv-knowledge copie
+login-back.jpg
+lesson-learned.md
+conversation.md
+basal-knowledge.md
+env.supabase.md

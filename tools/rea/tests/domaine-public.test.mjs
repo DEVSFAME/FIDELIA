@@ -109,10 +109,45 @@ test('déploiement — `openship.json` décrit l’app réelle', () => {
     'sans ce champ, OpenShip détecte « static » et refuse la route vers le port 3000'
   )
   assert.equal(manifeste.port, 3000, 'le conteneur écoute 3000 (cf. Dockerfile)')
-  assert.equal(manifeste.rootDirectory, 'web', 'l’app Next n’est pas à la racine du dépôt')
 
-  const dockerfile = join(RACINE, manifeste.rootDirectory, 'Dockerfile')
-  assert.ok(existsSync(dockerfile), `Dockerfile absent : ${dockerfile}`)
+  // La racine de build est celle qu'OpenShip streame réellement : le dépôt
+  // entier (mesuré le 2026-11-08, « load remote build context » → 42,6 Mo).
+  // Le Dockerfile déclaré doit donc exister à CETTE racine.
+  const dockerfileRacine = join(RACINE, manifeste.rootDirectory, 'Dockerfile')
+  assert.ok(existsSync(dockerfileRacine), `Dockerfile absent : ${dockerfileRacine}`)
+
+  // L'app Next reste dans `web/` : c'est ce que `docker-compose.yml` envoie
+  // comme contexte en local. Le second Dockerfile n'est acceptable que tant
+  // qu'il reste l'équivalent du premier.
+  const appli = join(RACINE, 'web')
+  assert.ok(existsSync(join(appli, 'package.json')), 'l’app Next doit vivre dans web/')
+  const dockerfileWeb = join(appli, 'Dockerfile')
+  assert.ok(existsSync(dockerfileWeb), 'web/Dockerfile sert docker-compose en local')
+
+  const argsDe = (chemin) =>
+    (lire(chemin).match(/^ARG (NEXT_PUBLIC_[A-Z_]+)$/gm) ?? []).map((l) => l.slice(4))
+
+  // Les deux valeurs publiques sont indispensables À LA COMPILATION (Next ne
+  // remplace que ce qui est présent au build) : aucune des deux copies ne peut
+  // les perdre sans casser l'authentification dans le navigateur.
+  for (const arg of argsDe(dockerfileWeb)) {
+    assert.ok(
+      argsDe(dockerfileRacine).includes(arg),
+      `ARG ${arg} présente dans web/Dockerfile mais absente du Dockerfile racine`
+    )
+  }
+  assert.ok(
+    argsDe(dockerfileRacine).includes('NEXT_PUBLIC_SITE_URL'),
+    'le Dockerfile racine doit recevoir l’origine publique au build'
+  )
+
+  for (const chemin of [dockerfileRacine, dockerfileWeb]) {
+    assert.match(
+      lire(chemin),
+      /^CMD \["npm", "run", "start", "--", "-p", "3000"/m,
+      `commande de démarrage divergente : ${chemin}`
+    )
+  }
 
   assert.ok(Array.isArray(manifeste.domains) && manifeste.domains.length > 0)
   for (const domaine of manifeste.domains) {

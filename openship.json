@@ -1,7 +1,7 @@
 {
   "$schema": "https://openship.io/openship.schema.json",
-  "framework": "nextjs",
-  "rootDirectory": "web",
+  "framework": "docker",
+  "rootDirectory": ".",
   "runtime": "docker",
   "productionMode": "host",
   "port": 3000,
