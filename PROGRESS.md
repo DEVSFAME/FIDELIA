@@ -77,6 +77,12 @@
      (mapping + garde de source interdisant
      `enregistrerAbonnementPush(corpsAbonnement…)`). Suite : **841 tests / 840 ✔ /
      0 échec / 1 ignoré** (839/838 avant).
+     *Déployé et re-mesuré* (commit **`77a3be5`**, webhook) : au 1ᵉʳ essai encore
+     **503** (ancienne image), au 2ᵉ **502** `openship-edge-upstream-down` (le
+     redémarrage), au 3ᵉ **404 `{"etat":"carteInconnue"}`** — la route dit enfin ce
+     que la base a dit. Les quatre corps invalides rendent toujours **400
+     `abonnementInvalide`**, `/login` et `/card/<uuid>` restent **200**, et
+     `push_abonnements` reste à **0** avant comme après : **aucune écriture**.
   5. **Supabase → URL Configuration : NON FAITE, et pas faisable d'ici.** Aucun jeton
      d'API Management (`sbp_…`) n'existe sur la machine — ni `.env`, ni
      `env.supabase.md`, ni le dépôt. L'API Management
@@ -3693,7 +3699,11 @@
       détruisait l'abonnement**. **Correctif** : `abonnementDepuisAnalyse(lu)` dans
       `web/src/lib/push.mjs`, utilisée par la route ; **deux tests** ajoutés
       (mapping + garde de source). `push_abonnements` = **0** avant et après ;
-      suite **841 / 840 ✔ / 0 échec / 1 ignoré**.
+      suite **841 / 840 ✔ / 0 échec / 1 ignoré**. **Déployé** (`77a3be5`) et
+      re-mesuré en production : corps valide + carte inconnue ⇒ **404
+      `carteInconnue`** (503 avant le correctif), quatre corps invalides ⇒ **400
+      `abonnementInvalide`**, `/card/<uuid>` et `/login` ⇒ **200**, **0** ligne
+      écrite.
 - [ ] **Supabase → URL Configuration — BLOQUÉE, action humaine.** Aucun jeton
       Management (`sbp_…`) sur la machine ; la config GoTrue n'est pas en base et
       `/auth/v1/settings` (mesuré, **200**) ne publie pas `site_url`. L'app passe
@@ -3812,9 +3822,11 @@
    **verbatim** par `apply_migration`, puis prouver la bannière éteinte : les deux
    colonnes présentes, la fonction à **15** paramètres, et l'enregistrement de la
    fiche par l'écran ⇒ plus de `?etat=migration`.
-3. **(Agent)** Re-mesurer `/api/push/subscribe` **après** le déploiement du
-   correctif : un corps **valide** avec une carte **inconnue** doit rendre
-   **404 `carteInconnue`** (et non plus 503), toujours **sans écrire** de ligne.
+3. **(Agent)** ~~Re-mesurer `/api/push/subscribe` après déploiement~~ — **FAIT**
+   dans la même session : corps **valide** + carte inconnue ⇒ **404
+   `carteInconnue`** (503 avant), corps invalides ⇒ **400**, `push_abonnements`
+   à **0**. Le chemin d'écriture réelle (`200 {abonne:true}`) reste **non mesuré** :
+   il demande un vrai navigateur et créerait une ligne en production.
 4. **(Backlog, inchangé)** `P0-3b/P0-3c` (`/billing` attend un état d'abonnement),
    `R3` étape 3 (rejeu de caisse : exige une écriture réelle), `R5` recette.
 - **Règles à appliquer** : `chef-de-projet` (lire/écrire `PROGRESS.md` avant et
