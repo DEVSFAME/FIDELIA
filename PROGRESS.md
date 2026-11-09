@@ -4,6 +4,62 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
+- **2026-11-09 (session 10) — bandeau « Offre gratuite » retiré du tableau de
+  bord, et la peau passe du bleu à l'anthracite + halos turquoise.**
+  *Demande produit, deux points* : supprimer le bloc « Offre gratuite —
+  5 / 30 clients — plaque NFC — Voir l'abonnement » ; remplacer le thème bleu
+  par du noir anthracite et des halos vert turquoise (référence WISPERIO).
+  *Retrait* : le bloc était `components/tableau/BandeauOffre.jsx`, monté dans
+  `app/(dashboard)/layout.jsx` — donc sur les dix écrans du groupe. Composant
+  supprimé, montage supprimé, et **avec eux** `plafondDuCommerce()` +
+  `lirePlafond()` du layout : un aller-retour Supabase par navigation qui ne
+  servait plus qu'à ce bandeau. `/billing` lit toujours le plafond pour
+  lui-même et garde `offre.titre`.
+  *Textes conservés* : `offre.msg*`, `offre.surLimite`, `offre.ariaJauge`,
+  `offre.plaque*`, `offre.voirAbonnement`, `offre.epuisee` ne sont plus rendus
+  nulle part. Ils restent au dictionnaire parce que ce sont les **phrases
+  mesurées** de la cible et que `plafond.test.mjs` les confronte encore à la
+  capture (`c01-settings.html`, bundle `app__dashboard__layout`) : les effacer
+  aurait supprimé la preuve avec l'affichage.
+  *Thème* : `styles/unicity.css` lisait **toutes** ses couleurs par jetons
+  `--uc-*`, la bascule tient donc dans le bloc 1 — surfaces `#14171c` /
+  `#1a1e24` / creux `#20252c`, encre `#edf1f4`, accent `#00b8ad`, lignes et
+  survols blancs translucides, ombres noires (une ombre `rgba(31,35,48,…)`
+  disparaît sur l'anthracite) — plus le fond de `.uc` (deux `radial-gradient`
+  turquoise sous un dégradé `#14171c → #0b0e11`) et les deux halos du héro, qui
+  étaient violets. `--uc-purple*` supprimé, devenu sans usage.
+  *Contraste, calculé et non supposé* : encre `#edf1f4` sur carte `#1a1e24`
+  ≈ 14:1 ; accent `#00b8ad` sur la même carte ≈ 7:1 ; le niveau de texte le
+  plus faible (`#838e9a`) 5:1. Conséquence : l'accent en **fond** porte une
+  encre **sombre** (`--uc-on-ink` = `#0b0e11`) — du blanc sur `#00b8ad`
+  tomberait à 2.5:1.
+  *Deux défauts révélés par la bascule, corrigés* :
+  1. `.uc a { color: inherit }` (0,1,1) battait **toutes** les variantes
+     `.uc-btn-*` (0,1,0) posées sur un `<Link>` : le bouton plein « Scanner un
+     client » se peignait avec sa propre teinte en texte. Latent en thème clair
+     (encre sur encre), fatal en anthracite (blanc sur blanc). Corrigé en
+     `.uc :where(a)` — `:where()` pèse 0, la variante reprend la main. Le lien
+     d'évitement `.uc-saut` était touché par le même mécanisme.
+  2. `color-scheme: dark` ajouté sur `.uc` : sans lui, listes déroulantes
+     natives, sélecteurs de date, barres de défilement et remplissage
+     automatique restent clairs — et le remplissage automatique repeint le champ
+     en jaune pâle sur l'anthracite.
+  *Vérifié* : `npm test` → **866 pass / 0 fail / 1 skip** ;
+  `npm run verifier:design` → **CONFORME** (0 divergent ; les 3 déviations
+  `HORS_LEDGER` inchangées) ; `npx next build` → OK ; rendu contrôlé sur
+  `/apercu`, l'écran de développement qui rend `CoqueTableau` + `ContenuTableau`
+  — les mêmes composants que `/dashboard` —, console sans erreur, en 390 px et
+  en 1280 px. Puis l'image : `docker compose build --pull --no-cache web` →
+  `BUILD_EXIT=0`, `up -d --force-recreate` → conteneur `healthy`,
+  `GET /login` → **200**, et le CSS **servi** contient bien
+  `--uc-accent:#00b8ad`, `#14171c` et `color-scheme:dark` — la preuve est prise
+  dans le conteneur, pas dans le dépôt.
+  *Écart assumé, déclaré en tête de feuille* : `unicity.css` portait « aucune
+  valeur n'est inventée ». La palette anthracite n'est plus celle d'Unicity :
+  c'est une **déviation déclarée**, avec la référence WISPERIO et le contraste
+  calculé, pour qu'elle ne se lise pas comme une mesure.
+
+
 - **2026-11-09 (session 9) — le compte réel ne se connectait pas : c'est l'edge,
   pas l'application. `502 upstream sent too big header`.**
   *Symptôme discriminant* : `hidayacine01@gmail.com` + bon mot de passe ⇒ page

@@ -252,7 +252,7 @@ export const fr = {
     'Accès refusé sans session : la garde est côté serveur, pas côté écran.',
   'tableau.garanties.mesure': 'Surfaces et polices transcrites de la cible, pas imitées.',
   'tableau.garanties.nuit':
-    'Peau claire « Unicity » : jetons recopiés à l’octet, aucune couleur en dur.',
+    'Peau anthracite, accent turquoise : des jetons uniques, aucune couleur en dur.',
   'tableau.nav.scanner': 'Scanner un client',
   'tableau.nav.clients': 'Clients',
   'tableau.nav.programme': 'Programme',

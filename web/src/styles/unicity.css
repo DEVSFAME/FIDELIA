@@ -31,62 +31,70 @@
    (5 entrées + « Plus »), avec `env(safe-area-inset-bottom)` pour les appareils
    à encoche. C'est une correction d'accessibilité, pas une fantaisie.
 
+   ÉCART DÉCLARÉ — la palette. Unicity est claire, accent bleu `#0284c7` ; la
+   demande de produit est un fond anthracite et un accent turquoise porté par
+   des halos (référence WISPERIO, `#14171C` / `#00B8AD`). La feuille lisant ses
+   couleurs par jetons, la bascule tient dans le bloc `1`, le fond de `.uc` et
+   les deux halos du héro — aucune règle de mise en page n'est touchée.
+   L'accent en **fond** porte donc une encre sombre (`--uc-on-ink`) et non du
+   blanc : blanc sur `#00B8AD` tombe à 2.5:1, l'encre sombre monte à 7:1.
+
    La feuille est écrite **mobile d'abord** : les règles de base décrivent le
    téléphone, les `@media (min-width: …)` ajoutent le confort desktop.
    ========================================================================== */
 
 /* ---------------------------------------------------------------------------
-   1. Jetons — valeurs d'Unicity, `tokens.css` l.5-123
+   1. Jetons — la géométrie d'Unicity, la palette anthracite + turquoise
    ------------------------------------------------------------------------ */
 .uc {
-  /* Surfaces */
-  --uc-bg-deep: #efefef;
-  --uc-bg-1: #ffffff;
-  --uc-bg-2: #f7f7f7;
-  --uc-paper: #ffffff;
-  --uc-paper-soft: rgba(255, 255, 255, 0.96);
+  /* Surfaces — `--uc-bg-deep` est le fond de page le plus sombre, `--uc-paper`
+     la carte, `--uc-bg-2` un creux posé **sur** la carte (champ, encadré). */
+  --uc-bg-deep: #0b0e11;
+  --uc-bg-1: #14171c;
+  --uc-bg-2: #20252c;
+  --uc-paper: #1a1e24;
+  --uc-paper-soft: rgba(16, 19, 23, 0.82);
+
+  /* Halos turquoise — les seuls dégradés de la peau. */
+  --uc-halo: rgba(0, 184, 173, 0.16);
+  --uc-halo-faint: rgba(0, 184, 173, 0.07);
 
   /* Encre */
-  --uc-ink: #1f2330;
-  --uc-ink-soft: #4a5168;
-  --uc-ink-faint: #8a8fa0;
-  --uc-ink-ghost: #b5b9c8;
-  --uc-on-ink: #ffffff;
-  --uc-on-ink-soft: rgba(255, 255, 255, 0.18);
-  --uc-on-ink-strong: rgba(255, 255, 255, 0.85);
-  --uc-ink-deep: #1a1d2e;
+  --uc-ink: #edf1f4;
+  --uc-ink-soft: #a9b3be;
+  --uc-ink-faint: #838e9a;
+  --uc-on-ink: #0b0e11;
 
-  /* Lignes */
-  --uc-line: rgba(31, 35, 48, 0.14);
-  --uc-line-soft: rgba(31, 35, 48, 0.06);
-  --uc-line-strong: rgba(31, 35, 48, 0.2);
-  --uc-line-stronger: rgba(31, 35, 48, 0.28);
+  /* Lignes — claires sur l'anthracite : une ligne sombre ne s'y lit pas. */
+  --uc-line: rgba(255, 255, 255, 0.14);
+  --uc-line-soft: rgba(255, 255, 255, 0.07);
+  --uc-line-strong: rgba(255, 255, 255, 0.2);
+  --uc-line-stronger: rgba(255, 255, 255, 0.28);
 
-  /* Accent & sémantique */
-  --uc-accent: #0284c7;
-  --uc-accent-soft: rgba(2, 132, 199, 0.12);
-  --uc-accent-soft-strong: rgba(2, 132, 199, 0.18);
-  --uc-accent-deep: #0369a1;
-  --uc-purple: #7b5ea7;
-  --uc-purple-soft: rgba(123, 94, 167, 0.12);
-  --uc-positive: #4a8b6f;
-  --uc-positive-soft: rgba(74, 139, 111, 0.12);
-  --uc-warning: #b07a3e;
-  --uc-warning-soft: rgba(176, 122, 62, 0.14);
-  --uc-critical: #b85450;
-  --uc-critical-soft: rgba(184, 84, 80, 0.13);
-  --uc-info: #6b8fa8;
-  --uc-info-soft: rgba(107, 143, 168, 0.14);
+  /* Accent & sémantique — turquoise à 7:1 sur la carte, ≈ 7.2:1 sur la page. */
+  --uc-accent: #00b8ad;
+  --uc-accent-soft: rgba(0, 184, 173, 0.14);
+  --uc-accent-soft-strong: rgba(0, 184, 173, 0.22);
+  --uc-accent-deep: #00998f;
+  --uc-positive: #4fc08d;
+  --uc-positive-soft: rgba(79, 192, 141, 0.14);
+  --uc-warning: #e0a355;
+  --uc-warning-soft: rgba(224, 163, 85, 0.16);
+  --uc-critical: #ef7068;
+  --uc-critical-soft: rgba(239, 112, 104, 0.15);
+  --uc-info: #7fb2cc;
+  --uc-info-soft: rgba(127, 178, 204, 0.16);
 
-  /* Ombres */
-  --uc-shadow-soft: 0 1px 2px rgba(31, 35, 48, 0.04), 0 4px 12px rgba(31, 35, 48, 0.04);
-  --uc-shadow-raised: 0 2px 4px rgba(31, 35, 48, 0.05), 0 12px 32px rgba(31, 35, 48, 0.08);
-  --uc-shadow-deep: 0 4px 8px rgba(31, 35, 48, 0.06), 0 24px 48px rgba(31, 35, 48, 0.1);
+  /* Ombres — une ombre `rgba(31,35,48,…)` disparaît sur l'anthracite : la
+     profondeur vient du noir pur, et des arêtes claires ci-dessus. */
+  --uc-shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --uc-shadow-raised: 0 2px 4px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.42);
+  --uc-shadow-deep: 0 4px 8px rgba(0, 0, 0, 0.55), 0 24px 48px rgba(0, 0, 0, 0.5);
 
   /* Interaction */
-  --uc-hover-soft: rgba(31, 35, 48, 0.06);
-  --uc-hover-strong: rgba(31, 35, 48, 0.1);
-  --uc-hover-softest: rgba(31, 35, 48, 0.02);
+  --uc-hover-soft: rgba(255, 255, 255, 0.06);
+  --uc-hover-strong: rgba(255, 255, 255, 0.1);
+  --uc-hover-softest: rgba(255, 255, 255, 0.03);
 
   /* Rayons */
   --uc-radius-sm: 8px;
@@ -115,7 +123,17 @@
   letter-spacing: -0.011em;
   font-feature-settings: 'cv11', 'ss01', 'ss03';
   -webkit-font-smoothing: antialiased;
-  background: linear-gradient(180deg, var(--uc-bg-1) 0%, var(--uc-bg-2) 100%);
+  /* Sans `color-scheme`, les contrôles natifs (liste déroulante, sélecteur de
+     date, barre de défilement, remplissage automatique) restent clairs — et le
+     remplissage automatique repeint le champ en jaune pâle sur l'anthracite. */
+  color-scheme: dark;
+  /* Deux halos turquoise fixes sous un dégradé anthracite : c'est ce qui donne
+     le relief de la peau. `background-attachment` reste par défaut — un fond
+     fixe coûte un repaint à chaque défilement sur mobile. */
+  background:
+    radial-gradient(900px 520px at 86% -12%, var(--uc-halo), transparent 62%),
+    radial-gradient(760px 520px at -12% 34%, var(--uc-halo-faint), transparent 60%),
+    linear-gradient(180deg, var(--uc-bg-1) 0%, var(--uc-bg-deep) 100%);
 }
 
 .uc *,
@@ -137,7 +155,11 @@
   margin: 0;
 }
 
-.uc a {
+/* `:where(a)` et non `a` : un sélecteur d'élément nu (0,1,1) battait **toutes**
+   les variantes `.uc-btn-*` (0,1,0) posées sur un `<Link>`, qui héritaient donc
+   de l'encre au lieu de leur propre couleur — un bouton plein se retrouvait
+   texte-sur-sa-propre-teinte. `:where()` pèse 0 : la variante reprend la main. */
+.uc :where(a) {
   color: inherit;
   text-decoration: none;
 }
@@ -646,12 +668,7 @@
   margin-top: 14px;
   border: 1px solid var(--uc-line-soft);
   border-radius: var(--uc-radius-xl);
-  background: linear-gradient(
-    118deg,
-    var(--uc-accent-soft) 0%,
-    var(--uc-paper) 42%,
-    var(--uc-purple-soft) 100%
-  );
+  background: linear-gradient(118deg, var(--uc-accent-soft) 0%, var(--uc-paper) 46%, var(--uc-bg-1) 100%);
   box-shadow: var(--uc-shadow-soft);
 }
 
@@ -669,19 +686,19 @@
 }
 
 .uc-hero-bg::before {
-  width: 260px;
-  height: 260px;
-  top: -160px;
-  right: -60px;
+  width: 300px;
+  height: 300px;
+  top: -180px;
+  right: -70px;
   background: radial-gradient(circle, var(--uc-accent-soft-strong), transparent 70%);
 }
 
 .uc-hero-bg::after {
-  width: 300px;
-  height: 300px;
-  bottom: -200px;
-  left: -80px;
-  background: radial-gradient(circle, var(--uc-purple-soft), transparent 70%);
+  width: 340px;
+  height: 340px;
+  bottom: -230px;
+  left: -90px;
+  background: radial-gradient(circle, var(--uc-halo), transparent 70%);
 }
 
 .uc-hero-corps {
@@ -934,7 +951,7 @@
    ------------------------------------------------------------------------ */
 
 /* Un champ de saisie : 44 px de haut (cible tactile), bord de 1 px et focus
-   visible. Le focus n'est pas décoratif — sur fond blanc, un champ sans anneau
+   visible. Le focus n'est pas décoratif — sur l'anthracite, un champ sans anneau
    ne se distingue plus de son cadre dès qu'on tabule. */
 .uc-champ {
   min-height: 44px;
@@ -1743,7 +1760,7 @@
 /* La jauge de progression — en `uc-*`, pas en utilitaires de la peau
    précédente. `JaugePoints` utilisait `bg-coral` (orange de la palette
    « verre ») sur une piste `bg-white/10` : sur une carte claire, la piste était
-   **invisible** et le remplissage jurait avec l'accent bleu d'Unicity. */
+   **invisible** et le remplissage jurait avec l'accent. */
 .uc-jauge {
   height: 8px;
   margin-top: 12px;
@@ -1760,8 +1777,8 @@
 }
 
 /* L'affiche du QR : un cadre **blanc**, parce qu'un QR se lit au contraste.
-   Le fond de la peau est crème ; coller un carré blanc dedans reproduit ce qui
-   sera imprimé, et ce que le téléphone du client verra. */
+   Le fond de la peau est anthracite ; coller un carré blanc dedans reproduit ce
+   qui sera imprimé, et ce que le téléphone du client verra. */
 .uc-affiche {
   display: grid;
   justify-items: center;

@@ -1,9 +1,6 @@
 import { redirect } from 'next/navigation'
 import { clientServeur } from '@/lib/supabase/server.mjs'
 import { CoqueTableau } from '@/components/tableau/CoqueTableau'
-import { BandeauOffre } from '@/components/tableau/BandeauOffre'
-import { plafondDuCommerce } from '@/lib/donnees.mjs'
-import { lirePlafond } from '@/lib/plafond.mjs'
 import { localeRequete } from '@/lib/locale.mjs'
 
 /* Coque **et** garde de tout l'espace authentifié.
@@ -45,16 +42,13 @@ export default async function LayoutEspace({ children }) {
   if (!utilisateur) redirect('/login')
 
   const locale = await localeRequete()
-  /* Le bandeau d'offre est **sur chaque écran** dans la cible (mesuré quatre
-     fois) : il vit donc ici et pas dans dix pages. Son compteur est mémorisé
-     dix secondes (`donnees.plafondDuCommerce`), sinon chaque navigation
-     paierait un aller-retour Supabase pour un chiffre immobile. */
-  const lecturePlafond = await plafondDuCommerce()
-  const plafond = lecturePlafond.etat === 'ok' ? lirePlafond(lecturePlafond.donnees) : null
 
+  /* Le bandeau « Offre gratuite » vivait ici, sur chaque écran. Il a été retiré
+     à la demande du produit : sa lecture (`plafondDuCommerce`) coûtait donc un
+     aller-retour Supabase par navigation pour un chiffre désormais affiché
+     seulement dans `/billing`, qui le lit lui-même. */
   return (
     <CoqueTableau email={utilisateur.email ?? ''} locale={locale}>
-      <BandeauOffre plafond={plafond} locale={locale} />
       {children}
     </CoqueTableau>
   )

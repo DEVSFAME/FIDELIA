@@ -57,7 +57,6 @@ const DICT_BANDEAU = lire(
   '_next_static_chunks_app__dashboard__layout-c7e219b106ba4f9e.js'
 )
 
-const COMPOSANT = lire('web', 'src', 'components', 'tableau', 'BandeauOffre.jsx')
 const PAGE = lire('web', 'src', 'app', '(dashboard)', 'billing', 'page.jsx')
 const LAYOUT = lire('web', 'src', 'app', '(dashboard)', 'layout.jsx')
 const DONNEES = lire('web', 'src', 'lib', 'donnees.mjs')
@@ -232,26 +231,19 @@ test('textes — aucune phrase du bandeau n’écrit le seuil en dur', () => {
 })
 
 /* ---------------------------------------------------------------------------
-   4. Le raccordement — composant, page, base, cache
+   4. Le raccordement — page, base, cache
    ------------------------------------------------------------------------ */
 
-test('bandeau — jauge accessible, aucune borne recopiée, lien mesuré', () => {
-  assert.match(COMPOSANT, /role="progressbar"/)
-  assert.match(COMPOSANT, /aria-valuemin=\{0\}/)
-  assert.match(COMPOSANT, /aria-valuemax=\{limite\}/)
-  assert.match(COMPOSANT, /aria-valuenow=\{clients\}/)
-  assert.match(COMPOSANT, /href="\/billing"/, 'la porte mesurée vers `/billing` a disparu')
-  // Aucun `30` : le composant ne connaît pas le seuil.
-  const code = COMPOSANT.replace(/\/\*[\s\S]*?\*\//g, ' ')
-  assert.equal(/\b30\b/.test(code), false, 'le seuil est recopié dans le composant')
-  // Il ne rend rien plutôt qu'un faux compteur.
-  assert.match(code, /if \(!plafond\) return null/)
-})
-
-test('layout — le bandeau est monté une seule fois, pour tous les écrans', () => {
-  assert.match(LAYOUT, /<BandeauOffre plafond=\{plafond\}/)
-  assert.equal((LAYOUT.match(/<BandeauOffre/g) ?? []).length, 1, 'bandeau monté deux fois')
-  assert.match(LAYOUT, /plafondDuCommerce\(\)/, 'le compteur n’est pas lu par le layout')
+test('layout — le bandeau d’offre a quitté la coque', () => {
+  // Retiré à la demande du produit : plus de bandeau sur les écrans du tableau
+  // de bord, et donc plus de lecture du compteur à chaque navigation. `/billing`
+  // reste la seule surface qui lise le plafond, pour lui-même.
+  assert.equal(/<BandeauOffre/.test(LAYOUT), false, 'le bandeau est revenu dans la coque')
+  assert.equal(
+    /plafondDuCommerce\(\)/.test(LAYOUT),
+    false,
+    'la coque repaie un aller-retour Supabase pour un compteur qu’elle n’affiche plus'
+  )
 })
 
 test('page — l’activation n’est pas simulée, et la migration est nommée', () => {
