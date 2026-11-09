@@ -32,11 +32,21 @@
   (80 et 443) de `fideliatest-site.conf`, puis `openresty -t` +
   `-s reload` (aucune coupure). **Re-mesure** : le compte à 2 680 o qui venait
   d'échouer ⇒ `POST /login` **200** (23:54:08) puis `/dashboard` rendu.
-  *Durabilité, nommée* : le vhost est régénéré par OpenShip ; l'opération est
-  donc rejouable par `tools/rea/edge-tampons.sh` (idempotent : il n'ajoute que
-  ce qui manque, teste la configuration, recharge, puis recompte — **2 + 2**
-  attendus). À rejouer après toute régénération de routes, et à revérifier au
-  prochain déploiement.
+  *Durabilité, mesurée et corrigée* : le vhost est régénéré à **chaque
+  déploiement** — vérifié : après le `git push` de `a261267`, le nouveau
+  conteneur `dep_kzAx-frmwijcjxOx` était sain et
+  `grep -c proxy_buffer_size` retombait à **0** (les tampons disparaissent). Un
+  réglage qui meurt au déploiement suivant n'est pas un correctif, d'où un
+  **garde-fou côté VPS** : `/usr/local/bin/fidelia-edge-tampons` (copie de
+  `tools/rea/edge-tampons-garde.sh`, idempotent, ne recharge OpenResty **que**
+  s'il a modifié le fichier), appelé par cron `*/2 * * * *` et `@reboot`.
+  *Preuve du garde-fou* : tampons effacés à la main (`0`), restaurés par cron à
+  **00:00:01** — journal `/var/log/fidelia-edge-tampons.log` :
+  « tampons d'en-têtes réappliqués puis OpenResty rechargé » — relecture
+  **2 + 2**. Une régénération ne peut donc plus casser la connexion en silence
+  (fenêtre maximale : deux minutes).
+  *Opérations* : `sh tools/rea/edge-tampons.sh` applique tout de suite depuis le
+  poste ; `tools/rea/edge-tampons-garde.sh` est le fichier installé sur le VPS.
   *Ce que la session 8 fermait, et ce qu'elle ne fermait pas* : le `400` muet de
   `POST /` (identifiant `y`) est bien réel et corrigé, mais ce n'était **pas**
   la cause du blocage du compte réel — c'était celle de l'essai de 21:06. Deux
