@@ -4,6 +4,34 @@
 > empreintée, preuve > mémoire) est hérité d'Onify, les fichiers ne le sont pas.
 
 ## 📍 Statut Actuel
+- **2026-11-09 (session 10 bis) — cette peau est **en ligne** sur
+  `fideliatest.site`, et la version servie est mesurée, pas supposée.**
+  *Mise en ligne* : commit `5348498` poussé sur `main` → webhook OpenShip →
+  `dep_BbbAmdVRYM_2G2ye`, `trigger: webhook`, **`ready`**, image
+  `openship/fidelia:bld_aacrbHQy4zBp5Zmn`, conteneur
+  `openship-fidelia-dep_BbbAmdVRYM_2G2ye` **healthy** (`23:33:40Z`).
+  *Preuve prise dans le conteneur, pas dans le dépôt* : `docker exec … grep` sur
+  le CSS **servi** → `--uc-accent:#00b8ad` et `color-scheme:dark` présents,
+  `0284c7` — l'ancien bleu — **absent**.
+  *Edge* : le déploiement régénère `fideliatest-site.conf` ; le garde-fou cron
+  l'a réparé à **23:36:01** (« tampons d'en-têtes réappliqués puis OpenResty
+  rechargé »), `grep -c proxy_buffer_size` → **2** (un par bloc `server`). Le
+  bloc **443** pointe sur le **nouveau** port (`proxy_pass 127.0.0.1:20000`).
+  *Mesures externes* : `https://fideliatest.site/login` **200** (openresty),
+  `/dashboard` **307 → /login** (la garde tient), `/join/test1` **200**,
+  `/join/cafe-test-cei3` **404** — slug inexistant, donc réponse de
+  l'application et non panne.
+  *Images locales* : reconstruites depuis l'arbre final (`BUILD_EXIT=0`),
+  conteneur `fidelix-web-1` **healthy**, `localhost:7089/login` **200**, et
+  **le même chunk CSS qu'en production** (`16_2aui7l9wyf.css`).
+  *Piège confirmé, à ne pas réapprendre* : le **port publié du conteneur change
+  à chaque déploiement** (20000 ici, 49180 au précédent). Lire le vhost ne
+  suffit pas — `grep -m1 proxy_pass` rend le bloc **80**, périmé, et
+  `127.0.0.1:49180` répondait `000`. Il faut lire **tous** les `proxy_pass` ou
+  sonder le port directement. Le bloc 80 périmé est inoffensif ici parce que
+  `GET http://fideliatest.site/login` répond **301** vers HTTPS.
+
+
 - **2026-11-09 (session 10) — bandeau « Offre gratuite » retiré du tableau de
   bord, et la peau passe du bleu à l'anthracite + halos turquoise.**
   *Demande produit, deux points* : supprimer le bloc « Offre gratuite —
